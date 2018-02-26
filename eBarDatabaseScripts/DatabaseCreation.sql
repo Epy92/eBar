@@ -1,0 +1,67 @@
+create database eBar;
+
+create table UserTypes
+(
+	UserTypeId int not null primary key identity(1,1),
+	TypeName nvarchar(100) not null,
+);
+
+create table UserTbl
+(
+	UserID int not null primary key identity(1,1),
+	Username nvarchar(100) not null,
+	UserPassword nvarchar(100) not null,
+	Email nvarchar(200) not null,
+	Name nvarchar(500) not null,
+	UserTypeId int not null foreign key references UserTypes(UserTypeId)
+);
+
+create table Restaurants
+(
+	RestaurantId int not null primary key identity(1,1),
+	RestaurantName nvarchar(255) not null,
+);
+
+create table RestaurantLocations
+(
+	LocationId int not null primary key identity(1,1),
+	RestaurantCity nvarchar(200) not null,
+	Latitude decimal(10, 6) not null,
+	Longitude decimal(10,6) not null,
+	RestaurantId int not null foreign key references Restaurants(RestaurantId)
+);
+
+create table RestaurantAdministrators
+(
+	RestaurantAdminId int not null primary key identity(1,1),
+	RestaurantId int not null foreign key references Restaurants(RestaurantId),
+	UserID int not null foreign key references UserTbl(UserID),
+);
+
+create table RestaurantTables
+(
+	TableId int not null primary key identity(1,1),
+	TableNumber int not null,
+	TableBarcode nvarchar(100) not null,
+	RestaurantId int not null foreign key references Restaurants(RestaurantId),
+);
+
+create table RestaurantCategories
+(
+	CategoryId int not null primary key identity(1,1),
+	RestaurantId int not null foreign key references Restaurants(RestaurantId),
+	CategoryName nvarchar(250) not null,
+);
+
+create table RestaurantProducts
+(
+	ProductId int not null primary key identity(1,1),
+	CategoryId int not null foreign key references RestaurantCategories(CategoryId),
+	ProductName nvarchar(250) not null,
+	ProductPrice decimal(10,6) not null,
+	ProductMeasurement nvarchar(100) not null,
+	ProductMeasurementValue int,
+	ProductMadeOf nvarchar(2000),
+	RestaurantId int not null foreign key references Restaurants(RestaurantId),
+);
+
