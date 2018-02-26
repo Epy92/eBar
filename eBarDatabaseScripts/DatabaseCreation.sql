@@ -46,7 +46,14 @@ create table RestaurantTables
 	RestaurantId int not null foreign key references Restaurants(RestaurantId),
 );
 
-create table RestaurantCategories
+create table RestaurantTypes
+(
+	TypeId int not null primary key identity(1,1),
+	RestaurantId int not null foreign key references Restaurants(RestaurantId),
+	TypeName nvarchar(250) not null,
+);
+
+create table RestaurantProductsCategories
 (
 	CategoryId int not null primary key identity(1,1),
 	RestaurantId int not null foreign key references Restaurants(RestaurantId),
@@ -56,7 +63,7 @@ create table RestaurantCategories
 create table RestaurantProducts
 (
 	ProductId int not null primary key identity(1,1),
-	CategoryId int not null foreign key references RestaurantCategories(CategoryId),
+	CategoryId int not null foreign key references RestaurantProductsCategories(CategoryId),
 	ProductName nvarchar(250) not null,
 	ProductPrice decimal(10,6) not null,
 	ProductMeasurement nvarchar(100) not null,
