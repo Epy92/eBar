@@ -113,6 +113,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseOperations\UserOperations.cs" />
     <Compile Include="eBarEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -128,6 +129,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>eBarEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Messages\UserMessages.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="RestaurantAdministrators.cs">
       <DependentUpon>eBarEntities.tt</DependentUpon>
