@@ -71,4 +71,3 @@ create table RestaurantProducts
 	ProductMadeOf nvarchar(2000),
 	RestaurantId int not null foreign key references Restaurants(RestaurantId),
 );
-
