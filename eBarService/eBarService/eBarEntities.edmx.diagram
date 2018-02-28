@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0235d0cfca2f4636addafd69bc4eaaf3" Name="Diagram1" ZoomLevel="81">
+        <EntityTypeShape EntityType="eBarModel.RestaurantAdministrators" Width="1.5" PointX="10.125" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarModel.RestaurantLocations" Width="1.5" PointX="12.875" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarModel.RestaurantProducts" Width="2" PointX="4.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarModel.RestaurantProductsCategories" Width="1.5" PointX="7" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarModel.Restaurants" Width="1.5" PointX="10.375" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarModel.RestaurantTables" Width="1.5" PointX="11" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarModel.RestaurantTypes" Width="1.5" PointX="13.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarModel.UserTbl" Width="1.5" PointX="6.625" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarModel.UserTypes" Width="1.5" PointX="3.875" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="eBarModel.FK__Restauran__Resta__1A14E395" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarModel.FK__Restauran__UserI__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarModel.FK__Restauran__Resta__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarModel.FK__Restauran__Categ__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarModel.FK__Restauran__Resta__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarModel.FK__Restauran__Resta__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarModel.FK__Restauran__Resta__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarModel.FK__Restauran__Resta__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarModel.FK__UserTbl__UserTyp__1273C1CD" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
