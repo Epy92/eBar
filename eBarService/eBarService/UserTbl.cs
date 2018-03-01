@@ -13,7 +13,7 @@ namespace eBarService
     using System;
     using System.Collections.Generic;
     
-    [DataContract] 
+    [DataContract]
      public  partial class UserTbl
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

@@ -1,16 +1,25 @@
 ﻿using System.ServiceModel;
-using eBarService.Models;
+using System.ServiceModel.Web;
 
 namespace eBarService
 {
     [ServiceContract]
     public interface IServiceEbar
     {
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare,
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "Register")]
+        string Register(UserTbl userRegister);
 
         [OperationContract]
-        string Register(User user);
-
-        [OperationContract]
-        bool UserLogin(string username, string password);
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare,    
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "UserLogin")]
+        string UserLogin(UserTbl userLogin);
     }
 }
