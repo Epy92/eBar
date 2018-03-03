@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import ebar.dansebi.com.ebar.Activities.Home;
 import ebar.dansebi.com.ebar.R;
 import ebar.dansebi.com.ebar.Tasks.LoginTask;
 
@@ -55,30 +56,38 @@ public class Login extends Fragment {
         final TextInputEditText l_etEmail = (TextInputEditText) m_view.findViewById(R.id.login_email_et);
         final TextInputEditText l_etPass = (TextInputEditText) m_view.findViewById(R.id.login_password_et);
         CardView btnLogin = (CardView) m_view.findViewById(R.id.login_btnLogin);
+        CardView btnCreateAccount = (CardView) m_view.findViewById(R.id.login_btnCreateAccount);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (checkFieldsCompleted(l_etEmail, l_etPass)) {
                     case 1:
-                        LoginTask l_loginTask = new LoginTask(m_context, l_etEmail.getText().toString(), l_etPass.getText().toString());
+                        LoginTask l_loginTask = new LoginTask(m_context, m_coordLayout, l_etEmail.getText().toString(), l_etPass.getText().toString());
                         l_loginTask.execute();
                         break;
                     case -1:
                         //credentials not completed
-                        showMessage("Please fill all the fields.");
+                        showMessage("Please fill all the fields.", m_coordLayout);
                         ShortVibrate();
                         break;
                     case -2:
                         //email not completed
-                        showMessage("Please fill the email field.");
+                        showMessage("Please fill the email field.", m_coordLayout);
                         ShortVibrate();
                         break;
                     case -3:
                         //pass not ompleted
-                        showMessage("Please fill the password field.");
+                        showMessage("Please fill the password field.", m_coordLayout);
                         ShortVibrate();
                         break;
                 }
+            }
+        });
+
+        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Home.switchFragment(2, getActivity().getSupportFragmentManager());
             }
         });
 
@@ -138,8 +147,8 @@ public class Login extends Fragment {
         return l_code;
     }
 
-    public void showMessage(String text) {
-        Snackbar l_snackbar = Snackbar.make(m_coordLayout, text, Snackbar.LENGTH_LONG);
+    public static void showMessage(String text, CoordinatorLayout coordinatorLayout) {
+        Snackbar l_snackbar = Snackbar.make(coordinatorLayout, text, Snackbar.LENGTH_LONG);
         View l_snackbar_view = l_snackbar.getView();
         TextView l_textView = (TextView) l_snackbar_view.findViewById(android.support.design.R.id.snackbar_text);
         l_textView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
