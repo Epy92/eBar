@@ -123,6 +123,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseOperations\CategoryOperations.cs" />
+    <Compile Include="DatabaseOperations\ProductOperations.cs" />
+    <Compile Include="DatabaseOperations\RestaurantOperations.cs" />
     <Compile Include="DatabaseOperations\UserOperations.cs" />
     <Compile Include="eBarEntities.Context.cs">
       <AutoGen>True</AutoGen>
@@ -139,6 +142,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>eBarEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICategoryOperations.cs" />
+    <Compile Include="Interfaces\IProductOperations.cs" />
+    <Compile Include="Interfaces\IRestaurantOperations.cs" />
     <Compile Include="Interfaces\IUserOperations.cs" />
     <Compile Include="IocContainer.cs" />
     <Compile Include="Messages\UserMessages.cs" />
