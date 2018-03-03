@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using eBarService.Interfaces;
 
 namespace eBarService.DatabaseOperations
 {
-    public class RestaurantOperations : IRestaurantOperations
+    public class RestaurantOperations : IRestaurantOperations, IDisposable
     {
         private eBarEntities _databaseEntities;
 
@@ -12,6 +14,7 @@ namespace eBarService.DatabaseOperations
         {
             _databaseEntities = new eBarEntities();        
         }
+
         public List<RestaurantLocations> GetResturantLocation(int restaurantId)
         {
             return _databaseEntities.RestaurantLocations.Where(x => x.RestaurantId == restaurantId).ToList();
@@ -27,9 +30,22 @@ namespace eBarService.DatabaseOperations
             return _databaseEntities.Restaurants.ToList();
         }
 
-        public List<Restaurants> GetResturantesByLocation(string latitude, string longitude)
+        public List<Restaurants> GetResturantsByLocation(string latitude, string longitude, int rangeKm, string location)
         {
-            throw new System.NotImplementedException();
+            List<int> restaurantIds = new List<int>();
+            var geoCoordinate = new GeoCoordinate(Convert.ToDouble(latitude), Convert.ToDouble(longitude));
+            var restaurantLocations = _databaseEntities.RestaurantLocations.Where(x => x.RestaurantCity.ToUpper() == location.ToUpper()).ToList();
+
+            foreach (var restLocation in restaurantLocations)
+            {
+                var restaurantGeoCoordinate = new GeoCoordinate(Convert.ToDouble(restLocation.Latitude), Convert.ToDouble(restLocation.Longitude));
+                double distanceInMeteres = geoCoordinate.GetDistanceTo(restaurantGeoCoordinate);
+                if (distanceInMeteres/1000 < rangeKm)
+                {
+                    restaurantIds.Add(restLocation.RestaurantId);
+                }
+            }
+            return _databaseEntities.Restaurants.Where(x => restaurantIds.Contains(x.RestaurantId)).ToList();
         }
 
         public Restaurants GetRestaurantById(int restaurantId)
@@ -50,6 +66,47 @@ namespace eBarService.DatabaseOperations
         public List<RestaurantTables> GetRestaurantTables(int restaurantId)
         {
             return _databaseEntities.RestaurantTables.Where(x => x.RestaurantId == restaurantId).ToList();
+        }
+
+        public List<Restaurants> GetRestaurantsByLocation(string location)
+        {
+            return _databaseEntities.RestaurantLocations.Where(x => x.RestaurantCity.ToUpper() == location.ToUpper()).Select(x => x.Restaurants).ToList();
+        }
+
+        public string AddRestaurant(Restaurants restaurant)
+        {
+            string message = "Restaurant saved succesfully";
+            try
+            {
+                _databaseEntities.Restaurants.Add(restaurant);
+                _databaseEntities.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                message = "Restaurant cannot be saved.";
+            }
+            return message;
+        }
+
+        public string DeleteRestaurant(int restaurantId)
+        {
+            string message = "Restaurant deleted succesfully";
+            try
+            {
+                var restaurant = _databaseEntities.Restaurants.FirstOrDefault(x => x.RestaurantId == restaurantId);
+                if (restaurant != null) _databaseEntities.Restaurants.Remove(restaurant);
+            }
+            catch (Exception)
+            {
+                message = "Delete of restaurant failed";
+            }
+            return message;
+        }
+
+        public void Dispose()
+        {
+            _databaseEntities.Dispose();
+            _databaseEntities = null;
         }
     }
 }
