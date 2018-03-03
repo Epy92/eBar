@@ -1,18 +1,25 @@
-﻿using System.Runtime.Serialization;
-using System.ServiceModel;
-using eBarService.Models;
+﻿using System.ServiceModel;
+using System.ServiceModel.Web;
 
 namespace eBarService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IServiceEbar" in both code and config file together.
     [ServiceContract]
     public interface IServiceEbar
     {
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare,
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "Register")]
+        string Register(UserTbl userRegister);
 
         [OperationContract]
-        string Register(User user);
-
-        [OperationContract]
-        bool UserLogin(string username, string password);
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare,    
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "UserLogin")]
+        string UserLogin(UserTbl userLogin);
     }
 }
