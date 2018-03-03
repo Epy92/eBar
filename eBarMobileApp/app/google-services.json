@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "67540410114",
+    "firebase_url": "https://ebar-9fa42.firebaseio.com",
+    "project_id": "ebar-9fa42",
+    "storage_bucket": "ebar-9fa42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67540410114:android:d25763a47f141277",
+        "android_client_info": {
+          "package_name": "ebar.dansebi.com.ebar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "67540410114-jig16i60gs799q1g0maebnvge42dkofk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ebar.dansebi.com.ebar",
+            "certificate_hash": "eaaa0fe4a6ae302a95d80e273d5855a9629f4036"
+          }
+        },
+        {
+          "client_id": "67540410114-rt9eoo41b9g9jriodq9ran80rpr14qki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIRWFTHvwSJ8UiYcNqLKo_nmQTT8oxBN8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "67540410114-rt9eoo41b9g9jriodq9ran80rpr14qki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
