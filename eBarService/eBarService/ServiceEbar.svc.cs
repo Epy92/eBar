@@ -1,17 +1,18 @@
-﻿using eBarService.Models;
+﻿using eBarService.DatabaseOperations;
+using Newtonsoft.Json;
 
 namespace eBarService
 {
     public class ServiceEbar : IServiceEbar
     {
-        public string Register(User user)
+        public string Register(UserTbl userRegister)
         {
-            return null;
+            return new UserOperations().RegisterUser(userRegister);   
         }
 
-        public bool UserLogin(string username, string password)
+        public string UserLogin(UserTbl userLogin)
         {
-            return false;
+           return JsonConvert.SerializeObject(new UserOperations().IsUserValid(userLogin.Username ?? userLogin.Email, userLogin.UserPassword));
         }
     }
 }

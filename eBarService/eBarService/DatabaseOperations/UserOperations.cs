@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Linq;
+using eBarService.Interfaces;
 using eBarService.Messages;
 
 namespace eBarService.DatabaseOperations
 {
-    public class UserOperations : IDisposable
+    public class UserOperations : IDisposable, IUserOperations
     {
         private eBarEntities _eBarEntities;
         public UserOperations()
         {
             _eBarEntities = new eBarEntities();
         }
-        public bool IsUserValid(UserTbl user)
+
+        public bool IsUserValid(string usernameOrEmail, string password)
         {
             bool result = false;
             using (var context = _eBarEntities)
             {
-                result = context.UserTbl.FirstOrDefault(x =>( x.Username == user.Username || x.Email == user.Email) && x.UserPassword == user.UserPassword) != null;
+                result = context.UserTbl.FirstOrDefault(x =>( x.Username == usernameOrEmail || x.Email == usernameOrEmail) && x.UserPassword == password) != null;
             }
             return result;
         }
@@ -42,12 +44,7 @@ namespace eBarService.DatabaseOperations
 
         private bool UserAlreadyExist(UserTbl userToRegister)
         {
-            bool result = false;
-            using (var context = _eBarEntities)
-            {
-                result = context.UserTbl.FirstOrDefault(x => x.Username == userToRegister.Username || x.Email == userToRegister.Email) != null;
-            }
-            return result;
+            return _eBarEntities.UserTbl.FirstOrDefault(x => x.Username == userToRegister.Username || x.Email == userToRegister.Email) != null;
         }
 
         public void Dispose()
