@@ -5,54 +5,44 @@ package ebar.dansebi.com.ebar.Objects;
  */
 
 public class User {
-    private static String Username, Email, Password, Name;
-    private int UserID, UserTypeId;
+    private String Username, Email, UserPassword, Name;
 
-    public static String getUsername() {
+    public User(String Username, String Email, String UserPassword, String Name) {
+        this.Username = Username;
+        this.Email = Email;
+        this.UserPassword = UserPassword;
+        this.Name = Name;
+    }
+
+    public String getUsername() {
         return Username;
     }
 
-    public static void setUsername(String username) {
+    public void setUsername(String username) {
         Username = username;
     }
 
-    public static String getEmail() {
+    public String getEmail() {
         return Email;
     }
 
-    public static void setEmail(String email) {
+    public void setEmail(String email) {
         Email = email;
     }
 
-    public static String getPassword() {
-        return Password;
+    public String getUserPassword() {
+        return UserPassword;
     }
 
-    public static void setPassword(String password) {
-        Password = password;
+    public void setUserPassword(String userPassword) {
+        UserPassword = userPassword;
     }
 
-    public static String getName() {
+    public String getName() {
         return Name;
     }
 
-    public static void setName(String name) {
+    public void setName(String name) {
         Name = name;
-    }
-
-    public int getUserID() {
-        return UserID;
-    }
-
-    public void setUserID(int userID) {
-        UserID = userID;
-    }
-
-    public int getUserTypeId() {
-        return UserTypeId;
-    }
-
-    public void setUserTypeId(int userTypeId) {
-        UserTypeId = userTypeId;
     }
 }

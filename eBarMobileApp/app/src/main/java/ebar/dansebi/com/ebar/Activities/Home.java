@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,8 +20,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import ebar.dansebi.com.ebar.Fragments.Login;
+import ebar.dansebi.com.ebar.Fragments.Register;
 import ebar.dansebi.com.ebar.R;
 
 public class Home extends AppCompatActivity {
@@ -34,13 +37,16 @@ public class Home extends AppCompatActivity {
         fragmentHolder = (FrameLayout) findViewById(R.id.flFragmentHolder);
         fragmentManager = this.getSupportFragmentManager();
 
-        switchFragment(1);//enter login form
+        switchFragment(1, fragmentManager);//enter login form
     }
 
-    private void switchFragment(int code){
+    public static void switchFragment(int code, FragmentManager fragmentManager){
         switch (code){
             case 1:
                 fragmentManager.beginTransaction().replace(R.id.flFragmentHolder, new Login()).commit();
+                break;
+            case 2:
+                fragmentManager.beginTransaction().replace(R.id.flFragmentHolder, new Register()).commit();
                 break;
         }
     }
@@ -52,6 +58,11 @@ public class Home extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Fragment l_currFragmentLoaded = fragmentManager.findFragmentById(R.id.flFragmentHolder);
+//        if (l_currFragmentLoaded instanceof Login)
+//            ;
+//            // do something with f
+//            ((CustomFragmentClass) f).doSomething();
     }
 
 
