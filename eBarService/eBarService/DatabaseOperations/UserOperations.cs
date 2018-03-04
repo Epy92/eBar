@@ -5,18 +5,12 @@ using eBarService.Messages;
 
 namespace eBarService.DatabaseOperations
 {
-    public class UserOperations : IDisposable, IUserOperations
+    public class UserOperations : IUserOperations
     {
-        private eBarEntities _eBarEntities;
-        public UserOperations()
-        {
-            _eBarEntities = new eBarEntities();
-        }
-
         public bool IsUserValid(string usernameOrEmail, string password)
         {
             bool result = false;
-            using (var context = _eBarEntities)
+            using (var context = new eBarEntities())
             {
                 result = context.UserTbl.FirstOrDefault(x =>( x.Username == usernameOrEmail || x.Email == usernameOrEmail) && x.UserPassword == password) != null;
             }
@@ -26,7 +20,7 @@ namespace eBarService.DatabaseOperations
         public string RegisterUser(UserTbl userToRegister)
         {
             string registerMessage = null;
-            using (var context = _eBarEntities)
+            using (var context = new eBarEntities())
             {
                 if (!UserAlreadyExist(userToRegister))
                 {
@@ -44,13 +38,11 @@ namespace eBarService.DatabaseOperations
 
         private bool UserAlreadyExist(UserTbl userToRegister)
         {
-            return _eBarEntities.UserTbl.FirstOrDefault(x => x.Username == userToRegister.Username || x.Email == userToRegister.Email) != null;
-        }
-
-        public void Dispose()
-        {
-            _eBarEntities.Dispose();
-            _eBarEntities = null;
+            using (var context = new eBarEntities())
+            {
+                return context.UserTbl.FirstOrDefault(x => x.Username == userToRegister.Username || x.Email == userToRegister.Email) != null;
+            }
+            
         }
     }
 }
