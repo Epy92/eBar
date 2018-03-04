@@ -16,9 +16,9 @@ namespace eBarService.DatabaseOperations
         public bool IsUserValid(string usernameOrEmail, string password)
         {
             bool result = false;
-            using (var context = _eBarEntities)
+            using (var _eBarEntities = new eBarEntities())
             {
-                result = context.UserTbl.FirstOrDefault(x =>( x.Username == usernameOrEmail || x.Email == usernameOrEmail) && x.UserPassword == password) != null;
+                result = _eBarEntities.UserTbl.FirstOrDefault(x =>( x.Username == usernameOrEmail || x.Email == usernameOrEmail) && x.UserPassword == password) != null;
             }
             return result;
         }
@@ -26,12 +26,12 @@ namespace eBarService.DatabaseOperations
         public string RegisterUser(UserTbl userToRegister)
         {
             string registerMessage = null;
-            using (var context = _eBarEntities)
+            using (var _eBarEntities = new eBarEntities())
             {
                 if (!UserAlreadyExist(userToRegister))
                 {
-                    context.UserTbl.Add(userToRegister);
-                    context.SaveChanges();
+                    _eBarEntities.UserTbl.Add(userToRegister);
+                    _eBarEntities.SaveChanges();
                     registerMessage = UserMessages.UserRegisteredSuccesfully;
                 }
                 else
