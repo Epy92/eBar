@@ -95,6 +95,7 @@
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -124,10 +125,12 @@
       <DependentUpon>eBarEntities.edmx</DependentUpon>
       <LastGenOutput>eBarEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="Global.asax" />
     <Content Include="ServiceEbar.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutofacContainerBuilder.cs" />
     <Compile Include="DatabaseOperations\CategoryOperations.cs" />
     <Compile Include="DatabaseOperations\ProductOperations.cs" />
     <Compile Include="DatabaseOperations\RestaurantOperations.cs" />
@@ -146,6 +149,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>eBarEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ICategoryOperations.cs" />
     <Compile Include="Interfaces\IProductOperations.cs" />

@@ -15,7 +15,7 @@ namespace eBarService.DatabaseOperations
             _databaseEntities = new eBarEntities();        
         }
 
-        public List<RestaurantLocations> GetResturantLocation(int restaurantId)
+        public List<RestaurantLocations> GetRestaurantLocation(int restaurantId)
         {
             return _databaseEntities.RestaurantLocations.Where(x => x.RestaurantId == restaurantId).ToList();
         }
@@ -25,7 +25,7 @@ namespace eBarService.DatabaseOperations
             return _databaseEntities.RestaurantTypes.ToList();
         }
 
-        public List<Restaurants> GetAllRestaurantes()
+        public List<Restaurants> GetAllRestaurants()
         {
             return _databaseEntities.Restaurants.ToList();
         }
@@ -58,7 +58,7 @@ namespace eBarService.DatabaseOperations
             return _databaseEntities.RestaurantAdministrators.Where(x => x.RestaurantId == restaurantId).ToList();
         }
 
-        public List<RestaurantTypes> GetRestaurantTypesByType(int typeId)
+        public List<RestaurantTypes> GetRestaurantsByType(int typeId)
         {
             return _databaseEntities.RestaurantTypes.Where(x => x.TypeId == typeId).ToList();
         }

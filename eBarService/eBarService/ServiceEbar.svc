@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="eBarService.ServiceEbar" CodeBehind="ServiceEbar.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="eBarService.ServiceEbar, eBarService" CodeBehind="ServiceEbar.svc.cs" Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"%>
