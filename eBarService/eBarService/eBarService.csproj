@@ -186,6 +186,9 @@
     </Compile>
     <Compile Include="IServiceEbar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserResetPasswordCodes.cs">
+      <DependentUpon>eBarEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserTbl.cs">
       <DependentUpon>eBarEntities.tt</DependentUpon>
     </Compile>

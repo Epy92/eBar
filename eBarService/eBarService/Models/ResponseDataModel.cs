@@ -15,10 +15,11 @@ namespace eBarService.Models
 
     public enum ResultCode
     {
-        InvalidOperation,
+        InvalidOperation = 1,
         NotAuthorized,
         OperationFailed,
         OperationSuccess,
-        UnexpectedError
+        UnexpectedError,
+        UserInvalid
     }
 }

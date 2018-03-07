@@ -34,5 +34,6 @@ namespace eBarService
         public virtual DbSet<RestaurantTypes> RestaurantTypes { get; set; }
         public virtual DbSet<UserTbl> UserTbl { get; set; }
         public virtual DbSet<UserTypes> UserTypes { get; set; }
+        public virtual DbSet<UserResetPasswordCodes> UserResetPasswordCodes { get; set; }
     }
 }

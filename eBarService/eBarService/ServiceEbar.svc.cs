@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using eBarService.DatabaseOperations;
 using eBarService.Interfaces;
+using eBarService.Messages;
 using eBarService.Models;
 using Newtonsoft.Json;
 
@@ -39,6 +42,53 @@ namespace eBarService
         public string UserLogin(UserTbl userLogin)
         {
            return JsonConvert.SerializeObject(_userOperations.IsUserValid(userLogin.Username ?? userLogin.Email, userLogin.UserPassword));
+        }
+
+        public string GenerateResetCode(string usernameOrEmail)
+        {
+            ResponseDataModel response = new ResponseDataModel();
+            try
+            {
+                string message = null;
+                _userOperations.GenerateResetCode(usernameOrEmail, ref message);
+                response.ResultMessage = string.IsNullOrEmpty(message) ? UserMessages.ResetCodeGenerated : message;
+                response.ResultFlag = true;
+                response.ResultCode = ResultCode.OperationSuccess;
+            }
+            catch (Exception ex)
+            {
+                response.ResultMessage = UserMessages.GenerateResetCodeFailed;
+                response.ResultFlag = false;
+                response.ResultCode = ResultCode.OperationFailed;
+            }
+            return JsonConvert.SerializeObject(response);
+        }
+
+        public string ResetUserPassword(string username, string resetCode, string newPassword)
+        {
+            //var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonData);
+            ResponseDataModel response = new ResponseDataModel();
+            string message = _userOperations.ResetUserPassword(username, resetCode, newPassword);
+
+            if (message == UserMessages.PasswordChanged)
+            {
+                response.ResultFlag = true;
+                response.ResultCode = ResultCode.OperationSuccess;
+                response.ResultMessage = message;
+            }
+            else
+            {
+                if (message == UserMessages.MissingUser)
+                {
+                    response.ResultCode = ResultCode.UserInvalid;
+                }
+                else
+                {
+                    response.ResultCode = ResultCode.OperationFailed;
+                }
+                response.ResultMessage = message;
+            }
+            return JsonConvert.SerializeObject(response);
         }
 
         public string GetResturantsByLocation(string latitude, string longitude, string range, string location)

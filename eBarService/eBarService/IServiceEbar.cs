@@ -22,6 +22,20 @@ namespace eBarService
         UriTemplate = "UserLogin")]
         string UserLogin(UserTbl userLogin);
 
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+        ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "GenerateResetCode/{usernameOrEmail}")]
+        string GenerateResetCode(string usernameOrEmail);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            UriTemplate = "ResetUserPassword")]
+        string ResetUserPassword(string username, string resetCode, string newPassword);
+
         #region RestaurantOperations
         [OperationContract]
         [WebInvoke(Method = "GET",

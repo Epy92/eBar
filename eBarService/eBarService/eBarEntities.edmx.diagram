@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0235d0cfca2f4636addafd69bc4eaaf3" Name="Diagram1" ZoomLevel="81">
-        <EntityTypeShape EntityType="eBarModel.RestaurantAdministrators" Width="1.5" PointX="10.125" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarModel.RestaurantAdministrators" Width="2" PointX="10.125" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="eBarModel.RestaurantLocations" Width="1.5" PointX="12.875" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="eBarModel.RestaurantProducts" Width="2" PointX="4.25" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="eBarModel.RestaurantProductsCategories" Width="1.5" PointX="7" PointY="9.5" IsExpanded="true" />
@@ -23,6 +23,8 @@
         <AssociationConnector Association="eBarModel.FK__Restauran__Resta__1DE57479" ManuallyRouted="false" />
         <AssociationConnector Association="eBarModel.FK__Restauran__Resta__20C1E124" ManuallyRouted="false" />
         <AssociationConnector Association="eBarModel.FK__UserTbl__UserTyp__1273C1CD" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eBarModel.UserResetPasswordCodes" Width="1.5" PointX="6.5" PointY="1.625" />
+        <AssociationConnector Association="eBarModel.FK__UserReset__UserI__36B12243" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
