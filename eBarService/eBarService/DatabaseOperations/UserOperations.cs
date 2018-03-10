@@ -22,7 +22,7 @@ namespace eBarService.DatabaseOperations
 
         public string RegisterUser(UserTbl userToRegister)
         {
-            string registerMessage = null;
+            string registerMessage;
             using (var context = new eBarEntities())
             {
                 if (!UserAlreadyExist(userToRegister))
@@ -39,34 +39,46 @@ namespace eBarService.DatabaseOperations
             return registerMessage;
         }
 
-        public void GenerateResetCode(string userOrEmail, ref string message)
+        public void GenerateResetCode(string userOrEmail, out string message, out bool responseFlag)
         {
-            using (var context = new eBarEntities())
+            try
             {
-                var userDetails = context.UserTbl.FirstOrDefault(x => x.Username == userOrEmail || x.Email == userOrEmail);
-                UserResetPasswordCodes resetPassword = new UserResetPasswordCodes();
-
-                if (userDetails != null)
+                message = String.Empty;
+                using (var context = new eBarEntities())
                 {
-                    var userResetCode = context.UserResetPasswordCodes.FirstOrDefault(x => x.UserID == userDetails.UserID);
-                    if (userResetCode != null)
+                    var userDetails = context.UserTbl.FirstOrDefault(x => x.Username == userOrEmail || x.Email == userOrEmail);
+                    UserResetPasswordCodes resetPassword = new UserResetPasswordCodes();
+
+                    if (userDetails != null)
                     {
-                        resetPassword.CreationDate = DateTime.Now;
-                        resetPassword.UserID = userDetails.UserID;
-                        resetPassword.ResetCode = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
-                        context.UserResetPasswordCodes.Add(resetPassword);
-                        context.SaveChanges();
-                        SendEmailResetCode(resetPassword.ResetCode, userDetails);
+                        var userResetCode = context.UserResetPasswordCodes.FirstOrDefault(x => x.UserID == userDetails.UserID);
+                        if (userResetCode != null)
+                        {
+                            resetPassword.CreationDate = DateTime.Now;
+                            resetPassword.UserID = userDetails.UserID;
+                            resetPassword.ResetCode = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
+                            context.UserResetPasswordCodes.Add(resetPassword);
+                            context.SaveChanges();
+                            SendEmailResetCode(resetPassword.ResetCode, userDetails);
+                            responseFlag = true;
+                        }
+                        else
+                        {
+                            message = UserMessages.ResetCodeAlreadyGenerated;
+                            responseFlag = false;
+                        }
                     }
                     else
                     {
-                        message = UserMessages.ResetCodeAlreadyGenerated;
+                        message = UserMessages.MissingUser;
+                        responseFlag = false;
                     }
                 }
-                else
-                {
-                    message = UserMessages.MissingUser;
-                }
+            }
+            catch (Exception ex)
+            {
+                message = "An unexpected error has occured. Please try again!";
+                responseFlag = false;
             }
         }
 

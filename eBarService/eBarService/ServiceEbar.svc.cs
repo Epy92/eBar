@@ -11,9 +11,9 @@ namespace eBarService
 {
     public class ServiceEbar : IServiceEbar
     {
-        private IUserOperations _userOperations;
+        private readonly IUserOperations _userOperations;
         private IProductOperations _productOperations;
-        private IRestaurantOperations _restaurantOperations;
+        private readonly IRestaurantOperations _restaurantOperations;
         public ServiceEbar(IUserOperations userOperations, IProductOperations productOperations, IRestaurantOperations restaurantOperations)
         {
             _restaurantOperations = restaurantOperations;
@@ -24,15 +24,15 @@ namespace eBarService
         public string Register(UserTbl userRegister)
         {
             ResponseDataModel response = new ResponseDataModel();
-
             try
             {
                 response.ResultMessage = _userOperations.RegisterUser(userRegister);
-                response.ResultFlag = true;
-                response.ResultCode = ResultCode.OperationSuccess;
+                response.ResultFlag = response.ResultMessage != UserMessages.DuplicateUser;
+                response.ResultCode = ResultCode.UserInvalid;
             }
             catch (Exception ex)
             {
+                response.ResultFlag = false;
                 response.ResultCode = ResultCode.OperationFailed;
             }
 
@@ -41,7 +41,21 @@ namespace eBarService
 
         public string UserLogin(UserTbl userLogin)
         {
-           return JsonConvert.SerializeObject(_userOperations.IsUserValid(userLogin.Username ?? userLogin.Email, userLogin.UserPassword));
+            ResponseDataModel response = new ResponseDataModel();
+            try
+            {
+                var userLoginResult = _userOperations.IsUserValid(userLogin.Username ?? userLogin.Email, userLogin.UserPassword);
+                response.ResultFlag = userLoginResult;
+                response.ResultMessage = userLoginResult ? UserMessages.LoginSuccess : UserMessages.MissingUser;
+                response.ResultFlag = true;
+                response.ResultCode = ResultCode.OperationSuccess;
+            }
+            catch (Exception ex)
+            {
+                response.ResultFlag = false;
+                response.ResultCode = ResultCode.OperationFailed;
+            }
+            return JsonConvert.SerializeObject(response);
         }
 
         public string GenerateResetCode(string usernameOrEmail)
@@ -50,9 +64,10 @@ namespace eBarService
             try
             {
                 string message = null;
-                _userOperations.GenerateResetCode(usernameOrEmail, ref message);
+                var resultFlag = false;
+                _userOperations.GenerateResetCode(usernameOrEmail, out message, out resultFlag);
                 response.ResultMessage = string.IsNullOrEmpty(message) ? UserMessages.ResetCodeGenerated : message;
-                response.ResultFlag = true;
+                response.ResultFlag = resultFlag;
                 response.ResultCode = ResultCode.OperationSuccess;
             }
             catch (Exception ex)
@@ -78,14 +93,7 @@ namespace eBarService
             }
             else
             {
-                if (message == UserMessages.MissingUser)
-                {
-                    response.ResultCode = ResultCode.UserInvalid;
-                }
-                else
-                {
-                    response.ResultCode = ResultCode.OperationFailed;
-                }
+                response.ResultCode = message == UserMessages.MissingUser ? ResultCode.UserInvalid : ResultCode.OperationFailed;
                 response.ResultMessage = message;
             }
             return JsonConvert.SerializeObject(response);

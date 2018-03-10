@@ -78,7 +78,6 @@ namespace eBarService
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "GetRestaurantTables/?restaurantId={restaurantId}")]
         string GetRestaurantTables(int restaurantId);
-        #endregion 
-
+        #endregion
     }
 }

@@ -7,6 +7,7 @@
         public const string UserRegisteredSuccesfully = "User was succesfully registered!";
         public const string ResetCodeGenerated = "An email with the reset code was sent";
         public const string MissingUser = "User does not exist";
+        public const string LoginSuccess = "Welcome!";
         public const string GenerateResetCodeFailed = "There was an error while generating the reset code";
         public const string ResetCodeAlreadyGenerated = "There was an error while generating the reset code";
         public const string ResetCodeInvalid = "Reset code does not exist or expired";

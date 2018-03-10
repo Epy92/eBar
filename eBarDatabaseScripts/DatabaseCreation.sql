@@ -71,3 +71,27 @@ create table RestaurantProducts
 	ProductMadeOf nvarchar(2000),
 	RestaurantId int not null foreign key references Restaurants(RestaurantId),
 );
+
+create table UserResetPasswordCodes
+(
+	UserResetPwdId int not null primary key identity(1,1),
+	UserID int not null foreign key references UserTbl(UserID),
+	ResetCode nvarchar(10) not null,
+	CreationDate datetime not null,
+);
+
+create table Languages
+(
+	LanguageId int not null primary key identity(1,1),
+	LanguageCode nvarchar(5) not null,
+	LanguageCountry nvarchar(100) not null
+);
+
+insert into Languages values('ro', 'Romania');
+insert into Languages values('en', 'United States');
+insert into Languages values('en', 'United Kingdom');
+
+alter table UserTbl
+add UserPreferredLanguageID int not null foreign key references Languages(LanguageId)
+DEFAULT 1
+WITH VALUES;

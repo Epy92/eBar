@@ -12,19 +12,21 @@
         <EntityTypeShape EntityType="eBarModel.Restaurants" Width="1.5" PointX="10.375" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="eBarModel.RestaurantTables" Width="1.5" PointX="11" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="eBarModel.RestaurantTypes" Width="1.5" PointX="13.25" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarModel.UserTbl" Width="1.5" PointX="6.625" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="eBarModel.UserTypes" Width="1.5" PointX="3.875" PointY="4.375" IsExpanded="true" />
         <AssociationConnector Association="eBarModel.FK__Restauran__Resta__1A14E395" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarModel.FK__Restauran__UserI__1B0907CE" ManuallyRouted="false" />
         <AssociationConnector Association="eBarModel.FK__Restauran__Resta__173876EA" ManuallyRouted="false" />
         <AssociationConnector Association="eBarModel.FK__Restauran__Categ__267ABA7A" ManuallyRouted="false" />
         <AssociationConnector Association="eBarModel.FK__Restauran__Resta__276EDEB3" ManuallyRouted="false" />
         <AssociationConnector Association="eBarModel.FK__Restauran__Resta__239E4DCF" ManuallyRouted="false" />
         <AssociationConnector Association="eBarModel.FK__Restauran__Resta__1DE57479" ManuallyRouted="false" />
         <AssociationConnector Association="eBarModel.FK__Restauran__Resta__20C1E124" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarModel.FK__UserTbl__UserTyp__1273C1CD" ManuallyRouted="false" />
         <EntityTypeShape EntityType="eBarModel.UserResetPasswordCodes" Width="1.5" PointX="6.5" PointY="1.625" />
-        <AssociationConnector Association="eBarModel.FK__UserReset__UserI__36B12243" />
+        <EntityTypeShape EntityType="eBarModel.Languages" Width="1.5" PointX="8.375" PointY="2" />
+        <EntityTypeShape EntityType="eBarModel.UserTbl" Width="1.5" PointX="7.375" PointY="4.375" />
+        <AssociationConnector Association="eBarModel.FK__UserTbl__UserPre__2E1BDC42" />
+        <AssociationConnector Association="eBarModel.FK__Restauran__UserI__1B0907CE" />
+        <AssociationConnector Association="eBarModel.FK__UserReset__UserI__2A4B4B5E" />
+        <AssociationConnector Association="eBarModel.FK__UserTbl__UserTyp__1273C1CD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

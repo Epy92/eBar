@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="eBarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Languages">
+          <Key>
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="LanguageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageCode" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="LanguageCountry" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="RestaurantAdministrators">
           <Key>
             <PropertyRef Name="RestaurantAdminId" />
@@ -87,6 +95,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="UserTypeId" Type="int" Nullable="false" />
+          <Property Name="UserPreferredLanguageID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserTypes">
           <Key>
@@ -191,7 +200,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserReset__UserI__36B12243">
+        <Association Name="FK__UserReset__UserI__2A4B4B5E">
           <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="1" />
           <End Role="UserResetPasswordCodes" Type="Self.UserResetPasswordCodes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -200,6 +209,18 @@
             </Principal>
             <Dependent Role="UserResetPasswordCodes">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserTbl__UserPre__2E1BDC42">
+          <End Role="Languages" Type="Self.Languages" Multiplicity="1" />
+          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="LanguageId" />
+            </Principal>
+            <Dependent Role="UserTbl">
+              <PropertyRef Name="UserPreferredLanguageID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -216,6 +237,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="eBarModelStoreContainer">
+          <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantAdministrators" EntityType="Self.RestaurantAdministrators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantLocations" EntityType="Self.RestaurantLocations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantProducts" EntityType="Self.RestaurantProducts" Schema="dbo" store:Type="Tables" />
@@ -258,9 +280,13 @@
             <End Role="UserTbl" EntitySet="UserTbl" />
             <End Role="RestaurantAdministrators" EntitySet="RestaurantAdministrators" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserReset__UserI__36B12243" Association="Self.FK__UserReset__UserI__36B12243">
+          <AssociationSet Name="FK__UserReset__UserI__2A4B4B5E" Association="Self.FK__UserReset__UserI__2A4B4B5E">
             <End Role="UserTbl" EntitySet="UserTbl" />
             <End Role="UserResetPasswordCodes" EntitySet="UserResetPasswordCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserTbl__UserPre__2E1BDC42" Association="Self.FK__UserTbl__UserPre__2E1BDC42">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="UserTbl" EntitySet="UserTbl" />
           </AssociationSet>
           <AssociationSet Name="FK__UserTbl__UserTyp__1273C1CD" Association="Self.FK__UserTbl__UserTyp__1273C1CD">
             <End Role="UserTypes" EntitySet="UserTypes" />
@@ -279,7 +305,7 @@
           <Property Name="RestaurantId" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Restaurants" Relationship="Self.FK__Restauran__Resta__1A14E395" FromRole="RestaurantAdministrators" ToRole="Restaurants" />
-          <NavigationProperty Name="UserTbl" Relationship="Self.FK__Restauran__UserI__1B0907CE" FromRole="RestaurantAdministrators" ToRole="UserTbl" />
+          <NavigationProperty Name="UserTbl" Relationship="eBarModel.FK__Restauran__UserI__1B0907CE" FromRole="RestaurantAdministrators" ToRole="UserTbl" />
         </EntityType>
         <EntityType Name="RestaurantLocations">
           <Key>
@@ -349,28 +375,14 @@
           <Property Name="TypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Restaurants" Relationship="Self.FK__Restauran__Resta__20C1E124" FromRole="RestaurantTypes" ToRole="Restaurants" />
         </EntityType>
-        <EntityType Name="UserTbl">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="RestaurantAdministrators" Relationship="Self.FK__Restauran__UserI__1B0907CE" FromRole="UserTbl" ToRole="RestaurantAdministrators" />
-          <NavigationProperty Name="UserTypes" Relationship="Self.FK__UserTbl__UserTyp__1273C1CD" FromRole="UserTbl" ToRole="UserTypes" />
-          <NavigationProperty Name="UserResetPasswordCodes" Relationship="eBarModel.FK__UserReset__UserI__36B12243" FromRole="UserTbl" ToRole="UserResetPasswordCodes" />
-        </EntityType>
         <EntityType Name="UserTypes">
           <Key>
             <PropertyRef Name="UserTypeId" />
           </Key>
           <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UserTbl" Relationship="Self.FK__UserTbl__UserTyp__1273C1CD" FromRole="UserTypes" ToRole="UserTbl" />
-        </EntityType>
+          <NavigationProperty Name="UserTbl" Relationship="eBarModel.FK__UserTbl__UserTyp__1273C1CD" FromRole="UserTypes" ToRole="UserTbl" />
+          </EntityType>
         <Association Name="FK__Restauran__Resta__1A14E395">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="RestaurantAdministrators" Type="Self.RestaurantAdministrators" Multiplicity="*" />
@@ -380,18 +392,6 @@
             </Principal>
             <Dependent Role="RestaurantAdministrators">
               <PropertyRef Name="RestaurantId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Restauran__UserI__1B0907CE">
-          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="1" />
-          <End Role="RestaurantAdministrators" Type="Self.RestaurantAdministrators" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserTbl">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="RestaurantAdministrators">
-              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -467,18 +467,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTbl__UserTyp__1273C1CD">
-          <End Role="UserTypes" Type="Self.UserTypes" Multiplicity="1" />
-          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserTypes">
-              <PropertyRef Name="UserTypeId" />
-            </Principal>
-            <Dependent Role="UserTbl">
-              <PropertyRef Name="UserTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="eBarEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="RestaurantAdministrators" EntityType="Self.RestaurantAdministrators" />
           <EntitySet Name="RestaurantLocations" EntityType="Self.RestaurantLocations" />
@@ -487,14 +475,9 @@
           <EntitySet Name="Restaurants" EntityType="Self.Restaurants" />
           <EntitySet Name="RestaurantTables" EntityType="Self.RestaurantTables" />
           <EntitySet Name="RestaurantTypes" EntityType="Self.RestaurantTypes" />
-          <EntitySet Name="UserTbl" EntityType="Self.UserTbl" />
           <EntitySet Name="UserTypes" EntityType="Self.UserTypes" />
           <AssociationSet Name="FK__Restauran__Resta__1A14E395" Association="Self.FK__Restauran__Resta__1A14E395">
             <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="RestaurantAdministrators" EntitySet="RestaurantAdministrators" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Restauran__UserI__1B0907CE" Association="Self.FK__Restauran__UserI__1B0907CE">
-            <End Role="UserTbl" EntitySet="UserTbl" />
             <End Role="RestaurantAdministrators" EntitySet="RestaurantAdministrators" />
           </AssociationSet>
           <AssociationSet Name="FK__Restauran__Resta__173876EA" Association="Self.FK__Restauran__Resta__173876EA">
@@ -521,14 +504,24 @@
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantTypes" EntitySet="RestaurantTypes" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTbl__UserTyp__1273C1CD" Association="Self.FK__UserTbl__UserTyp__1273C1CD">
-            <End Role="UserTypes" EntitySet="UserTypes" />
+          <EntitySet Name="UserResetPasswordCodes" EntityType="eBarModel.UserResetPasswordCodes" />
+          <EntitySet Name="Languages" EntityType="eBarModel.Languages" />
+          <EntitySet Name="UserTbl" EntityType="eBarModel.UserTbl" />
+          <AssociationSet Name="FK__UserTbl__UserPre__2E1BDC42" Association="eBarModel.FK__UserTbl__UserPre__2E1BDC42">
+            <End Role="Languages" EntitySet="Languages" />
             <End Role="UserTbl" EntitySet="UserTbl" />
           </AssociationSet>
-          <EntitySet Name="UserResetPasswordCodes" EntityType="eBarModel.UserResetPasswordCodes" />
-          <AssociationSet Name="FK__UserReset__UserI__36B12243" Association="eBarModel.FK__UserReset__UserI__36B12243">
+          <AssociationSet Name="FK__Restauran__UserI__1B0907CE" Association="eBarModel.FK__Restauran__UserI__1B0907CE">
+            <End Role="UserTbl" EntitySet="UserTbl" />
+            <End Role="RestaurantAdministrators" EntitySet="RestaurantAdministrators" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserReset__UserI__2A4B4B5E" Association="eBarModel.FK__UserReset__UserI__2A4B4B5E">
             <End Role="UserTbl" EntitySet="UserTbl" />
             <End Role="UserResetPasswordCodes" EntitySet="UserResetPasswordCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserTbl__UserTyp__1273C1CD" Association="eBarModel.FK__UserTbl__UserTyp__1273C1CD">
+            <End Role="UserTypes" EntitySet="UserTypes" />
+            <End Role="UserTbl" EntitySet="UserTbl" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserResetPasswordCodes">
@@ -539,9 +532,58 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="ResetCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserTbl" Relationship="eBarModel.FK__UserReset__UserI__36B12243" FromRole="UserResetPasswordCodes" ToRole="UserTbl" />
+          <NavigationProperty Name="UserTbl" Relationship="eBarModel.FK__UserReset__UserI__2A4B4B5E" FromRole="UserResetPasswordCodes" ToRole="UserTbl" />
         </EntityType>
-        <Association Name="FK__UserReset__UserI__36B12243">
+        <EntityType Name="Languages">
+          <Key>
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="LanguageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageCountry" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserTbl" Relationship="eBarModel.FK__UserTbl__UserPre__2E1BDC42" FromRole="Languages" ToRole="UserTbl" />
+        </EntityType>
+        <EntityType Name="UserTbl">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UserPreferredLanguageID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Languages" Relationship="eBarModel.FK__UserTbl__UserPre__2E1BDC42" FromRole="UserTbl" ToRole="Languages" />
+          <NavigationProperty Name="RestaurantAdministrators" Relationship="eBarModel.FK__Restauran__UserI__1B0907CE" FromRole="UserTbl" ToRole="RestaurantAdministrators" />
+          <NavigationProperty Name="UserResetPasswordCodes" Relationship="eBarModel.FK__UserReset__UserI__2A4B4B5E" FromRole="UserTbl" ToRole="UserResetPasswordCodes" />
+          <NavigationProperty Name="UserTypes" Relationship="eBarModel.FK__UserTbl__UserTyp__1273C1CD" FromRole="UserTbl" ToRole="UserTypes" />
+        </EntityType>
+        <Association Name="FK__UserTbl__UserPre__2E1BDC42">
+          <End Type="eBarModel.Languages" Role="Languages" Multiplicity="1" />
+          <End Type="eBarModel.UserTbl" Role="UserTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="LanguageId" />
+            </Principal>
+            <Dependent Role="UserTbl">
+              <PropertyRef Name="UserPreferredLanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restauran__UserI__1B0907CE">
+          <End Type="eBarModel.UserTbl" Role="UserTbl" Multiplicity="1" />
+          <End Type="eBarModel.RestaurantAdministrators" Role="RestaurantAdministrators" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTbl">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="RestaurantAdministrators">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserReset__UserI__2A4B4B5E">
           <End Type="eBarModel.UserTbl" Role="UserTbl" Multiplicity="1" />
           <End Type="eBarModel.UserResetPasswordCodes" Role="UserResetPasswordCodes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -550,6 +592,18 @@
             </Principal>
             <Dependent Role="UserResetPasswordCodes">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserTbl__UserTyp__1273C1CD">
+          <End Type="eBarModel.UserTypes" Role="UserTypes" Multiplicity="1" />
+          <End Type="eBarModel.UserTbl" Role="UserTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTypes">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="UserTbl">
+              <PropertyRef Name="UserTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -629,18 +683,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserTbl">
-            <EntityTypeMapping TypeName="eBarModel.UserTbl">
-              <MappingFragment StoreEntitySet="UserTbl">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserTypes">
             <EntityTypeMapping TypeName="eBarModel.UserTypes">
               <MappingFragment StoreEntitySet="UserTypes">
@@ -656,6 +698,28 @@
                 <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserResetPwdId" ColumnName="UserResetPwdId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="eBarModel.Languages">
+              <MappingFragment StoreEntitySet="Languages">
+                <ScalarProperty Name="LanguageCountry" ColumnName="LanguageCountry" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTbl">
+            <EntityTypeMapping TypeName="eBarModel.UserTbl">
+              <MappingFragment StoreEntitySet="UserTbl">
+                <ScalarProperty Name="UserPreferredLanguageID" ColumnName="UserPreferredLanguageID" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
