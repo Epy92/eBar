@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using eBarService.Interfaces;
+using eBarService.Messages;
 
 namespace eBarService.DatabaseOperations
 {
@@ -31,11 +32,11 @@ namespace eBarService.DatabaseOperations
             {
                 _databaseEntities.RestaurantProductsCategories.Add(category);
                 _databaseEntities.SaveChanges();
-                message = "Category saved";
+                message = CategoryMessages.Saved;
             }
             catch (Exception ex)
             {
-                message = "Category cannot be saved";
+                message = CategoryMessages.Unsaved;
             }
             return message;
         }
