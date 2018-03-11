@@ -9,8 +9,6 @@ using Newtonsoft.Json;
 
 namespace eBarService
 {
-    [ServiceContract(Namespace = "")]
-    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class RestaurantService : IRestaurantService
     {
         private readonly IRestaurantOperations _restaurantOperations;

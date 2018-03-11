@@ -18,6 +18,7 @@ namespace eBarService
             builder.RegisterType<CategoryOperations>().As<ICategoryOperations>();
             builder.RegisterType<ProductOperations>().As<IProductOperations>();
             builder.RegisterType<UserService>();
+            builder.RegisterType<RestaurantService>();
 
             // build container
             return builder.Build();
