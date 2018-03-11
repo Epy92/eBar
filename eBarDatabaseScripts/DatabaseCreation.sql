@@ -92,6 +92,9 @@ insert into Languages values('en', 'United States');
 insert into Languages values('en', 'United Kingdom');
 
 alter table UserTbl
-add UserPreferredLanguageID int not null foreign key references Languages(LanguageId)
-DEFAULT 1
+add UserPreferredLanguage nvarchar(10) null;
+
+alter table Languages
+add LanguageName nvarchar(100) not null
+DEFAULT 'English'
 WITH VALUES;
