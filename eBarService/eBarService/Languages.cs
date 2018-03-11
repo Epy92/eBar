@@ -16,20 +16,13 @@ namespace eBarService
     [DataContract] 
      public  partial class Languages
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Languages()
-        {
-            this.UserTbl = new HashSet<UserTbl>();
-        }
-    
         [DataMember]
     public int LanguageId { get; set; }
         [DataMember]
     public string LanguageCode { get; set; }
         [DataMember]
     public string LanguageCountry { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserTbl> UserTbl { get; set; }
+        [DataMember]
+    public string LanguageName { get; set; }
     }
 }

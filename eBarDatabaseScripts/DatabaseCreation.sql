@@ -87,10 +87,6 @@ create table Languages
 	LanguageCountry nvarchar(100) not null
 );
 
-insert into Languages values('ro', 'Romania');
-insert into Languages values('en', 'United States');
-insert into Languages values('en', 'United Kingdom');
-
 alter table UserTbl
 add UserPreferredLanguage nvarchar(10) null;
 

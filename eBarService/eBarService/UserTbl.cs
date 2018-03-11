@@ -36,9 +36,8 @@ namespace eBarService
         [DataMember]
     public int UserTypeId { get; set; }
         [DataMember]
-    public int UserPreferredLanguageID { get; set; }
+    public string UserPreferredLanguage { get; set; }
     
-        public virtual Languages Languages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantAdministrators> RestaurantAdministrators { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
