@@ -1,8 +1,5 @@
 ﻿using System;
-using System.ServiceModel;
-using System.ServiceModel.Activation;
 using eBarService.Interfaces;
-using eBarService.Messages;
 using eBarService.Models;
 using eBarService.ServiceInterfaces;
 using Newtonsoft.Json;
@@ -88,6 +85,12 @@ namespace eBarService
             }
 
             return JsonConvert.SerializeObject(response);
+        }
+
+        public string GetRestaurantsForPr()
+        {
+            var restaurants = _restaurantOperations.GetRestaurantsForPr();
+            return JsonConvert.SerializeObject(restaurants);
         }
     }
 }

@@ -25,6 +25,7 @@ namespace eBarService
             this.RestaurantProductsCategories = new HashSet<RestaurantProductsCategories>();
             this.RestaurantTables = new HashSet<RestaurantTables>();
             this.RestaurantTypes = new HashSet<RestaurantTypes>();
+            this.RestaurantDetails = new HashSet<RestaurantDetails>();
         }
     
         [DataMember]
@@ -44,5 +45,7 @@ namespace eBarService
         public virtual ICollection<RestaurantTables> RestaurantTables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantTypes> RestaurantTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantDetails> RestaurantDetails { get; set; }
     }
 }

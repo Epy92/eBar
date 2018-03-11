@@ -92,4 +92,9 @@ add UserPreferredLanguage nvarchar(10) null;
 
 create table RestaurantDetails
 (
+	RestaurantDetailsId int not null primary key identity(1,1),
+	RestaurantId int not null foreign key references Restaurants(RestaurantId),
+	RestaurantDirectoryGuid nvarchar(100) null,
+	RestaurantDescription nvarchar(3000) null,
+	RestaurantThumbnail varBinary(MAX) null
 )

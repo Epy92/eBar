@@ -61,5 +61,11 @@ namespace eBarService.ServiceInterfaces
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "SaveRestaurant")]
         string SaveRestaurant(Restaurants restaurant);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+        ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "GetRestaurantsForPR")]
+        string GetRestaurantsForPr();
     }
 }

@@ -4,6 +4,7 @@ using System.Device.Location;
 using System.Linq;
 using eBarService.Interfaces;
 using eBarService.Messages;
+using eBarService.Models;
 
 namespace eBarService.DatabaseOperations
 {
@@ -102,6 +103,37 @@ namespace eBarService.DatabaseOperations
                 message = RestaurantMessages.RestaurantNotDeleted;
             }
             return message;
+        }
+
+        public List<RestaurantModel> GetRestaurantsForPr()
+        {
+            List<RestaurantModel> restaurants = null;
+            try
+            {
+                using (var context = new eBarEntities())
+                {
+                    restaurants = (from rest in context.Restaurants
+                                   join restLoc in context.RestaurantLocations
+                                       on rest.RestaurantId equals restLoc.RestaurantId
+                                   join details in context.RestaurantDetails
+                                       on rest.RestaurantId equals details.RestaurantId
+                                   join types in context.RestaurantTypes
+                                       on rest.RestaurantId equals types.RestaurantId
+                                   select new RestaurantModel()
+                                   {
+                                       RestaurantName = rest.RestaurantName,
+                                       RestaurantCity = restLoc.RestaurantCity,
+                                       RestaurantDescription = details.RestaurantDescription,
+                                       RestaurantType = types.TypeName,
+                                       ThumbnailStream = details.RestaurantThumbnail
+                                   }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return restaurants;
         }
 
         public void Dispose()

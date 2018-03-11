@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using eBarService.Models;
 
 namespace eBarService.Interfaces
 {
@@ -15,5 +16,6 @@ namespace eBarService.Interfaces
         List<Restaurants> GetRestaurantsByLocation(string location);
         string AddRestaurant(Restaurants restaurant);
         string DeleteRestaurant(int restaurantId);
+        List<RestaurantModel> GetRestaurantsForPr();
     }
 }

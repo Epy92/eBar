@@ -158,7 +158,6 @@
     <Compile Include="Interfaces\IProductOperations.cs" />
     <Compile Include="Interfaces\IRestaurantOperations.cs" />
     <Compile Include="Interfaces\IUserOperations.cs" />
-    <Compile Include="IocContainer.cs" />
     <Compile Include="Languages.cs">
       <DependentUpon>eBarEntities.tt</DependentUpon>
     </Compile>
