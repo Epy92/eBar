@@ -126,7 +126,8 @@
       <LastGenOutput>eBarEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="ServiceEbar.svc" />
+    <Content Include="RestaurantService.svc" />
+    <Content Include="UserService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <Compile Include="Languages.cs">
       <DependentUpon>eBarEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Messages\RestaurantMessages.cs" />
     <Compile Include="Messages\UserMessages.cs" />
     <Compile Include="Models\ResponseDataModel.cs" />
     <Compile Include="RestaurantAdministrators.cs">
@@ -178,16 +180,20 @@
     <Compile Include="Restaurants.cs">
       <DependentUpon>eBarEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="RestaurantService.svc.cs">
+      <DependentUpon>RestaurantService.svc</DependentUpon>
+    </Compile>
     <Compile Include="RestaurantTables.cs">
       <DependentUpon>eBarEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="RestaurantTypes.cs">
       <DependentUpon>eBarEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="ServiceEbar.svc.cs">
-      <DependentUpon>ServiceEbar.svc</DependentUpon>
+    <Compile Include="ServiceInterfaces\IRestaurantService.cs" />
+    <Compile Include="UserService.svc.cs">
+      <DependentUpon>UserService.svc</DependentUpon>
     </Compile>
-    <Compile Include="IServiceEbar.cs" />
+    <Compile Include="ServiceInterfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserResetPasswordCodes.cs">
       <DependentUpon>eBarEntities.tt</DependentUpon>

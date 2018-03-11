@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Device.Location;
 using System.Linq;
 using eBarService.Interfaces;
+using eBarService.Messages;
 
 namespace eBarService.DatabaseOperations
 {
@@ -75,7 +76,7 @@ namespace eBarService.DatabaseOperations
 
         public string AddRestaurant(Restaurants restaurant)
         {
-            string message = "Restaurant saved succesfully";
+            string message = RestaurantMessages.RestaurantSaved;
             try
             {
                 _databaseEntities.Restaurants.Add(restaurant);
@@ -83,14 +84,14 @@ namespace eBarService.DatabaseOperations
             }
             catch (Exception ex)
             {
-                message = "Restaurant cannot be saved.";
+                message = RestaurantMessages.RestaurantNotSaved;
             }
             return message;
         }
 
         public string DeleteRestaurant(int restaurantId)
         {
-            string message = "Restaurant deleted succesfully";
+            string message = RestaurantMessages.RestaurantDeleted;
             try
             {
                 var restaurant = _databaseEntities.Restaurants.FirstOrDefault(x => x.RestaurantId == restaurantId);
@@ -98,7 +99,7 @@ namespace eBarService.DatabaseOperations
             }
             catch (Exception)
             {
-                message = "Delete of restaurant failed";
+                message = RestaurantMessages.RestaurantNotDeleted;
             }
             return message;
         }

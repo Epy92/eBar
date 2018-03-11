@@ -90,7 +90,6 @@ create table Languages
 alter table UserTbl
 add UserPreferredLanguage nvarchar(10) null;
 
-alter table Languages
-add LanguageName nvarchar(100) not null
-DEFAULT 'English'
-WITH VALUES;
+create table RestaurantDetails
+(
+)

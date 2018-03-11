@@ -8,7 +8,7 @@ namespace eBarService.Models
         [DataMember]
         public bool ResultFlag { get; set; }
         [DataMember]
-        public ResultCode ResultCode { get; set; }
+        public string ResultCode { get; set; }
         [DataMember]
         public string ResultMessage { get; set; }
     }
@@ -16,10 +16,16 @@ namespace eBarService.Models
     public enum ResultCode
     {
         InvalidOperation = 1,
+        RestaurantSaved,
         NotAuthorized,
         OperationFailed,
         OperationSuccess,
         UnexpectedError,
-        UserInvalid
+        UserInvalid,
+        LoginSuccess,
+        MissingUser,
+        ResetCodeGenerated,
+        GenerateResetCodeFailed,
+        PasswordChanged
     }
 }
