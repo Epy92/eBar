@@ -12,5 +12,6 @@
         public const string ResetCodeAlreadyGenerated = "There was an error while generating the reset code";
         public const string ResetCodeInvalid = "Reset code does not exist or expired";
         public const string PasswordChanged = "User passoword was changed successfully";
+        public const string UnexpectedError = "An unexpected error has occured. Please try again!";
     }
 }

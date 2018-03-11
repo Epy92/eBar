@@ -77,7 +77,7 @@ namespace eBarService.DatabaseOperations
             }
             catch (Exception ex)
             {
-                message = "An unexpected error has occured. Please try again!";
+                message = UserMessages.UnexpectedError;
                 responseFlag = false;
             }
         }
