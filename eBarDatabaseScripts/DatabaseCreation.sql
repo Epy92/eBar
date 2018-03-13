@@ -98,3 +98,6 @@ create table RestaurantDetails
 	RestaurantDescription nvarchar(3000) null,
 	RestaurantThumbnail varBinary(MAX) null
 )
+
+alter table Languages
+add LanguageName nvarchar(100) null;
