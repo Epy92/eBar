@@ -25,7 +25,11 @@ namespace eBarService
         [DataMember]
     public string RestaurantDescription { get; set; }
         [DataMember]
-    public byte[] RestaurantThumbnail { get; set; }
+    public string RestaurantThumbnail { get; set; }
+        [DataMember]
+    public string RestaurantProgram { get; set; }
+        [DataMember]
+    public string RestaurantContact { get; set; }
     
         public virtual Restaurants Restaurants { get; set; }
     }

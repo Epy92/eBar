@@ -128,7 +128,9 @@
     <Content Include="Global.asax" />
     <Content Include="RestaurantService.svc" />
     <Content Include="UserService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacContainerBuilder.cs" />
@@ -166,7 +168,11 @@
     <Compile Include="Messages\RestaurantMessages.cs" />
     <Compile Include="Messages\UserMessages.cs" />
     <Compile Include="Models\ResponseDataModel.cs" />
+    <Compile Include="Models\RestaurantModel.cs" />
     <Compile Include="RestaurantAdministrators.cs">
+      <DependentUpon>eBarEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RestaurantDetails.cs">
       <DependentUpon>eBarEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="RestaurantLocations.cs">

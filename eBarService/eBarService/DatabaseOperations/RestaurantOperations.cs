@@ -14,7 +14,7 @@ namespace eBarService.DatabaseOperations
 
         public RestaurantOperations()
         {
-            _databaseEntities = new eBarEntities();        
+            _databaseEntities = new eBarEntities();
         }
 
         public List<RestaurantLocations> GetRestaurantLocation(int restaurantId)
@@ -42,7 +42,7 @@ namespace eBarService.DatabaseOperations
             {
                 var restaurantGeoCoordinate = new GeoCoordinate(Convert.ToDouble(restLocation.Latitude), Convert.ToDouble(restLocation.Longitude));
                 double distanceInMeteres = geoCoordinate.GetDistanceTo(restaurantGeoCoordinate);
-                if (distanceInMeteres/1000 < rangeKm)
+                if (distanceInMeteres / 1000 < rangeKm)
                 {
                     restaurantIds.Add(restLocation.RestaurantId);
                 }
@@ -113,25 +113,23 @@ namespace eBarService.DatabaseOperations
                 using (var context = new eBarEntities())
                 {
                     restaurants = (from rest in context.Restaurants
-                                   join restLoc in context.RestaurantLocations
-                                       on rest.RestaurantId equals restLoc.RestaurantId
-                                   join details in context.RestaurantDetails
-                                       on rest.RestaurantId equals details.RestaurantId
-                                   join types in context.RestaurantTypes
-                                       on rest.RestaurantId equals types.RestaurantId
+                                   from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+                                   from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+                                   from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
                                    select new RestaurantModel()
                                    {
                                        RestaurantName = rest.RestaurantName,
                                        RestaurantCity = restLoc.RestaurantCity,
                                        RestaurantDescription = details.RestaurantDescription,
                                        RestaurantType = types.TypeName,
-                                       ThumbnailStream = details.RestaurantThumbnail
+                                       ThumbnailBase64String = details.RestaurantThumbnail,
+                                       RestaurantAddress = restLoc.RestaurantAddress
                                    }).ToList();
                 }
             }
             catch (Exception ex)
             {
-                
+
             }
             return restaurants;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using eBarService.Interfaces;
 using eBarService.Messages;
 using eBarService.Models;
@@ -22,7 +23,7 @@ namespace eBarService
             {
                 response.ResultMessage = _userOperations.RegisterUser(userRegister);
                 response.ResultFlag = response.ResultMessage != UserMessages.DuplicateUser;
-                response.ResultCode = ResultCode.UserInvalid.ToString();
+                response.ResultCode = response.ResultMessage != UserMessages.DuplicateUser ? ResultCode.RegisterSuccess.ToString() : ResultCode.UserInvalid.ToString();
             }
             catch (Exception ex)
             {
@@ -39,6 +40,7 @@ namespace eBarService
             try
             {
                 var userLoginResult = _userOperations.IsUserValid(userLogin.Username ?? userLogin.Email, userLogin.UserPassword);
+ 
                 response.ResultFlag = userLoginResult;
                 response.ResultMessage = userLoginResult ? UserMessages.LoginSuccess : UserMessages.MissingUser;
                 response.ResultFlag = true;
@@ -62,7 +64,7 @@ namespace eBarService
                 _userOperations.GenerateResetCode(usernameOrEmail, out message, out resultFlag);
                 response.ResultMessage = string.IsNullOrEmpty(message) ? UserMessages.ResetCodeGenerated : message;
                 response.ResultFlag = resultFlag;
-                response.ResultCode = ResultCode.ResetCodeGenerated.ToString();
+                response.ResultCode = string.IsNullOrEmpty(message) ? ResultCode.ResetCodeGenerated.ToString() : ResultCode.GenerateResetCodeFailed.ToString();
             }
             catch (Exception ex)
             {

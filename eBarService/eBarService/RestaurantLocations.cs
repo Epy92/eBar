@@ -26,6 +26,8 @@ namespace eBarService
     public decimal Longitude { get; set; }
         [DataMember]
     public int RestaurantId { get; set; }
+        [DataMember]
+    public string RestaurantAddress { get; set; }
     
         public virtual Restaurants Restaurants { get; set; }
     }
