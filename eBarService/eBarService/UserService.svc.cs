@@ -64,7 +64,25 @@ namespace eBarService
                 _userOperations.GenerateResetCode(usernameOrEmail, out message, out resultFlag);
                 response.ResultMessage = string.IsNullOrEmpty(message) ? UserMessages.ResetCodeGenerated : message;
                 response.ResultFlag = resultFlag;
-                response.ResultCode = string.IsNullOrEmpty(message) ? ResultCode.ResetCodeGenerated.ToString() : ResultCode.GenerateResetCodeFailed.ToString();
+
+                switch (message)
+                {
+                    case UserMessages.MissingUser:
+                        response.ResultCode = ResultCode.MissingUser.ToString();
+                        break;
+                    case UserMessages.ResetCodeAlreadyGenerated:
+                        response.ResultCode = ResultCode.ResetCodeAlreadyGenerated.ToString();
+                        break;
+                    case UserMessages.UnexpectedError:
+                        response.ResultCode = ResultCode.GenerateResetCodeFailed.ToString();
+                        break;
+                    default:
+                        if (string.IsNullOrEmpty(message))
+                        {
+                            response.ResultCode = ResultCode.ResetCodeGenerated.ToString();
+                        }
+                        break;
+                }
             }
             catch (Exception ex)
             {

@@ -27,6 +27,7 @@ namespace eBarService.Models
         LoginSuccess,
         MissingUser,
         ResetCodeGenerated,
+        ResetCodeAlreadyGenerated,
         GenerateResetCodeFailed,
         PasswordChanged
     }
