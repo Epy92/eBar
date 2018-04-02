@@ -101,3 +101,15 @@ create table RestaurantDetails
 
 alter table Languages
 add LanguageName nvarchar(100) null;
+
+alter table RestaurantDetails
+add RestaurantProgram nvarchar(1000);
+
+alter table RestaurantDetails
+add RestaurantContact nvarchar(1000);
+
+alter table RestaurantDetails
+alter column RestaurantThumbnail nvarchar(max);
+
+alter table RestaurantLocations
+add RestaurantAddress nvarchar(300) null;
