@@ -1,1 +1,0 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="eBarService.RestaurantService, eBarService" CodeBehind="RestaurantService.svc.cs" Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"%>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="49b90da769604304829260bca19b22ee" Name="Diagram1">
+        <EntityTypeShape EntityType="eBarDBModels.Languages" Width="1.5" PointX="8.375" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantAdministrators" Width="1.5" PointX="3.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantDetails" Width="1.5" PointX="10.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantLocations" Width="1.5" PointX="10.125" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantProducts" Width="1.5" PointX="2.875" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantProductsCategories" Width="1.5" PointX="5.375" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.Restaurants" Width="1.5" PointX="6.375" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantTables" Width="1.5" PointX="8.375" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantTypes" Width="1.5" PointX="8" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.UserResetPasswordCodes" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.UserTbl" Width="1.5" PointX="3.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eBarDBModels.UserTypes" Width="1.5" PointX="1.5" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__1A14E395" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__UserI__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Categ__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__UserReset__UserI__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="eBarDBModels.FK__UserTbl__UserTyp__1273C1CD" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
