@@ -53,7 +53,22 @@ namespace eBarWS.DatabaseOperations
 
         public Restaurants GetRestaurantById(int restaurantId)
         {
-            return _databaseEntities.Restaurants.FirstOrDefault(x => x.RestaurantId == restaurantId);
+            var rest = _databaseEntities.Restaurants.FirstOrDefault(x => x.RestaurantId == restaurantId);
+            return rest;
+            //if (rest != null)
+            //{
+            //    RestaurantModel restModel = new RestaurantModel()
+            //    {
+            //        RestaurantName = rest.RestaurantName,
+            //        RestaurantAddress = rest.RestaurantLocations.First().RestaurantAddress,
+            //        RestaurantCity = rest.RestaurantLocations.First().RestaurantCity,
+            //        RestaurantDescription = rest.RestaurantDetails.First().RestaurantDescription,
+            //        RestaurantType = rest.RestaurantTypes.First().TypeName,
+            //        ThumbnailBase64String = rest.RestaurantDetails.First().RestaurantThumbnail
+            //    };
+            //    return restModel;
+            //}
+            //return null;
         }
 
         public List<RestaurantAdministrators> GetRestaurantAdministrators(int restaurantId)
@@ -84,9 +99,7 @@ namespace eBarWS.DatabaseOperations
                 _databaseEntities.Restaurants.Add(restaurant);
                 _databaseEntities.SaveChanges();
             }
-#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)
-#pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
                 message = RestaurantMessages.RestaurantNotSaved;
             }
@@ -130,9 +143,7 @@ namespace eBarWS.DatabaseOperations
                                    }).ToList();
                 }
             }
-#pragma warning disable CS0168 // The variable 'ex' is declared but never used
-            catch (Exception ex)
-#pragma warning restore CS0168 // The variable 'ex' is declared but never used
+            catch(Exception ex)
             {
 
             }

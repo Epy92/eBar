@@ -4,10 +4,12 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
 using DBModels;
+using eBarWS.App_Start;
 using eBarWS.Controllers;
 using eBarWS.DatabaseOperations;
 using eBarWS.Interfaces;
 using eBarWS.Utils;
+using Newtonsoft.Json;
 
 namespace eBarWS
 {
@@ -15,27 +17,13 @@ namespace eBarWS
     {
         protected void Application_Start()
         {
-            var builder = new ContainerBuilder();
+            AutoMapperConfig.Initialize();
+            var config = GlobalConfiguration.Configuration;
 
-            var config = GlobalConfiguration.Configuration;            
-
-            builder.RegisterType<RestaurantController>().AsSelf();
-            builder.RegisterType<UserSessionController>().AsSelf();
-            //builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-           
+            var builder = IocConfig.Configure();
             builder.RegisterWebApiFilterProvider(config);
-
-            builder.RegisterWebApiModelBinderProvider();
-            builder.RegisterType<RestaurantOperations>().As<IRestaurantOperations>();
-            builder.RegisterType<UserOperations>().As<IUserOperations>();
-            builder.RegisterType<RestaurantOperations>().As<IRestaurantOperations>();
-            builder.RegisterType<CategoryOperations>().As<ICategoryOperations>();
-            builder.RegisterType<ProductOperations>().As<IProductOperations>();
-            builder.RegisterType<Logger>().As<ILogger>();
-            
-
             var container = builder.Build();
-            
+
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             config.MapHttpAttributeRoutes();
 
@@ -46,9 +34,9 @@ namespace eBarWS
             );
             GlobalConfiguration.Configuration.EnsureInitialized();
 
-            //IocConfig.Configure();
-
-            //GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.All;
         }
 
         protected void Application_PostAuthorizeRequest()

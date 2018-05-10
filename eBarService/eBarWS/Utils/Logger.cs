@@ -5,45 +5,50 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.IO;
+using System.Net;
 using System.Threading;
 
 namespace eBarWS.Utils
 {
     public sealed class Logger : ILogger
     {
-        public string path = null;
-        private static readonly object SyncLock = new object();
+        private string filePath = null;
+        //private static readonly object SyncLock = new object();
         private static readonly object Lock = new object();
-        private static volatile Logger _instance;
+        //private static volatile Logger _instance;
 
         private ConcurrentQueue<string> queueMessages = new ConcurrentQueue<string>();
         private bool isRunning = false;
 
-        public static Logger Instance
+        public Logger()
         {
-            get
-            {
-                if (_instance?.path == null || _instance.path.Equals(""))
-                {
-                    lock (SyncLock)
-                    {
-                        if (_instance?.path == null || _instance.path.Equals(""))
-                        {
-                            _instance = new Logger
-                            {
-                                path = GetLogPath()
-                            };
-
-                            if (_instance.path == null || _instance.path.Equals(""))
-                                _instance = null;
-                        }
-                    }
-                }
-                return _instance;
-            }
+            GetLogPath();
         }
+        //public static Logger Instance
+        //{
+        //    get
+        //    {
+        //        if (_instance?.path == null || _instance.path.Equals(""))
+        //        {
+        //            lock (SyncLock)
+        //            {
+        //                if (_instance?.path == null || _instance.path.Equals(""))
+        //                {
+        //                    _instance = new Logger
+        //                    {
+        //                        path = GetLogPath()
+        //                    };
 
-        private static string GetLogPath()
+        //                    if (_instance.path == null || _instance.path.Equals(""))
+        //                        _instance = null;
+        //                }
+        //            }
+        //        }
+        //        return _instance;
+        //    }
+        //}
+
+        private string GetLogPath()
         {
             var logDirectory = Path.Combine(System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath, "Logs");
 
@@ -52,7 +57,7 @@ namespace eBarWS.Utils
                 Directory.CreateDirectory(logDirectory);
             }
 
-            var filePath = Path.Combine(logDirectory, "Log_" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
+            filePath = Path.Combine(logDirectory, "Log_" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
             if (!File.Exists(filePath))
             {
                 File.Create(filePath);
@@ -103,7 +108,7 @@ namespace eBarWS.Utils
 
         private void WriteToFile(string entry)
         {
-            using (var streamWriter = new StreamWriter(path, true))
+            using (var streamWriter = new StreamWriter(filePath, true))
             {
                 streamWriter.WriteLine(entry);
                 streamWriter.Flush();
@@ -129,7 +134,7 @@ namespace eBarWS.Utils
             FileStream stream = null;
             try
             {
-                stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+                stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite);
             }
             catch (Exception)
             {

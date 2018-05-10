@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using eBarWS.Controllers;
 using eBarWS.DatabaseOperations;
 using eBarWS.Interfaces;
 using eBarWS.Utils;
@@ -10,32 +11,23 @@ namespace eBarWS
 {
     public class IocConfig
     {
-        public static void Configure()
+        public static ContainerBuilder Configure()
         {
             var builder = new ContainerBuilder();
+            builder.RegisterType<RestaurantController>().AsSelf();
+            builder.RegisterType<UserSessionController>().AsSelf();
+            //builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            // register types
+            builder.RegisterWebApiModelBinderProvider();
             builder.RegisterType<RestaurantOperations>().As<IRestaurantOperations>();
-            builder.RegisterType<RestaurantOperations>().As<IRestaurantOperations>().InstancePerRequest();
-            builder.RegisterType<CategoryOperations>().As<ICategoryOperations>().InstancePerRequest();
-            builder.RegisterType<ProductOperations>().As<IProductOperations>().InstancePerRequest();
-            builder.RegisterType<Logger>().As<ILogger>().InstancePerRequest();
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            
-            // build container
-            var container = builder.Build();
+            builder.RegisterType<UserOperations>().As<IUserOperations>();
+            builder.RegisterType<RestaurantOperations>().As<IRestaurantOperations>();
+            builder.RegisterType<CategoryOperations>().As<ICategoryOperations>();
+            builder.RegisterType<ProductOperations>().As<IProductOperations>();
+            builder.RegisterType<Logger>().As<ILogger>();
 
-            var resolver = new AutofacWebApiDependencyResolver(container);
-            
-            GlobalConfiguration.Configuration.DependencyResolver = resolver;
 
-            GlobalConfiguration.Configuration.MapHttpAttributeRoutes();
-            GlobalConfiguration.Configuration.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-            GlobalConfiguration.Configuration.EnsureInitialized();
+            return builder;
         }
     }
 }
