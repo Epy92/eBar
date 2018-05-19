@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Web;
 using System.Web.Http;
 using DBModels;
-using eBarWS.DatabaseOperations;
 using eBarWS.Interfaces;
 using eBarWS.Messages;
 using eBarWS.Models;
 using Newtonsoft.Json;
-using Swashbuckle.Swagger.Annotations;
 using eBarWS.Utils;
 
 namespace eBarWS.Controllers

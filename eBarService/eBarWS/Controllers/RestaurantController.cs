@@ -5,6 +5,9 @@ using eBarWS.Interfaces;
 using eBarWS.Models;
 using eBarWS.Utils;
 using Newtonsoft.Json;
+using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace eBarWS.Controllers
 {
@@ -39,7 +42,8 @@ namespace eBarWS.Controllers
             try
             {
                 var restaurant = _restaurantOperations.GetRestaurantById(restaurantId);
-                return JsonConvert.SerializeObject(restaurant);
+                var rest = Mapper.Map<Restaurants, RestaurantModel>(restaurant);
+                return JsonConvert.SerializeObject(rest);
             }
             catch (Exception ex)
             {
@@ -165,11 +169,22 @@ namespace eBarWS.Controllers
             {
                 var restaurants = _restaurantOperations.GetRestaurantsForPr();
                 return JsonConvert.SerializeObject(restaurants);
+
             }
             catch (Exception ex)
             {
                 _logger.Log("GetRestaurantsForPr_Exception: ", ex.Message);
                 return JsonConvert.SerializeObject(null);
+            }
+        }
+
+        public string Test()
+        {
+            using (var context = new DBModels.DBModels())
+            {
+                var product = context.RestaurantProducts.FirstOrDefault(x => x.ProductId == 2);
+                var productMapped = Mapper.Map<RestaurantProducts, RestaurantProductsModel>(product);
+                return JsonConvert.SerializeObject(productMapped);
             }
         }
     }

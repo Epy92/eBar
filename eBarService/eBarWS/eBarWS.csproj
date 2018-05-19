@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -135,7 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
@@ -157,7 +160,17 @@
     <Compile Include="Interfaces\IProductOperations.cs" />
     <Compile Include="Interfaces\IRestaurantOperations.cs" />
     <Compile Include="Interfaces\IUserOperations.cs" />
+    <Compile Include="Models\LanguagesModel.cs" />
+    <Compile Include="Models\RestaurantAdministratorsModel.cs" />
+    <Compile Include="Models\RestaurantDetailsModel.cs" />
+    <Compile Include="Models\RestaurantLocationsModel.cs" />
+    <Compile Include="Models\RestaurantProductsCategoriesModel.cs" />
+    <Compile Include="Models\RestaurantProductsModel.cs" />
+    <Compile Include="Models\RestaurantTablesModel.cs" />
+    <Compile Include="Models\RestaurantTypesModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserResetPasswordCodesModel.cs" />
+    <Compile Include="Models\UserTypesModel.cs" />
     <Compile Include="Utils\eBarAuth.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="Messages\CategoryMessages.cs" />

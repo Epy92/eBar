@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Runtime.Serialization;
-
 namespace DBModels
 {
     using System;
@@ -28,31 +26,22 @@ namespace DBModels
             this.RestaurantTypes = new HashSet<RestaurantTypes>();
         }
     
-    
         public int RestaurantId { get; set; }
-        
         public string RestaurantName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
         public virtual ICollection<RestaurantAdministrators> RestaurantAdministrators { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
         public virtual ICollection<RestaurantDetails> RestaurantDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
         public virtual ICollection<RestaurantLocations> RestaurantLocations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
         public virtual ICollection<RestaurantProducts> RestaurantProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
         public virtual ICollection<RestaurantProductsCategories> RestaurantProductsCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
         public virtual ICollection<RestaurantTables> RestaurantTables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        
         public virtual ICollection<RestaurantTypes> RestaurantTypes { get; set; }
     }
 }
