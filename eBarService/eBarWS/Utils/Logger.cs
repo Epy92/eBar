@@ -1,24 +1,22 @@
-﻿using eBarWS.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.IO;
-using System.Net;
 using System.Threading;
+using System.Web.Hosting;
+using eBarWS.Interfaces;
 
 namespace eBarWS.Utils
 {
     public sealed class Logger : ILogger
     {
-        private string filePath = null;
+        private string _filePath = null;
         //private static readonly object SyncLock = new object();
         private static readonly object Lock = new object();
         //private static volatile Logger _instance;
 
-        private ConcurrentQueue<string> queueMessages = new ConcurrentQueue<string>();
-        private bool isRunning = false;
+        private readonly ConcurrentQueue<string> _queueMessages = new ConcurrentQueue<string>();
+        private bool _isRunning = false;
 
         public Logger()
         {
@@ -50,26 +48,26 @@ namespace eBarWS.Utils
 
         private string GetLogPath()
         {
-            var logDirectory = Path.Combine(System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath, "Logs");
+            var logDirectory = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "Logs");
 
             if (!Directory.Exists(logDirectory))
             {
                 Directory.CreateDirectory(logDirectory);
             }
 
-            filePath = Path.Combine(logDirectory, "Log_" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
-            if (!File.Exists(filePath))
+            _filePath = Path.Combine(logDirectory, "Log_" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
+            if (!File.Exists(_filePath))
             {
-                File.Create(filePath);
+                File.Create(_filePath);
             }
-            return filePath;
+            return _filePath;
         }
 
         public void Start()
         {
             lock (Lock)
             {
-                if (!isRunning)
+                if (!_isRunning)
                 {
                     BackgroundWorker bgWorker = new BackgroundWorker();
                     bgWorker.DoWork += WriteLogMessages_DoWork;
@@ -81,16 +79,16 @@ namespace eBarWS.Utils
 
         private void WriteLogMessages_Completed(object sender, RunWorkerCompletedEventArgs e)
         {
-            isRunning = false;
+            _isRunning = false;
         }
 
         private void WriteLogMessages_DoWork(object sender, DoWorkEventArgs e)
         {
-            isRunning = true;
-            while (!queueMessages.IsEmpty)
+            _isRunning = true;
+            while (!_queueMessages.IsEmpty)
             {
                 string message = string.Empty;
-                queueMessages.TryDequeue(out message);
+                _queueMessages.TryDequeue(out message);
                 if (!string.IsNullOrEmpty(message) && !IsFileLocked())
                 {
                     try
@@ -99,7 +97,7 @@ namespace eBarWS.Utils
                     }
                     catch (IOException)
                     {
-                        queueMessages.Enqueue(message);
+                        _queueMessages.Enqueue(message);
                         Thread.Sleep(50);
                     }
                 }
@@ -108,7 +106,7 @@ namespace eBarWS.Utils
 
         private void WriteToFile(string entry)
         {
-            using (var streamWriter = new StreamWriter(filePath, true))
+            using (var streamWriter = new StreamWriter(_filePath, true))
             {
                 streamWriter.WriteLine(entry);
                 streamWriter.Flush();
@@ -121,8 +119,8 @@ namespace eBarWS.Utils
             lock (Lock)
             {
                 string log = DateTime.Now.ToString("HH.mm.ss.FFF") + " [" + type + "] : " + logPhrase;
-                queueMessages.Enqueue(log);
-                if (!isRunning && !IsFileLocked())
+                _queueMessages.Enqueue(log);
+                if (!_isRunning && !IsFileLocked())
                 {
                     Start();
                 }
@@ -134,7 +132,7 @@ namespace eBarWS.Utils
             FileStream stream = null;
             try
             {
-                stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite);
+                stream = new FileStream(_filePath, FileMode.Open, FileAccess.ReadWrite);
             }
             catch (Exception)
             {
