@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Routing;
 
 namespace eBarWS.Controllers
 {
@@ -176,6 +177,130 @@ namespace eBarWS.Controllers
                 _logger.Log("GetRestaurantsForPr_Exception: ", ex.Message);
                 return JsonConvert.SerializeObject(null);
             }
+        }
+
+        public string GetRestaurantsByParameters(string keyword, string location, int typeid, string lat, string longitude, int rangeKm)
+        {
+            try
+            {
+                List<RestaurantModel> l_rest = null;
+                // Get restaurants by location
+                if (!(location == string.Empty) & (typeid == 0) & (keyword == string.Empty))
+                {
+                    try
+                    {
+                        l_rest = _restaurantOperations.GetRestaurantsObjListByLocation(location);
+                        return JsonConvert.SerializeObject(l_rest);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log("GetRestaurantsByLocation_Exception: ", ex.Message);
+                        return JsonConvert.SerializeObject(null);
+                    }
+                }
+
+                //get restaurants by name
+                else if ((location == string.Empty) & (typeid == 0) & !(keyword == string.Empty))
+                {
+
+                    try
+                    {
+                        l_rest = _restaurantOperations.GetRestaurantsObjListByName(keyword);
+                        return JsonConvert.SerializeObject(l_rest);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log("GetRestaurantsByName_Exception: ", ex.Message);
+                        return JsonConvert.SerializeObject(null);
+                    }
+
+
+                }
+                // get restaurants by type
+                else if ((location == string.Empty) & !(typeid == 0) & (keyword == string.Empty))
+                {
+                    try
+                    {
+                        l_rest = _restaurantOperations.GetRestaurantsObjListByType(typeid);
+                        return JsonConvert.SerializeObject(l_rest);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log("GetRestaurantsObjListByType_Exception: ", ex.Message);
+                        return JsonConvert.SerializeObject(null);
+                    }
+
+                }
+                //get restaurants by location and name
+                else if (!(location == string.Empty) & (typeid == 0) & !(keyword == string.Empty))
+                {
+                    try
+                    {
+                        l_rest = _restaurantOperations.GetRestaurantsObjListByLocationAndName(location, keyword);
+                        return JsonConvert.SerializeObject(l_rest);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log("GetRestaurantsObjListByLocationAndName_Exception: ", ex.Message);
+                        return JsonConvert.SerializeObject(null);
+                    }
+                }
+                // get restaurants by location and type
+                else if (!(location == string.Empty) & !(typeid == 0) & (keyword == string.Empty))
+                {
+                    try
+                    {
+                        l_rest = _restaurantOperations.GetRestaurantsObjListByLocationAndType(location, typeid);
+                        return JsonConvert.SerializeObject(l_rest);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log("GetRestaurantsObjListByLocationAndType_Exception: ", ex.Message);
+                        return JsonConvert.SerializeObject(null);
+                    }
+                }
+
+                // get restaurants by name and type
+                else if ((location == string.Empty) & !(typeid == 0) & !(keyword == string.Empty))
+                {
+                    try
+                    {
+                        l_rest = _restaurantOperations.GetRestaurantsObjListByNameAndType(keyword, typeid);
+                        return JsonConvert.SerializeObject(l_rest);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log("GetRestaurantsObjListByNameAndType_Exception: ", ex.Message);
+                        return JsonConvert.SerializeObject(null);
+                    }
+
+                }
+
+
+                if (!(lat == string.Empty) || !(longitude == string.Empty) || (rangeKm > 0))
+                {
+                    if (!(l_rest == null))
+                    {
+                        try
+                        {
+                            var l_restLocation = _restaurantOperations.GetRestaurantsObjListByGeoCoordinate(lat, longitude, rangeKm, l_rest);
+                            return JsonConvert.SerializeObject(l_restLocation);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.Log("GetRestaurantsObjListByGeoCoordinate_Exception: ", ex.Message);
+                            return JsonConvert.SerializeObject(null);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("GetRestaurantsByParameters_Exception: ", ex.Message);
+                return JsonConvert.SerializeObject(null);
+            }
+            return JsonConvert.SerializeObject(null);
         }
 
         public string Test()
