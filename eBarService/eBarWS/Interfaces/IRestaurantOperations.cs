@@ -18,5 +18,15 @@ namespace eBarWS.Interfaces
         string AddRestaurant(Restaurants restaurant);
         string DeleteRestaurant(int restaurantId);
         List<RestaurantModel> GetRestaurantsForPr();
+
+        List<RestaurantModel> GetRestaurantsObjListByName(string keyword);
+        List<RestaurantModel> GetRestaurantsObjListByLocationAndName(string location,string keyword);
+        List<RestaurantModel> GetRestaurantsObjListByLocation(string location);
+        List<RestaurantModel> GetRestaurantsObjListByType(int typeid);
+        List<RestaurantModel> GetRestaurantsObjListByLocationAndType(string location,int typeid);
+        List<RestaurantModel> GetRestaurantsObjListByNameAndType(string keyword,int typeid);
+        List<RestaurantModel> GetRestaurantsObjListByGeoCoordinate(string lat, string longitude, int rangeKm, List<RestaurantModel> l_rest);
+
+
     }
 }
