@@ -184,11 +184,13 @@ namespace eBarWS.DatabaseOperations
                 {
                     adminHasRestaurants = (from user in context.UserTbl.Where(x => x.Username == username || x.Email == email)
                                            from usertype in context.UserTypes.Where(x => x.UserTypeId == user.UserID)
-                                           from restadmin in context.RestaurantAdministrators.Where(x => x.UserID == user.UserID )
+                                           from restadmin in context.RestaurantAdministrators.Where(x => x.UserID == user.UserID)
                                            where usertype.TypeName == "RestaurantAdministrator"
                                            select new
                                            {
-                                               adminHasRestaurants_name = user.Name
+                                               user.Name,
+                                               usertype.TypeName,
+                                               restadmin.RestaurantId
                                            }) != null;
                 }
             }
