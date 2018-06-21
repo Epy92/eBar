@@ -6,6 +6,7 @@ using System.Net.Mail;
 using DBModels;
 using eBarWS.Interfaces;
 using eBarWS.Messages;
+using Newtonsoft.Json;
 
 namespace eBarWS.DatabaseOperations
 {
@@ -20,7 +21,7 @@ namespace eBarWS.DatabaseOperations
         {
             using (var context = new DBModels.DBModels())
             {
-                return context.UserTbl.FirstOrDefault(x =>( x.Username == usernameOrEmail || x.Email == usernameOrEmail) && x.UserPassword == password);
+                return context.UserTbl.FirstOrDefault(x => (x.Username == usernameOrEmail || x.Email == usernameOrEmail) && x.UserPassword == password);
             }
         }
 
@@ -171,7 +172,29 @@ namespace eBarWS.DatabaseOperations
             using (var context = new DBModels.DBModels())
             {
                 return context.UserTbl.FirstOrDefault(x => x.Username == userToRegister.Username || x.Email == userToRegister.Email) != null;
-            } 
+            }
         }
+        public string CheckAdminHasRestaurant(string username, string email)
+        {
+            bool adminHasRestaurants = false;
+
+            if (username != string.Empty || email != string.Empty)
+            {
+                using (var context = new DBModels.DBModels())
+                {
+                    adminHasRestaurants = (from user in context.UserTbl.Where(x => x.Username == username || x.Email == email)
+                                           from usertype in context.UserTypes.Where(x => x.UserTypeId == user.UserID)
+                                           from restadmin in context.RestaurantAdministrators.Where(x => x.UserID == user.UserID )
+                                           where usertype.TypeName == "RestaurantAdministrator"
+                                           select new
+                                           {
+                                               adminHasRestaurants_name = user.Name
+                                           }) != null;
+                }
+            }
+            string returnvalue = JsonConvert.SerializeObject(adminHasRestaurants);
+            return returnvalue;
+        }
+
     }
 }

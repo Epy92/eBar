@@ -71,10 +71,10 @@ namespace eBarWS.DatabaseOperations
             //return null;
         }
 
-        public List<RestaurantAdministrators> GetRestaurantAdministrators(int restaurantId)
-        {
-            return _databaseEntities.RestaurantAdministrators.Where(x => x.RestaurantId == restaurantId).ToList();
-        }
+        //public List<RestaurantAdministrators> GetRestaurantAdministrators(int restaurantId)
+        //{
+        //    return _databaseEntities.RestaurantAdministrators.Where(x => x.RestaurantId == restaurantId).ToList();
+        //}
 
         public List<RestaurantTypes> GetRestaurantsByType(int typeId)
         {
@@ -181,62 +181,62 @@ namespace eBarWS.DatabaseOperations
             return restaurants;
         }
 
-        public List<RestaurantModel> GetRestaurantsObjListByLocationAndName(string location, string keyword)
-        {
-            List<RestaurantModel> restaurants = null;
-            try
-            {
-                using (var context = new DBModels.DBModels())
-                {
-                    restaurants = (from rest in context.Restaurants.Where(x => x.RestaurantName.ToUpper().Contains(keyword.ToUpper())).DefaultIfEmpty()
-                                   from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantCity == location).DefaultIfEmpty()
-                                   from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
-                                   from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
-                                   select new RestaurantModel()
-                                   {
-                                       RestaurantName = rest.RestaurantName,
-                                       RestaurantCity = restLoc.RestaurantCity,
-                                       RestaurantDescription = details.RestaurantDescription,
-                                       RestaurantType = types.TypeName,
-                                       ThumbnailBase64String = details.RestaurantThumbnail,
-                                       RestaurantAddress = restLoc.RestaurantAddress
-                                   }).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
+        //public List<RestaurantModel> GetRestaurantsObjListByLocationAndName(string location, string keyword)
+        //{
+        //    List<RestaurantModel> restaurants = null;
+        //    try
+        //    {
+        //        using (var context = new DBModels.DBModels())
+        //        {
+        //            restaurants = (from rest in context.Restaurants.Where(x => x.RestaurantName.ToUpper().Contains(keyword.ToUpper())).DefaultIfEmpty()
+        //                           from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantCity == location).DefaultIfEmpty()
+        //                           from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+        //                           from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+        //                           select new RestaurantModel()
+        //                           {
+        //                               RestaurantName = rest.RestaurantName,
+        //                               RestaurantCity = restLoc.RestaurantCity,
+        //                               RestaurantDescription = details.RestaurantDescription,
+        //                               RestaurantType = types.TypeName,
+        //                               ThumbnailBase64String = details.RestaurantThumbnail,
+        //                               RestaurantAddress = restLoc.RestaurantAddress
+        //                           }).ToList();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
-            if (restaurants == null)
-            {
-                try
-                {
-                    using (var context = new DBModels.DBModels())
-                    {
-                        restaurants = (from rest in context.Restaurants
-                                       from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantCity == location).DefaultIfEmpty()
-                                       from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantDescription.ToUpper().Contains(keyword)).DefaultIfEmpty()
-                                       from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
-                                       select new RestaurantModel()
-                                       {
-                                           RestaurantName = rest.RestaurantName,
-                                           RestaurantCity = restLoc.RestaurantCity,
-                                           RestaurantDescription = details.RestaurantDescription,
-                                           RestaurantType = types.TypeName,
-                                           ThumbnailBase64String = details.RestaurantThumbnail,
-                                           RestaurantAddress = restLoc.RestaurantAddress
-                                       }).ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
+        //    }
+        //    if (restaurants == null)
+        //    {
+        //        try
+        //        {
+        //            using (var context = new DBModels.DBModels())
+        //            {
+        //                restaurants = (from rest in context.Restaurants
+        //                               from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantCity == location).DefaultIfEmpty()
+        //                               from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantDescription.ToUpper().Contains(keyword)).DefaultIfEmpty()
+        //                               from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+        //                               select new RestaurantModel()
+        //                               {
+        //                                   RestaurantName = rest.RestaurantName,
+        //                                   RestaurantCity = restLoc.RestaurantCity,
+        //                                   RestaurantDescription = details.RestaurantDescription,
+        //                                   RestaurantType = types.TypeName,
+        //                                   ThumbnailBase64String = details.RestaurantThumbnail,
+        //                                   RestaurantAddress = restLoc.RestaurantAddress
+        //                               }).ToList();
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
 
-                }
+        //        }
 
-            }
+        //    }
 
-            return restaurants;
-        }
+        //    return restaurants;
+        //}
 
         public List<RestaurantModel> GetRestaurantsObjListByType(int typeid)
         {
@@ -299,91 +299,91 @@ namespace eBarWS.DatabaseOperations
             return restaurants;
         }
 
-        public List<RestaurantModel> GetRestaurantsObjListByLocationAndType(string location, int typeid)
-        {
-            List<RestaurantModel> restaurants = null;
-            try
-            {
-                using (var context = new DBModels.DBModels())
-                {
-                    restaurants = (from rest in context.Restaurants
-                                   from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantCity == location).DefaultIfEmpty()
-                                   from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
-                                   from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId && x.TypeId == typeid).DefaultIfEmpty()
-                                   select new RestaurantModel()
-                                   {
-                                       RestaurantName = rest.RestaurantName,
-                                       RestaurantCity = restLoc.RestaurantCity,
-                                       RestaurantDescription = details.RestaurantDescription,
-                                       RestaurantType = types.TypeName,
-                                       ThumbnailBase64String = details.RestaurantThumbnail,
-                                       RestaurantAddress = restLoc.RestaurantAddress
-                                   }).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
+        //public List<RestaurantModel> GetRestaurantsObjListByLocationAndType(string location, int typeid)
+        //{
+        //    List<RestaurantModel> restaurants = null;
+        //    try
+        //    {
+        //        using (var context = new DBModels.DBModels())
+        //        {
+        //            restaurants = (from rest in context.Restaurants
+        //                           from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantCity == location).DefaultIfEmpty()
+        //                           from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+        //                           from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId && x.TypeId == typeid).DefaultIfEmpty()
+        //                           select new RestaurantModel()
+        //                           {
+        //                               RestaurantName = rest.RestaurantName,
+        //                               RestaurantCity = restLoc.RestaurantCity,
+        //                               RestaurantDescription = details.RestaurantDescription,
+        //                               RestaurantType = types.TypeName,
+        //                               ThumbnailBase64String = details.RestaurantThumbnail,
+        //                               RestaurantAddress = restLoc.RestaurantAddress
+        //                           }).ToList();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
+        //    }
 
-            return restaurants;
-        }
+        //    return restaurants;
+        //}
 
-        public List<RestaurantModel> GetRestaurantsObjListByNameAndType(string keyword, int typeid)
-        {
-            List<RestaurantModel> restaurants = null;
-            try
-            {
-                using (var context = new DBModels.DBModels())
-                {
-                    restaurants = (from rest in context.Restaurants.Where(x => x.RestaurantName.ToUpper().Contains(keyword.ToUpper())).DefaultIfEmpty()
-                                   from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
-                                   from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
-                                   from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId && x.TypeId == typeid).DefaultIfEmpty()
-                                   select new RestaurantModel()
-                                   {
-                                       RestaurantName = rest.RestaurantName,
-                                       RestaurantCity = restLoc.RestaurantCity,
-                                       RestaurantDescription = details.RestaurantDescription,
-                                       RestaurantType = types.TypeName,
-                                       ThumbnailBase64String = details.RestaurantThumbnail,
-                                       RestaurantAddress = restLoc.RestaurantAddress
-                                   }).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
+        //public List<RestaurantModel> GetRestaurantsObjListByNameAndType(string keyword, int typeid)
+        //{
+        //    List<RestaurantModel> restaurants = null;
+        //    try
+        //    {
+        //        using (var context = new DBModels.DBModels())
+        //        {
+        //            restaurants = (from rest in context.Restaurants.Where(x => x.RestaurantName.ToUpper().Contains(keyword.ToUpper())).DefaultIfEmpty()
+        //                           from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+        //                           from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+        //                           from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId && x.TypeId == typeid).DefaultIfEmpty()
+        //                           select new RestaurantModel()
+        //                           {
+        //                               RestaurantName = rest.RestaurantName,
+        //                               RestaurantCity = restLoc.RestaurantCity,
+        //                               RestaurantDescription = details.RestaurantDescription,
+        //                               RestaurantType = types.TypeName,
+        //                               ThumbnailBase64String = details.RestaurantThumbnail,
+        //                               RestaurantAddress = restLoc.RestaurantAddress
+        //                           }).ToList();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
-            if (restaurants == null)
-            {
-                try
-                {
-                    using (var context = new DBModels.DBModels())
-                    {
-                        restaurants = (from rest in context.Restaurants
-                                       from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
-                                       from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantDescription.ToUpper().Contains(keyword)).DefaultIfEmpty()
-                                       from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId && x.TypeId == typeid).DefaultIfEmpty()
-                                       select new RestaurantModel()
-                                       {
-                                           RestaurantName = rest.RestaurantName,
-                                           RestaurantCity = restLoc.RestaurantCity,
-                                           RestaurantDescription = details.RestaurantDescription,
-                                           RestaurantType = types.TypeName,
-                                           ThumbnailBase64String = details.RestaurantThumbnail,
-                                           RestaurantAddress = restLoc.RestaurantAddress
-                                       }).ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
+        //    }
+        //    if (restaurants == null)
+        //    {
+        //        try
+        //        {
+        //            using (var context = new DBModels.DBModels())
+        //            {
+        //                restaurants = (from rest in context.Restaurants
+        //                               from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+        //                               from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantDescription.ToUpper().Contains(keyword)).DefaultIfEmpty()
+        //                               from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId && x.TypeId == typeid).DefaultIfEmpty()
+        //                               select new RestaurantModel()
+        //                               {
+        //                                   RestaurantName = rest.RestaurantName,
+        //                                   RestaurantCity = restLoc.RestaurantCity,
+        //                                   RestaurantDescription = details.RestaurantDescription,
+        //                                   RestaurantType = types.TypeName,
+        //                                   ThumbnailBase64String = details.RestaurantThumbnail,
+        //                                   RestaurantAddress = restLoc.RestaurantAddress
+        //                               }).ToList();
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
 
-                }
-            }
+        //        }
+        //    }
 
-            return restaurants;
-        }
+        //    return restaurants;
+        //}
 
         public List<RestaurantModel> GetRestaurantsObjListByGeoCoordinate(string latitude, string longitude, int rangeKm, List<RestaurantModel> restaurants)
         {
