@@ -1,0 +1,90 @@
+<ion-content>
+  <ion-row>
+    <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+    <ion-col col-md-8 col-sm-10>
+      <ion-row>
+        <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+        <ion-col col-md-8 col-sm-10>
+          <img id="img-logo" src="assets/imgs/logo_2.png" />
+        </ion-col>
+        <ion-col col-md-2 col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+    <ion-col col-md-8 col-sm-10>
+      <div class="panel panel-register">
+        <div class="panel-heading">
+          <ion-row>
+            <ion-col col class="text-center" style="background-color:#1281c8; color:white">
+              <span>Inregistrare cont nou</span>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div class="panel-body">
+          <ion-row>
+            <ion-col col-lg-12>
+              <form (ngSubmit)="register()" #registerForm="ngForm" [formGroup]="userForm">
+                <ion-row>
+                  <ion-col>
+                    <ion-list inset>
+                      <ion-item>
+                        <ion-input type="text" placeholder="Email" name="email" formControlName="Email"></ion-input>
+                      </ion-item>
+                      <div class='form-text error' *ngIf="userForm.controls.Email.touched">
+                        <ion-label *ngIf="userForm.controls.Email.hasError('required')" no-margin stacked wrap-text>Va rugam introduceti un email</ion-label>
+                        <ion-label *ngIf="!userForm.controls.Email.hasError('required') && !userForm.controls.Email.valid" no-margin stacked wrap-text>Email-ul introdus nu este corect</ion-label>
+                      </div>
+                      <ion-item>
+                        <ion-input type="text" placeholder="Nume utilizator" name="username" formControlName="Username"></ion-input>
+                      </ion-item>
+                      <div class='form-text error' *ngIf="userForm.controls.Username.touched">
+                        <ion-label *ngIf="userForm.controls.Username.hasError('required')" no-margin stacked wrap-text>Va rugam introduceti un nume de utilizator</ion-label>
+                      </div>
+                      <ion-item>
+                        <ion-input type="password" placeholder="Parola" name="password" formControlName="UserPassword"></ion-input>
+                      </ion-item>
+                      <div class='form-text error' *ngIf="userForm.controls.UserPassword.touched">
+                        <ion-label *ngIf="userForm.controls.UserPassword.hasError('required')" no-margin stacked wrap-text>Va rugam introduceti o parola</ion-label>
+                        <ion-label *ngIf="!userForm.controls.UserPassword.hasError('required') && !userForm.controls.UserPassword.valid" no-margin
+                          stacked wrap-text>Parola introdusa trebuie sa contina cel putin 6 caractere, o majuscula si o cifra.</ion-label>
+                      </div>
+                      <ion-item>
+                        <ion-input type="password" placeholder="Confirma parola" name="password-confirm" formControlName="UserConfirmPassword"></ion-input>
+                      </ion-item>
+                      <div class='form-text error' *ngIf="userForm.controls.UserConfirmPassword.touched">
+                        <ion-label *ngIf="userForm.controls.UserConfirmPassword.hasError('required')" no-margin stacked wrap-text>Va rugam introduceti parola</ion-label>
+                        <ion-label *ngIf="!userForm.controls.UserConfirmPassword.hasError('required') && userForm.hasError('mismatchedPasswords') && userForm.controls.UserPassword.valid"
+                          no-margin stacked wrap-text>Parolele introduse trebuie sa corespunda</ion-label>
+                      </div>
+                      <ion-item>
+                        <ion-input type="text" placeholder="Nume" name="name" formControlName="Name"></ion-input>
+                      </ion-item>
+                      <div class='form-text error' *ngIf="userForm.controls.Name.touched">
+                        <ion-label *ngIf="userForm.controls.Name.hasError('required')" no-margin stacked wrap-text>Va rugam introduceti numele</ion-label>
+                      </div>
+                      <ion-item>
+                        <ion-input type="text" placeholder="Prenume" name="surname" formControlName="Prenume"></ion-input>
+                      </ion-item>
+                      <div class='form-text error' *ngIf="userForm.controls.Prenume.touched">
+                        <ion-label *ngIf="userForm.controls.Prenume.hasError('required')" no-margin stacked wrap-text>Va rugam introduceti prenumele</ion-label>
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="signup-col">
+                    <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Inregistrare</button>
+                  </ion-col>
+                </ion-row>
+              </form>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </ion-col>
+    <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+  </ion-row>
+</ion-content>

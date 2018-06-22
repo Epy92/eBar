@@ -1,0 +1,61 @@
+<ion-content *ngIf="userHasRestaurant">
+    <ion-row>
+        <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+        <ion-col col-md-8 col-sm-10>
+            <ion-row>
+                <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+                <ion-col col-md-8 col-sm-10>
+                    <img id="ebar-panel-img" src="assets/imgs/restaurant_config.png" />
+                </ion-col>
+                <ion-col col-md-2 col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+            </ion-row>
+        </ion-col>
+        <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+        <ion-col col-md-8 col-sm-10>
+            <div class="panel ebar-panel">
+                <div class="ebar-panel-heading">
+                    <ion-row>
+                        <ion-col col class="text-center" style="background-color:#1281c8; color:white">
+                            <span>Configurare restaurant</span>
+                        </ion-col>
+                    </ion-row>
+                </div>
+                <div class="panel-body">
+                    <ion-row>
+                        <ion-col col-lg-12>
+                            <ion-row style="height: 10rem;">
+                                <ion-col class="config-rest-info">
+                                    Nu aveti configurat un restaurant. Pentru a incepe configurarea restaurantului dumneavoastra apasati butonul de mai jos.
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col text-center>
+                                    <button ion-button class="rest-config-btn" (click)="beginRestaurantConfig()">Incepe configurarea</button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </div>
+            </div>
+        </ion-col>
+        <ion-col col-md-2 col-sm-1 class="hidden-xs"></ion-col>
+    </ion-row>
+</ion-content>
+
+
+<!-- <ion-card>
+    <ion-card-header>
+        Configurare restaurant
+    </ion-card-header>
+    <ion-card-content>
+        <ion-row class="rest-config-info">
+            Nu aveti configurat un restaurant. Pentru a incepe configurarea restaurantului dumneavoastra apasa pe butonul de mai jos
+        </ion-row>
+        <ion-row class="begin-rest-config">
+            <button ion-button class=".config-rest-btn" (click)="beginRestaurantConfig()">Incepe configurarea</button>
+        </ion-row>
+    </ion-card-content>
+</ion-card> -->

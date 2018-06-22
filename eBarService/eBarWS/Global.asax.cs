@@ -42,7 +42,7 @@ namespace eBarWS
 
         protected void Application_PostAuthorizeRequest()
         {
-            System.Web.HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
+            HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
