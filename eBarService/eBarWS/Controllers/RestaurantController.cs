@@ -238,115 +238,16 @@ namespace eBarWS.Controllers
                     l_rest = _restaurantOperations.GetRestaurantsObjListByGeoCoordinate(lat, longitude, rangeKm, l_rest);
                 }
 
-                #region IOAN_VERSION_REFACTORED
 
-                ////////////// IOAN///////////////////////
-                // Get restaurants by location
-                if (!string.IsNullOrEmpty(location) && (typeId == 0) && (keyword == string.Empty))
-                {
-                    try
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByLocation(location);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Log("GetRestaurantsByLocation_Exception: ", ex.Message);
-                        l_rest = null;
-                    }
-                }
 
-                //get restaurants by name
-                else if ((location == string.Empty) && (typeId == 0) && !string.IsNullOrEmpty(keyword))
-                {
-                    try
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByKeyword(keyword);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Log("GetRestaurantsByName_Exception: ", ex.Message);
-                        l_rest = null;
-                    }
-                }
-                // get restaurants by type
-                else if ((location == string.Empty) && typeId != 0 && (keyword == string.Empty))
-                {
-                    try
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByType(typeId);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Log("GetRestaurantsObjListByType_Exception: ", ex.Message);
-                        l_rest = null;
-                    }
-
-                }
-                //get restaurants by location and name
-                else if (!string.IsNullOrEmpty(location) && (typeId == 0) && !string.IsNullOrEmpty(keyword))
-                {
-                    try
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByLocationAndName(location, keyword);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Log("GetRestaurantsObjListByLocationAndName_Exception: ", ex.Message);
-                        l_rest = null;
-                    }
-                }
-                // get restaurants by location and type
-                else if (location != string.Empty && typeId != 0 && (keyword == string.Empty))
-                {
-                    try
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByLocationAndType(location, typeId);
-                        return JsonConvert.SerializeObject(l_rest);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Log("GetRestaurantsObjListByLocationAndType_Exception: ", ex.Message);
-                        l_rest = null;
-                    }
-                }
-
-                // get restaurants by name and type
-                else if ((location == string.Empty) && typeId != 0 && keyword != string.Empty)
-                {
-                    try
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByNameAndType(keyword, typeId);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Log("GetRestaurantsObjListByNameAndType_Exception: ", ex.Message);
-                        l_rest = null;
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(lat) && !string.IsNullOrEmpty(longitude) && (rangeKm > 0))
-                {
-                    try
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByGeoCoordinate(lat, longitude, rangeKm, l_rest);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Log("GetRestaurantsObjListByGeoCoordinate_Exception: ", ex.Message);
-                        l_rest = null;
-                    }
-                }
+                return JsonConvert.SerializeObject(l_rest);
             }
             catch (Exception ex)
             {
                 _logger.Log("GetRestaurantsByParameters_Exception: ", ex.Message);
-                l_rest = null;
+                return JsonConvert.SerializeObject(null);
             }
-#endregion
-
-            return JsonConvert.SerializeObject(l_rest);
         }
-
         public string Test()
         {
             using (var context = new DBModels.DBModels())
