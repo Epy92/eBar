@@ -1,0 +1,76 @@
+<ion-header class="ebar-header">
+  <ion-navbar>
+    <button ion-button menuToggle class="toggle-menu">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title class="header-logo">
+      <img id="eBarLogo" src="assets/imgs/logo_1.png" (click)="goToHome()" />
+    </ion-title>
+    <ion-buttons style="float:right;">
+      <div class="auth-buttons" #authButtons>
+        <button ion-button class="register-btn" (click)="goToRegister()">Inregistrare restaurant</button>
+        <button ion-button class="login-btn" (click)="goToLogin()">Autentificare</button>
+      </div>
+      <div class="user-data" #userData>
+        <div class="userD">
+          <img id="user-avatar" src="assets/imgs/restaurant_logo.png">
+          <p id="hello-username" #helloUser></p>
+        </div>
+        <div class="user-dropdown">
+          <a (click)="logout()">Delogare</a>
+        </div>
+      </div>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-split-pane when="(min-width: 550px)">
+  <ion-menu [content]="content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="sidebar content-box" style="display: block;">
+        <ul class="nav">
+            <li *ngFor="let p of pages" (click)="openPage(p)">
+                <img src="{{p.icon}}" class="admin-menu-icon">
+                <a href="">{{p.title}}</a>
+            </li>
+
+
+
+            <!-- <li (click)="openPage(6)">
+                <img src="assets/icon/icons8-dashboard-filled-50.png" class="admin-menu-icon">
+                <a href="#">Dashboard</a>
+              </li>
+          <li (click)="openPage(0)">
+            <img src="assets/icon/icons8-restaurant-building-filled-50.png" class="admin-menu-icon">
+            <a href="#">Detalii restaurant</a>
+          </li>
+          <li (click)="openPage(1)">
+            <img src="assets/icon/icons8-reserve-filled-50.png" class="admin-menu-icon">
+            <a href="#">Evenimente</a>
+          </li>
+          <li (click)="openPage(2)">
+            <img src="assets/icon/icons8-restaurant-menu-filled-50.png" class="admin-menu-icon">
+            <a href="#">Categorii Produse</a>
+          </li>
+          <li (click)="openPage(3)">
+            <img src="assets/icon/icons8-meal-filled-50.png" class="admin-menu-icon">
+            <a href="#">Produse</a>
+          </li>
+          <li (click)="openPage(4)">
+            <img src="assets/icon/icons8-camera-filled-50.png" class="admin-menu-icon">
+            <a href="#">Fotografii</a>
+          </li>
+          <li (click)="openPage(5)">
+            <img src="assets/icon/icons8-graph-report-filled-50.png" class="admin-menu-icon">
+            <a href="#">Rapoarte</a>
+          </li> -->
+        </ul>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <ion-split-pane>
+    <ion-nav [root]="rootPage" main #content swipeBackEnabled="false"></ion-nav>
