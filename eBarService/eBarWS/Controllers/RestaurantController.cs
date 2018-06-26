@@ -179,21 +179,33 @@ namespace eBarWS.Controllers
             }
         }
 
-        public string GetRestaurantsByParameters(string keyword, string location, int typeId, string lat, string longitude, int rangeKm)
+        public string GetRestaurantsByParameters(string keyword, string location, string county, string typeIDs, string lat, string longitude, int rangeKm, int nrOfRecordsToSkip)
         {
             List<RestaurantModel> l_rest = null;
             try
             {
-                //if user wants restaurants by location
-                if (!string.IsNullOrEmpty(location))
+                //if user wants restaurants by locality
+                if (!string.IsNullOrEmpty(county))
                 {
                     try
                     {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByLocation(location);
-                        //filter by type if any
-                        if (typeId != 0)
+                        if (!string.IsNullOrEmpty(location))
                         {
-                            l_rest = l_rest.Where(x => x.RestaurantTypeId == typeId).ToList();
+                            // se face cautare dupa judet si dupa localitate
+                            l_rest = _restaurantOperations.GetRestaurantsObjListByLocation(county, location);
+                        }
+                        else
+                        {
+                            // aici se face cautarea doar dupa county (judet)
+                            l_rest = _restaurantOperations.GetRestaurantsObjListByCounty(county);
+                        }
+
+                        //filter by type if any
+                        if (!string.IsNullOrEmpty(typeIDs))
+                        {
+                            l_rest = l_rest.Where(x => typeIDs.Split(';').ToList().Contains(x.RestaurantTypeId.ToString())).ToList();
+
+                            //where(x=> typeIds.Split(";").toList().containts(x=>x.typeId))
                         }
                         //filter by keyword if any
                         if (!string.IsNullOrEmpty(keyword))
@@ -213,9 +225,9 @@ namespace eBarWS.Controllers
                 else if (!string.IsNullOrEmpty(lat) && !string.IsNullOrEmpty(longitude) && rangeKm > 0)
                 {
                     //get by type if any
-                    if (typeId > 0)
+                    if (!string.IsNullOrEmpty(typeIDs))
                     {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByType(typeId);
+                        l_rest = _restaurantOperations.GetRestaurantsObjListByType(typeIDs);
                         //filter by keyword if any
                         if (!string.IsNullOrEmpty(keyword))
                         {
@@ -223,7 +235,7 @@ namespace eBarWS.Controllers
                         }
                     }
                     //get by keyword if any (in this case the type is for sure 0 and no need for filter)
-                    else if (typeId == 0 && !string.IsNullOrEmpty(keyword))
+                    else if (string.IsNullOrEmpty(typeIDs) && !string.IsNullOrEmpty(keyword))
                     {
                         l_rest = _restaurantOperations.GetRestaurantsObjListByKeyword(keyword);
                     }
@@ -238,8 +250,17 @@ namespace eBarWS.Controllers
                     l_rest = _restaurantOperations.GetRestaurantsObjListByGeoCoordinate(lat, longitude, rangeKm, l_rest);
                 }
 
-
-
+                if (l_rest.Count > 10)
+                {
+                    if (nrOfRecordsToSkip > 0)
+                    {
+                        l_rest = l_rest.Skip(nrOfRecordsToSkip).Take(10).ToList();
+                    }
+                    else
+                    {
+                        l_rest = l_rest.Take(10).ToList();
+                    }
+                }
                 return JsonConvert.SerializeObject(l_rest);
             }
             catch (Exception ex)
@@ -248,6 +269,7 @@ namespace eBarWS.Controllers
                 return JsonConvert.SerializeObject(null);
             }
         }
+
         public string Test()
         {
             using (var context = new DBModels.DBModels())

@@ -136,6 +136,7 @@ namespace eBarWS.DatabaseOperations
                                    {
                                        RestaurantName = rest.RestaurantName,
                                        RestaurantCity = restLoc.RestaurantCity,
+                                       RestaurantCounty = restLoc.RestaurantCounty,
                                        RestaurantDescription = details.RestaurantDescription,
                                        RestaurantType = types.TypeName,
                                        ThumbnailBase64String = details.RestaurantThumbnail,
@@ -166,6 +167,7 @@ namespace eBarWS.DatabaseOperations
                                    {
                                        RestaurantName = rest.RestaurantName,
                                        RestaurantCity = restLoc.RestaurantCity,
+                                       RestaurantCounty = restLoc.RestaurantCounty,
                                        RestaurantDescription = details.RestaurantDescription,
                                        RestaurantType = types.TypeName,
                                        ThumbnailBase64String = details.RestaurantThumbnail,
@@ -175,7 +177,7 @@ namespace eBarWS.DatabaseOperations
             }
             catch (Exception ex)
             {
-                
+
             }
 
             return restaurants;
@@ -238,7 +240,7 @@ namespace eBarWS.DatabaseOperations
         //    return restaurants;
         //}
 
-        public List<RestaurantModel> GetRestaurantsObjListByType(int typeid)
+        public List<RestaurantModel> GetRestaurantsObjListByType(string typeIDs)
         {
             List<RestaurantModel> restaurants = null;
             try
@@ -248,11 +250,12 @@ namespace eBarWS.DatabaseOperations
                     restaurants = (from rest in context.Restaurants
                                    from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
                                    from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
-                                   from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId && x.TypeId == typeid).DefaultIfEmpty()
+                                   from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId && x.TypeId.ToString() == typeIDs).DefaultIfEmpty()
                                    select new RestaurantModel()
                                    {
                                        RestaurantName = rest.RestaurantName,
                                        RestaurantCity = restLoc.RestaurantCity,
+                                       RestaurantCounty = restLoc.RestaurantCounty,
                                        RestaurantDescription = details.RestaurantDescription,
                                        RestaurantType = types.TypeName,
                                        ThumbnailBase64String = details.RestaurantThumbnail,
@@ -268,7 +271,7 @@ namespace eBarWS.DatabaseOperations
             return restaurants;
         }
 
-        public List<RestaurantModel> GetRestaurantsObjListByLocation(string location)
+        public List<RestaurantModel> GetRestaurantsObjListByLocation(string county, string location)
         {
             List<RestaurantModel> restaurants = null;
             try
@@ -276,13 +279,46 @@ namespace eBarWS.DatabaseOperations
                 using (var context = new DBModels.DBModels())
                 {
                     restaurants = (from rest in context.Restaurants
-                                   from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantCity == location).DefaultIfEmpty()
+                                   from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantCity == location && x.RestaurantCounty == county).DefaultIfEmpty()
                                    from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
                                    from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
                                    select new RestaurantModel()
                                    {
                                        RestaurantName = rest.RestaurantName,
                                        RestaurantCity = restLoc.RestaurantCity,
+                                       RestaurantCounty = restLoc.RestaurantCounty,
+                                       RestaurantDescription = details.RestaurantDescription,
+                                       RestaurantType = types.TypeName,
+                                       ThumbnailBase64String = details.RestaurantThumbnail,
+                                       RestaurantAddress = restLoc.RestaurantAddress,
+                                       RestaurantTypeId = types.TypeId
+                                   }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return restaurants;
+        }
+
+        public List<RestaurantModel> GetRestaurantsObjListByCounty(string county)
+        {
+            List<RestaurantModel> restaurants = null;
+            try
+            {
+                using (var context = new DBModels.DBModels())
+                {
+                    restaurants = (from rest in context.Restaurants
+                                   from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId && x.RestaurantCounty == county).DefaultIfEmpty()
+                                   from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+                                   from types in context.RestaurantTypes.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
+                                   select new RestaurantModel()
+                                   {
+                                       RestaurantName = rest.RestaurantName,
+                                       RestaurantCity = restLoc.RestaurantCity,
+                                       RestaurantCounty = restLoc.RestaurantCounty,
                                        RestaurantDescription = details.RestaurantDescription,
                                        RestaurantType = types.TypeName,
                                        ThumbnailBase64String = details.RestaurantThumbnail,
@@ -387,10 +423,10 @@ namespace eBarWS.DatabaseOperations
 
         public List<RestaurantModel> GetRestaurantsObjListByGeoCoordinate(string latitude, string longitude, int rangeKm, List<RestaurantModel> restaurants)
         {
-            List <RestaurantModel> restaurantList = new List<RestaurantModel>();
+            List<RestaurantModel> restaurantList = new List<RestaurantModel>();
             var geoCoordinate = new GeoCoordinate(Convert.ToDouble(latitude), Convert.ToDouble(longitude));
-            
-            if(restaurants != null)
+
+            if (restaurants != null)
             {
                 foreach (var restaurant in restaurants)
                 {

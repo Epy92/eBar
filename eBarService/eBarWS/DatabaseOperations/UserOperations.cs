@@ -187,8 +187,7 @@ namespace eBarWS.DatabaseOperations
                                            from restadmin in context.RestaurantAdministrators.Where(x => x.UserID == user.UserID)
                                            where usertype.TypeName == "RestaurantAdministrator"
                                            select new
-                                           {
-                                               user.Name,
+                                           {   user.Name,
                                                usertype.TypeName,
                                                restadmin.RestaurantId
                                            }) != null;

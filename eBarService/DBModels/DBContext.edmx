@@ -4,7 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="eBarDBModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="eBarDBModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CountiesAndCities">
+          <Key>
+            <PropertyRef Name="CountiesAndCitiesID" />
+          </Key>
+          <Property Name="CountiesAndCitiesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Counties" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cities" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Languages">
           <Key>
             <PropertyRef Name="LanguageId" />
@@ -40,6 +48,7 @@
           </Key>
           <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RestaurantCity" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="RestaurantCounty" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Latitude" Type="decimal" Precision="10" Scale="6" Nullable="false" />
           <Property Name="Longitude" Type="decimal" Precision="10" Scale="6" Nullable="false" />
           <Property Name="RestaurantId" Type="int" Nullable="false" />
@@ -90,6 +99,16 @@
           <Property Name="RestaurantId" Type="int" Nullable="false" />
           <Property Name="TypeName" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="UserResetPasswordCodes">
           <Key>
             <PropertyRef Name="UserResetPwdId" />
@@ -118,7 +137,7 @@
           <Property Name="UserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Restauran__Categ__267ABA7A">
+        <Association Name="FK__Restauran__Categ__5FB337D6">
           <End Role="RestaurantProductsCategories" Type="Self.RestaurantProductsCategories" Multiplicity="1" />
           <End Role="RestaurantProducts" Type="Self.RestaurantProducts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -130,7 +149,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__173876EA">
+        <Association Name="FK__Restauran__Resta__29221CFB">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="RestaurantLocations" Type="Self.RestaurantLocations" Multiplicity="*" />
           <ReferentialConstraint>
@@ -142,7 +161,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__1A14E395">
+        <Association Name="FK__Restauran__Resta__534D60F1">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="RestaurantAdministrators" Type="Self.RestaurantAdministrators" Multiplicity="*" />
           <ReferentialConstraint>
@@ -154,7 +173,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__1DE57479">
+        <Association Name="FK__Restauran__Resta__571DF1D5">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="RestaurantTables" Type="Self.RestaurantTables" Multiplicity="*" />
           <ReferentialConstraint>
@@ -166,7 +185,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__20C1E124">
+        <Association Name="FK__Restauran__Resta__59FA5E80">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="RestaurantTypes" Type="Self.RestaurantTypes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -178,7 +197,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__239E4DCF">
+        <Association Name="FK__Restauran__Resta__5CD6CB2B">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="RestaurantProductsCategories" Type="Self.RestaurantProductsCategories" Multiplicity="*" />
           <ReferentialConstraint>
@@ -190,7 +209,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__276EDEB3">
+        <Association Name="FK__Restauran__Resta__60A75C0F">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="RestaurantProducts" Type="Self.RestaurantProducts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -202,7 +221,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__2F10007B">
+        <Association Name="FK__Restauran__Resta__68487DD7">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="RestaurantDetails" Type="Self.RestaurantDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -214,7 +233,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__UserI__1B0907CE">
+        <Association Name="FK__Restauran__UserI__5441852A">
           <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="1" />
           <End Role="RestaurantAdministrators" Type="Self.RestaurantAdministrators" Multiplicity="*" />
           <ReferentialConstraint>
@@ -226,7 +245,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserReset__UserI__2A4B4B5E">
+        <Association Name="FK__UserReset__UserI__6383C8BA">
           <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="1" />
           <End Role="UserResetPasswordCodes" Type="Self.UserResetPasswordCodes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -238,7 +257,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTbl__UserTyp__1273C1CD">
+        <Association Name="FK__UserTbl__UserTyp__4BAC3F29">
           <End Role="UserTypes" Type="Self.UserTypes" Multiplicity="1" />
           <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="*" />
           <ReferentialConstraint>
@@ -251,6 +270,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="eBarDBModelsStoreContainer">
+          <EntitySet Name="CountiesAndCities" EntityType="Self.CountiesAndCities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantAdministrators" EntityType="Self.RestaurantAdministrators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantDetails" EntityType="Self.RestaurantDetails" Schema="dbo" store:Type="Tables" />
@@ -260,56 +280,56 @@
           <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantTables" EntityType="Self.RestaurantTables" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantTypes" EntityType="Self.RestaurantTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserResetPasswordCodes" EntityType="Self.UserResetPasswordCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTbl" EntityType="Self.UserTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTypes" EntityType="Self.UserTypes" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Restauran__Categ__267ABA7A" Association="Self.FK__Restauran__Categ__267ABA7A">
+          <AssociationSet Name="FK__Restauran__Categ__5FB337D6" Association="Self.FK__Restauran__Categ__5FB337D6">
             <End Role="RestaurantProductsCategories" EntitySet="RestaurantProductsCategories" />
             <End Role="RestaurantProducts" EntitySet="RestaurantProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__173876EA" Association="Self.FK__Restauran__Resta__173876EA">
+          <AssociationSet Name="FK__Restauran__Resta__29221CFB" Association="Self.FK__Restauran__Resta__29221CFB">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantLocations" EntitySet="RestaurantLocations" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__1A14E395" Association="Self.FK__Restauran__Resta__1A14E395">
+          <AssociationSet Name="FK__Restauran__Resta__534D60F1" Association="Self.FK__Restauran__Resta__534D60F1">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantAdministrators" EntitySet="RestaurantAdministrators" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__1DE57479" Association="Self.FK__Restauran__Resta__1DE57479">
+          <AssociationSet Name="FK__Restauran__Resta__571DF1D5" Association="Self.FK__Restauran__Resta__571DF1D5">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantTables" EntitySet="RestaurantTables" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__20C1E124" Association="Self.FK__Restauran__Resta__20C1E124">
+          <AssociationSet Name="FK__Restauran__Resta__59FA5E80" Association="Self.FK__Restauran__Resta__59FA5E80">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantTypes" EntitySet="RestaurantTypes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__239E4DCF" Association="Self.FK__Restauran__Resta__239E4DCF">
+          <AssociationSet Name="FK__Restauran__Resta__5CD6CB2B" Association="Self.FK__Restauran__Resta__5CD6CB2B">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantProductsCategories" EntitySet="RestaurantProductsCategories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__276EDEB3" Association="Self.FK__Restauran__Resta__276EDEB3">
+          <AssociationSet Name="FK__Restauran__Resta__60A75C0F" Association="Self.FK__Restauran__Resta__60A75C0F">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantProducts" EntitySet="RestaurantProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__2F10007B" Association="Self.FK__Restauran__Resta__2F10007B">
+          <AssociationSet Name="FK__Restauran__Resta__68487DD7" Association="Self.FK__Restauran__Resta__68487DD7">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantDetails" EntitySet="RestaurantDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__UserI__1B0907CE" Association="Self.FK__Restauran__UserI__1B0907CE">
+          <AssociationSet Name="FK__Restauran__UserI__5441852A" Association="Self.FK__Restauran__UserI__5441852A">
             <End Role="UserTbl" EntitySet="UserTbl" />
             <End Role="RestaurantAdministrators" EntitySet="RestaurantAdministrators" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserReset__UserI__2A4B4B5E" Association="Self.FK__UserReset__UserI__2A4B4B5E">
+          <AssociationSet Name="FK__UserReset__UserI__6383C8BA" Association="Self.FK__UserReset__UserI__6383C8BA">
             <End Role="UserTbl" EntitySet="UserTbl" />
             <End Role="UserResetPasswordCodes" EntitySet="UserResetPasswordCodes" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTbl__UserTyp__1273C1CD" Association="Self.FK__UserTbl__UserTyp__1273C1CD">
+          <AssociationSet Name="FK__UserTbl__UserTyp__4BAC3F29" Association="Self.FK__UserTbl__UserTyp__4BAC3F29">
             <End Role="UserTypes" EntitySet="UserTypes" />
             <End Role="UserTbl" EntitySet="UserTbl" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="eBarDBModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -356,6 +376,7 @@
           <Property Name="RestaurantId" Type="Int32" Nullable="false" />
           <Property Name="RestaurantAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Restaurants" Relationship="Self.FK__Restauran__Resta__173876EA" FromRole="RestaurantLocations" ToRole="Restaurants" />
+          <Property Name="RestaurantCounty" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RestaurantProducts">
           <Key>
@@ -637,7 +658,27 @@
             <End Role="UserTypes" EntitySet="UserTypes" />
             <End Role="UserTbl" EntitySet="UserTbl" />
           </AssociationSet>
+          <EntitySet Name="CountiesAndCities" EntityType="eBarDBModels.CountiesAndCities" />
+          <EntitySet Name="sysdiagrams" EntityType="eBarDBModels.sysdiagrams" />
         </EntityContainer>
+        <EntityType Name="CountiesAndCities">
+          <Key>
+            <PropertyRef Name="CountiesAndCitiesID" />
+          </Key>
+          <Property Name="CountiesAndCitiesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Counties" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cities" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -679,6 +720,7 @@
           <EntitySetMapping Name="RestaurantLocations">
             <EntityTypeMapping TypeName="eBarDBModels.RestaurantLocations">
               <MappingFragment StoreEntitySet="RestaurantLocations">
+                <ScalarProperty Name="RestaurantCounty" ColumnName="RestaurantCounty" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
                 <ScalarProperty Name="RestaurantCity" ColumnName="RestaurantCity" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
@@ -766,6 +808,26 @@
               <MappingFragment StoreEntitySet="UserTypes">
                 <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CountiesAndCities">
+            <EntityTypeMapping TypeName="eBarDBModels.CountiesAndCities">
+              <MappingFragment StoreEntitySet="CountiesAndCities">
+                <ScalarProperty Name="Cities" ColumnName="Cities" />
+                <ScalarProperty Name="Counties" ColumnName="Counties" />
+                <ScalarProperty Name="CountiesAndCitiesID" ColumnName="CountiesAndCitiesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="eBarDBModels.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

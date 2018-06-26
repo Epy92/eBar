@@ -113,3 +113,4 @@ alter column RestaurantThumbnail nvarchar(max);
 
 alter table RestaurantLocations
 add RestaurantAddress nvarchar(300) null;
+add RestaurantCounty nvarchar(200) not null;

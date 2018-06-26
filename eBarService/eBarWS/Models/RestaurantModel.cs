@@ -7,6 +7,7 @@ namespace eBarWS.Models
         public string RestaurantId { get; set; }
         public string RestaurantName { get; set; }
         public string RestaurantCity { get; set; }
+        public string RestaurantCounty { get; set; }
         public int RestaurantTypeId { get; set; }
         public string RestaurantType { get; set; }
         public string RestaurantDescription { get; set; }

@@ -28,6 +28,8 @@
         <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__20C1E124" ManuallyRouted="false" />
         <AssociationConnector Association="eBarDBModels.FK__UserReset__UserI__2A4B4B5E" ManuallyRouted="false" />
         <AssociationConnector Association="eBarDBModels.FK__UserTbl__UserTyp__1273C1CD" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eBarDBModels.CountiesAndCities" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eBarDBModels.sysdiagrams" Width="1.5" PointX="6.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

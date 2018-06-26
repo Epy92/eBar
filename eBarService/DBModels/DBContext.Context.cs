@@ -37,5 +37,7 @@ namespace DBModels
         public virtual DbSet<UserResetPasswordCodes> UserResetPasswordCodes { get; set; }
         public virtual DbSet<UserTbl> UserTbl { get; set; }
         public virtual DbSet<UserTypes> UserTypes { get; set; }
+        public virtual DbSet<CountiesAndCities> CountiesAndCities { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }
