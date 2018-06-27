@@ -25,6 +25,6 @@ namespace eBarWS.Interfaces
         //List<RestaurantModel> GetRestaurantsObjListByLocationAndType(string location,int typeid);
         //List<RestaurantModel> GetRestaurantsObjListByNameAndType(string keyword,int typeid);
         List<RestaurantModel> GetRestaurantsObjListByGeoCoordinate(string lat, string longitude, int rangeKm, List<RestaurantModel> l_rest);
-        List<RestaurantModel> GetRestaurantsObjListByCounty(string county);
+       
     }
 }

@@ -189,16 +189,8 @@ namespace eBarWS.Controllers
                 {
                     try
                     {
-                        if (!string.IsNullOrEmpty(location))
-                        {
-                            // se face cautare dupa judet si dupa localitate
-                            l_rest = _restaurantOperations.GetRestaurantsObjListByLocation(county, location);
-                        }
-                        else
-                        {
-                            // aici se face cautarea doar dupa county (judet)
-                            l_rest = _restaurantOperations.GetRestaurantsObjListByCounty(county);
-                        }
+                        // se face cautare dupa judet si dupa localitate
+                        l_rest = _restaurantOperations.GetRestaurantsObjListByLocation(county, location);
 
                         //filter by type if any
                         if (!string.IsNullOrEmpty(typeIDs))
