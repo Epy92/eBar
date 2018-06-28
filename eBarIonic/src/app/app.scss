@@ -32,8 +32,9 @@ ion-menu{
 
 ion-nav .scroll-content
 {
-    top:10rem !important;
+    // top:2rem !important;
     overflow-y: scroll;
+    height: calc(100vh - 15rem);
 }
 
 .toggle-menu
@@ -405,4 +406,121 @@ a:hover{
     max-width:40%;
     display: block;
     margin: 0 auto;
+}
+
+
+@media(max-width: 575px)
+{
+    .map-pin.location-pin
+    {
+        margin-left: -10rem !important;
+        margin-top: -1% !important;
+        width:15px;
+        height:15px;
+    }
+
+    .map-pin.location-pin::after
+    {
+        margin-left: -4px !important;
+        margin-top: -3px !important;
+        width:6px;
+        height:6px;
+    }
+
+    .rest-card-category
+    {
+        float: left;
+        width: 100%;
+    }
+
+    .toggle-menu
+    {
+        display:block;
+    }
+
+    .hidden-xs{
+        display: none !important;
+    }
+
+    .auth-bottons{
+
+        width: 15rem;
+        margin-top: 3%;
+    }
+    .register-btn{
+        width: 12rem;
+        height:4rem;
+
+        span{
+            font-size: 12px;
+            white-space: normal;
+        }
+    }
+
+    .login-btn{
+        height: 2rem;
+
+        span{
+            font-size: 12px;    
+        }
+    }
+}
+
+@media (max-width: 768px)
+{
+    .map-pin
+    {
+        margin-left: -11rem !important;
+        margin-top: -2% !important;
+    }
+
+    .hr-text p
+    {
+        font-size: 16px !important;
+    }
+
+    .hr-text
+    {
+        height: 2em !important;
+        padding-top: 0.2em !important;
+    }
+}
+
+@media(max-width: 1000px)
+{
+    .map-pin.location-pin
+    {
+        margin-left: -12rem !important;
+        margin-top: -1% !important;
+        width:18px;
+        height:18px;
+    }
+
+    .map-pin.location-pin::after
+    {
+        margin-left: -4px !important;
+        margin-top: -3px !important;
+        width:7px;
+        height:7px;
+    }
+}
+
+@media (max-width: 1200px)
+{
+    .map-pin
+    {
+        margin-left: -13rem;
+        margin-top: -1%;
+    }
+
+    .hr-text p
+    {
+        font-size: 18px !important;
+    }
+
+    .hr-text
+    {
+        height: 2em !important;
+        padding-top: 0.2em !important;
+    }
 }

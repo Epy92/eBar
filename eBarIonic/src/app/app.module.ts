@@ -25,7 +25,8 @@ import { RestaurantDetailsPage } from '../pages/restaurant-details/restaurant-de
 @NgModule({
   declarations: [
     MyApp,
-    IndexPage
+    IndexPage,
+    RestaurantDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -40,8 +41,8 @@ import { RestaurantDetailsPage } from '../pages/restaurant-details/restaurant-de
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    IndexPage
-    //RestaurantDetailsPage
+    IndexPage,
+    RestaurantDetailsPage
   ],
   providers: [
     StatusBar,

@@ -88,9 +88,7 @@ export class MyApp {
   }
 
   openPage(page) {
-    this.nav.push(page.component);
-    
-    //this.rootPage = page.component;
+    this.rootPage = page.component;
   }
 
   goToRegister() {

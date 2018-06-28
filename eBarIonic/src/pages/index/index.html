@@ -3,59 +3,61 @@
     <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpinner="circles" pullingText="Pull to refresh" refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-  <div class="ebar-container">
+  <div class="ebar-container" col-md-10 offset-md-1 col-lg-10 offset-lg-1 col-sm-12>
     <ion-list>
-      <ion-item *ngFor="let restaurant of restaurants" (tap)="showDetails(restaurant)" text-wrap detail-none class="ng-rest-card">
-        <ion-grid>
-          <ion-row>
-            <ion-col col-12 col-md-6>
-              <a class="text-center img-clickable pr-res-img">
-                  <div *ngIf="restaurant.HasThumbnail; else noImageTemplate">
-                      <img src={{restaurant.ThumbnailBase64String}} alt="thumbnail" />
-                  </div>
-                  <ng-template #noImageTemplate>
-                      <img src="assets/imgs/no-thumbnail.png" alt="thumbnail" />
-                  </ng-template>
-              </a>
-            </ion-col>
-            <ion-col col-12 col-md-6 class="rest-details">
-              <ion-row class="text-center" style="margin-top:2rem;">
-                <p class="rest-title">{{restaurant.RestaurantName}}</p>
-              </ion-row>
-              <ion-row class="text-center">
-                <p class="rest-details-text">{{restaurant.RestaurantType}}</p>
-              </ion-row>
-              <ion-row class="text-center hr-text">
-                <p>Detalii</p>
-              </ion-row>
-              <ion-row class="text-center">
-                <p class="rest-details-text text-center">
-                  <ion-icon name="star" *ngFor="let star of restaurantService.getArray(restaurant.rating)"></ion-icon>
-                  {{restaurant.NrOfReviews}} 5 Reviews
-                </p>
-              </ion-row>
-              <ion-row *ngIf="restaurant.RestaurantAddress != null && restaurant.RestaurantCity != null" class="text-center rest-address">
-                <div class="map-pin location-pin"></div>
-                <p class="rest-details-text text-center">{{restaurant.RestaurantAddress}} {{restaurant.RestaurantCity}}</p>
-              </ion-row>
-              <ion-row class="rest-card-categories">
-                <ion-col class="rest-card-category">
-                  <p>Events</p>
-                </ion-col>
-                <ion-col class="rest-card-category">
-                    <p>Images</p>
-                </ion-col>
-                <ion-col class="rest-card-category">
-                    <p>Reviews</p>
-                </ion-col>
-              </ion-row>
-              <ion-row class="text-center rest-full-details">
-                <a>Vezi pagina completa</a>
-              </ion-row>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
+      <ion-card *ngFor="let restaurant of restaurants" (tap)="showDetails(restaurant)"> 
+          <ion-item text-wrap detail-none class="ng-rest-card">
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-12 col-md-6>
+                    <a class="text-center img-clickable pr-res-img">
+                        <div *ngIf="restaurant.HasThumbnail; else noImageTemplate">
+                            <img src={{restaurant.ThumbnailBase64String}} alt="thumbnail" />
+                        </div>
+                        <ng-template #noImageTemplate>
+                            <img src="assets/imgs/no-thumbnail.png" alt="thumbnail" />
+                        </ng-template>
+                    </a>
+                  </ion-col>
+                  <ion-col col-12 col-md-6 class="rest-details">
+                    <ion-row class="text-center" style="margin-top:2rem;">
+                      <p class="rest-title">{{restaurant.RestaurantName}}</p>
+                    </ion-row>
+                    <ion-row class="text-center">
+                      <p class="rest-details-text">{{restaurant.RestaurantType}}</p>
+                    </ion-row>
+                    <ion-row class="text-center hr-text">
+                      <p>Detalii</p>
+                    </ion-row>
+                    <ion-row class="text-center">
+                      <p class="rest-details-text text-center">
+                        <ion-icon name="star" *ngFor="let star of restaurantService.getArray(restaurant.rating)"></ion-icon>
+                        {{restaurant.NrOfReviews}} 5 Reviews
+                      </p>
+                    </ion-row>
+                    <ion-row *ngIf="restaurant.RestaurantAddress != null && restaurant.RestaurantCity != null" class="text-center rest-address">
+                      <div class="map-pin location-pin"></div>
+                      <p class="rest-details-text text-center">{{restaurant.RestaurantAddress}} {{restaurant.RestaurantCity}}</p>
+                    </ion-row>
+                    <ion-row class="rest-card-categories">
+                      <ion-col class="rest-card-category">
+                        <p>Events</p>
+                      </ion-col>
+                      <ion-col class="rest-card-category">
+                          <p>Images</p>
+                      </ion-col>
+                      <ion-col class="rest-card-category">
+                          <p>Reviews</p>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row class="text-center rest-full-details">
+                      <a>Vezi pagina completa</a>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+      </ion-card>
     </ion-list>
   </div>
 </ion-content>

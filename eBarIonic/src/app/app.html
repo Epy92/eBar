@@ -1,6 +1,6 @@
 <ion-header class="ebar-header">
   <ion-navbar>
-    <button ion-button menuToggle class="toggle-menu">
+    <button *ngIf="getSidebarStatus()" ion-button menuToggle class="toggle-menu">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title class="header-logo">
@@ -23,7 +23,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-split-pane when="(min-width: 550px)">
+<ion-split-pane when="(min-width: 575px)">
   <ion-menu [content]="content">
     <ion-header>
       <ion-toolbar>
