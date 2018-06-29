@@ -32,8 +32,9 @@ export class LoginPage {
     this.loginCredentials.password = this.loginFormData.controls.password.value.toString();
     this.userService.login(this.loginCredentials).subscribe(allowed => {
       if (allowed) {
-        this.events.publish('user:logged', Date.now());
+        // this.events.publish('user:logged', Date.now());
         this.nav.push('UserHomepagePage');
+        
         //this.nav.popToRoot();
       } else {
         this.showError("Nu s-a putut face logare! Va rugam verificati datele introduse si incercati din nou.");

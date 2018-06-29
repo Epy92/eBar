@@ -1,22 +1,36 @@
 import { Component } from '@angular/core'
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, Events, Platform } from 'ionic-angular';
 import { EBarServiceProvider } from '../../providers/e-bar-service/e-bar-service';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-index',
   templateUrl: 'index.html',
-  providers: [EBarServiceProvider]
+  providers: [EBarServiceProvider, UserServiceProvider]
 })
 export class IndexPage {
   restaurants: Array<any>;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public restaurantService: EBarServiceProvider) {
+    public restaurantService: EBarServiceProvider, private userService: UserServiceProvider,public events: Events, public platform: Platform) {
   }
 
   ionViewWillEnter() {
-    this.getRestaurants();
+    this.userService.getUser().then(user=>{
+      if(user != null)
+      {
+        this.navCtrl.push("UserHomepagePage");        
+      }
+      else{
+        if(this.platform.is('core') || this.platform.is('mobileweb')) {
+          this.getRestaurants();
+        } else {
+          this.navCtrl.setRoot(LoginPage);
+        }
+      }
+    });   
   }
 
   getRestaurants(refresher?: any) {
@@ -41,6 +55,7 @@ export class IndexPage {
         }
       });
   }
+  
 
   showDetails(details: Object) {
     //this.navCtrl.push(Details, details);

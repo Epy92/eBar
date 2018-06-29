@@ -24,9 +24,7 @@ export interface PageInterface {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   @ViewChild('authButtons') authButtons: ElementRef;
-  @ViewChild('userData') userDataHtml: ElementRef;
   @ViewChild('helloUser') helloUser: ElementRef;
-  //@ViewChild('adminPanel') adminPanel: ElementRef;
 
   rootPage: any = IndexPage;
   userData = null;
@@ -36,29 +34,26 @@ export class MyApp {
   constructor(public platform: Platform, public menu: MenuController, public statusBar: StatusBar, public splashScreen: SplashScreen,
     private userService: UserServiceProvider, public events: Events) {
     this.initializeApp();
+    this.checkUserSession();
 
-    userService.getUser().then(user=>{
-      if(user != null)
-      {
-        this.helloUser.nativeElement.innerText = user.username;
-        this.isUserLogged = true;
-        this.menu.enable(true);
-        this.authButtons.nativeElement.style.display = 'none';
-        this.userDataHtml.nativeElement.style.display = 'block';
-      }
-    });
+    // userService.getUser().then(user=>{
+    //   if(user != null)
+    //   {
+    //     this.helloUser.nativeElement.innerText = user.username;
+    //     this.isUserLogged = true;
+    //     this.menu.enable(true);
+    //     this.authButtons.nativeElement.style.display = 'none';
+    //   }
+    // });
 
-    events.subscribe('user:logged', (time) => {
-      this.authButtons.nativeElement.style.display = 'none';
-      this.userDataHtml.nativeElement.style.display = 'block';
-      
-         userService.getUser().then(user=>{
-          this.helloUser.nativeElement.innerText = user.username;
-          this.isUserLogged = true;
-          this.menu.enable(true);
-        });
-      //this.adminPanel.nativeElement.style.display = 'block';
-    });
+    // events.subscribe('user:logged', (time) => {
+    //   this.authButtons.nativeElement.style.display = 'none';     
+    //      userService.getUser().then(user=>{
+    //       this.helloUser.nativeElement.innerText = user.username;
+    //       this.isUserLogged = true;
+    //       this.menu.enable(true);
+    //     });
+    // });
 
     // set our app's pages
     this.pages = [
@@ -80,6 +75,27 @@ export class MyApp {
       this.splashScreen.hide();
       this.menu.enable(false);
       this.menu.close();
+
+      this.events.subscribe('user:logged', (time) => {
+        this.authButtons.nativeElement.style.display = 'none';
+        this.userService.getUser().then(user => {
+          this.helloUser.nativeElement.innerText = user.username;
+          this.isUserLogged = true;
+          this.menu.enable(true);
+        });
+      });
+    });
+  }
+
+  checkUserSession(){
+    this.userService.getUser().then(user=>{
+      if(user != null)
+      {
+        this.helloUser.nativeElement.innerText = user.username;
+        this.isUserLogged = true;
+        this.menu.enable(true);
+        this.authButtons.nativeElement.style.display = 'none';
+      }
     });
   }
 
@@ -106,10 +122,12 @@ export class MyApp {
   logout() {
     this.userService.logout();
     this.authButtons.nativeElement.style.display = 'block';
-    this.userDataHtml.nativeElement.style.display = 'none';
-    //this.adminPanel.nativeElement.style.display = 'none';
     this.isUserLogged = false;
     this.menu.enable(false);
     this.nav.popToRoot();
+  }
+
+  goToUserProfile(){
+
   }
 }

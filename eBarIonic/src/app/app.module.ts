@@ -5,7 +5,6 @@ import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
-import { IndexPage } from '../pages/index/index';
 import { RestaurantDetailsPageModule } from '../pages/restaurant-details/restaurant-details.module';
  import { RestaurantEventsPage } from '../pages/restaurant-events/restaurant-events';
 

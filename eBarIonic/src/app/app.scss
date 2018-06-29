@@ -3,13 +3,22 @@ ion-navbar{
 }
 .toolbar-content.toolbar-content-md
 {
-    height:100%;
     display:flex;
 }
+
+ion-navbar.toolbar{
+    height:100%;
+}
+
+.toolbar-title
+{
+    width:160px;
+}
+
 #eBarLogo
 {
     // width: 20%;
-    width:160px;
+    width:150px;
 }
 #eBarLogo:hover
 {
@@ -22,7 +31,7 @@ ion-menu .scroll-content
 }
 
 ion-menu{
-    margin-top:10rem;
+    margin-top:8rem;
 }
 
 .split-pane-md.split-pane-visible > .split-pane-side
@@ -47,11 +56,6 @@ ion-nav .scroll-content
     font-size: small;
 }
 
-.toolbar-title
-{
-    width:180px;
-}
-
 .text-center
 {
     text-align: center !important;
@@ -71,6 +75,7 @@ a:hover{
 .ebar-header
 {
     border-bottom: 3px solid #1281c8;
+    height:8rem;
 }
 .bar-buttons-md
 {
@@ -203,20 +208,6 @@ a:hover{
     width:100px;
     max-width: 5em;
 }
-#user-avatar{
-    clear: both;
-    float: left;
-    margin: auto;
-    width: 100%;
-}
-
-#hello-username{
-    clear: both;
-    float: left;
-    text-align: center;
-    width: 100%;
-    margin:auto;
-}
 
 .panou-administrare .sidebar .nav > li > a
 {
@@ -263,130 +254,92 @@ a:hover{
  .content-box-header:after {
    clear:both;
  }
+ .sidebar .item-md.item-block .item-inner{
+     border-bottom: none;
+ }
  
- .sidebar ul.nav, .sidebar ul.nav ul{
+ .sidebar ion-list.nav, .sidebar ion-list.nav ion-list{
      list-style: none;
      padding: 2rem;
      margin: 0px;
  }
  
- .sidebar ul.nav ul {
+ .sidebar ion-list.nav ion-list {
     margin:0px;
     padding:0px;
     display:none;
  }
  
- .sidebar .nav li.open ul{
-    display:block;
- }
- 
- .sidebar .nav > li {
-     margin-top: 1em;
+ .sidebar .nav > ion-item {
+    //  margin-top: 1em;
      border-bottom:1px dashed #eee;
      height:7rem;
  }
+ .item-md ion-avatar[item-left], .item-md [item-left]{
+     margin:0px;
+ }
  
- .sidebar .nav > li:last-child{
+ .sidebar .nav > ion-item:last-child{
     border-bottom:0px;
  }
  
- .sidebar .nav > li li {
+ .sidebar .nav > .item-md h2 {
      margin: 0;
  }
  
- .sidebar .nav > li li a{
+ .sidebar .nav > .item-md h2{
     padding-left:25px;
  }
  
- .sidebar .nav > li > a {
+ .sidebar .nav > .item-md h2 {
      font-size: 14px;
      line-height: 20px;
      padding: 15px 15px;
      color: #999;
      display: block;
-    font-weight:bold;
-    background:none;
+     font-weight:bold;
+     background:none;
      text-decoration: none;
-    border-top:0px;
-    font-weight:bold;
+     border-top:0px;
+     font-weight:bold;
  }
  
- .sidebar .nav > li > a > i{
-    margin-right:5px;
- }
- 
- .sidebar .nav > li > ul > li > a {
-     font-size: 13px;
-     line-height: 20px;
-     padding: 8px 10px 8px 40px;
-     color: #999;
-    background:#fff;
-     display: block;
-     text-decoration: none;
-    border-top:0px;
-    font-weight:bold;
- }
- 
- .sidebar .nav > li > ul > li.active > a{
+//  .sidebar .nav > li > a > i{
+//     margin-right:5px;
+//  }
+
+.sidebar .nav > ion-item.active > .item-md h2 {
     background:#fff;
     border-top:0px;
     color:#555;
- }
+}
+
+.sidebar .nav > ion-item:hover{
+    cursor: pointer;
+}
  
- .sidebar .nav > li > ul > li > a:hover{
+.sidebar .nav > .item-md h2:hover {
     background:#fff;
     color:#0056b3;
     border-bottom:0px;
+    cursor: pointer;
  }
- 
- .sidebar .nav li a:hover, .sidebar .nav li.current > a {
-     background: #fff;
-     color: #0056b3;
-    border-bottom:0px;
- }
- 
- .sidebar .nav li.open > a {
+
+ .item-md ion-avatar[item-left]:hover + .item-inner .input-wrapper .label-md h2
+ {
     background:#fff;
-    color: #0056b3;
-    border-bottom:1px dashed #eee;
- }
- 
- .sidebar .nav a .caret {
-     float: right;
-     width: 0;
-     height: 0;
-     display: inline-block;
-     vertical-align: top;
-     border-top: 4px solid #aaa;
-     border-right: 4px solid transparent;
-     border-left: 4px solid transparent;
-     content: "";
-    margin-top: 8px;
-     margin-left: 2px;
- }
- 
- .sidebar .nav a:hover .caret {
-     border-top-color: #aaa;
+    color:#0056b3;
+    border-bottom:0px;
  }
 
  .sidebar .nav .admin-menu-icon
  {
      margin-right:1em;
      float:left;
+     border-radius: 25%;
+     cursor: pointer;
  }
  
- .sidebar .nav li.open > a > .caret {
-     border-top: none;
-     border-bottom: 4px solid #aaa !important;
-     border-right: 4px solid transparent;
-     border-left: 4px solid transparent;
- }
- 
- .sidebar .nav li.open > a:hover > .caret {
-     border-bottom-color: #aaa;
- }
-
-
  /////////////////  Panel CSS  ////////////////////////////////
  .ebar-panel {
     border-color: #ccc;
@@ -503,6 +456,8 @@ a:hover{
         width:7px;
         height:7px;
     }
+
+
 }
 
 @media (max-width: 1200px)
@@ -524,3 +479,71 @@ a:hover{
         padding-top: 0.2em !important;
     }
 }
+
+
+
+///////////////user profile ///////////
+ #user-avatar{
+    clear: both;
+    float: left;
+    max-width: 8rem;
+    max-height: 8rem;
+    border-radius: 50% !important;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border: 2px solid #1071af;
+}
+
+#hello-username{
+    clear: both;
+    float: left;
+    text-align: center;
+    width: 100%;
+    margin:auto;
+}
+
+  .profile-userpic {
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    img{
+        -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+    }
+  }
+  
+  .profile-usertitle {
+    text-align: center;
+  }
+  
+  .profile-usertitle-name {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .profile-userbuttons {
+    text-align: center;
+      
+    .user-profile-btn{
+        white-space:normal;
+        text-transform: none;
+    }
+
+    .logout-btn{
+        margin-left:1rem;
+        white-space:normal;
+        text-transform: none;
+    }
+  }
+
+  ion-header{
+      height: 16rem;
+  }
+
+  ion-header ion-toolbar
+  {
+      height: 16rem;
+  }
