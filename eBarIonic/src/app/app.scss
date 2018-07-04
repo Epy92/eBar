@@ -43,7 +43,7 @@ ion-nav .scroll-content
 {
     // top:2rem !important;
     overflow-y: scroll;
-    height: calc(100vh - 15rem);
+    height: calc(100vh - 10rem);
 }
 
 .toggle-menu
@@ -262,6 +262,8 @@ a:hover{
      list-style: none;
      padding: 2rem;
      margin: 0px;
+     overflow-y: scroll;
+     height: calc(100vh - 25rem);
  }
  
  .sidebar ion-list.nav ion-list {
@@ -347,6 +349,13 @@ a:hover{
     -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
     box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 }
+
+.ebar-panel .panel-body{
+    padding: 2rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .ebar-panel>.ebar-panel-heading {
     color: #00415d;
     background-color: #fff;
@@ -359,6 +368,31 @@ a:hover{
     max-width:40%;
     display: block;
     margin: 0 auto;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+.control-label{
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.control-label-value{
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+    font-size: 14px;
 }
 
 
@@ -547,3 +581,7 @@ a:hover{
   {
       height: 16rem;
   }
+
+  .toolbar-background-md{
+    background-color: white;   
+}

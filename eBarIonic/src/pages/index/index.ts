@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { NavController, NavParams, Events, Platform } from 'ionic-angular';
 import { EBarServiceProvider } from '../../providers/e-bar-service/e-bar-service';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { LoginPage } from '../login/login';
+import { LoginPage } from '../user-pages/login/login';
 
 @Component({
   selector: 'page-index',

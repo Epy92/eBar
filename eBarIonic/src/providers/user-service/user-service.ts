@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { RequestOptions } from '@angular/http';
-import { Http, Headers } from '@angular/http';
+ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -44,7 +44,8 @@ export class UserServiceProvider {
 
         let headers = new Headers(
           {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin" : "*"
           });
         let options = new RequestOptions({ headers: headers });
 
@@ -66,7 +67,9 @@ export class UserServiceProvider {
               }
             },
             err => {
-              console.log("Error occured");
+              console.log("Error occured:" + err);
+              observer.next(false);
+              observer.complete();
             }
           );
       });
@@ -105,7 +108,8 @@ export class UserServiceProvider {
 
         let headers = new Headers(
           {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin" : "*"
           });
         let options = new RequestOptions({ headers: headers });
 
@@ -122,7 +126,9 @@ export class UserServiceProvider {
               observer.complete();
             },
             err => {
-              console.log("Error occured");
+              console.log("Error occured:" + err);
+              observer.next(false);
+              observer.complete();
             }
           );
       });
