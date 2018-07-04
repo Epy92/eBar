@@ -6,9 +6,12 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 
 import { IndexPage } from '../pages/index/index';
 import { UserHomepagePage } from '../pages/user-homepage/user-homepage';
-import { RegisterPage } from '../pages/register/register';
-import { RestaurantDetailsPage } from '../pages/restaurant-details/restaurant-details';
-import { RestaurantEventsPage } from '../pages/restaurant-events/restaurant-events';
+import { RestaurantDetailsPage } from '../pages/restaurant-pages/restaurant-details/restaurant-details';
+import { RestaurantEventsPage } from '../pages/restaurant-pages/restaurant-events/restaurant-events';
+import {ProductCategoriesPage} from '../pages/restaurant-pages/product-categories/product-categories';
+import {RestaurantProductsPage} from '../pages/restaurant-pages/restaurant-products/restaurant-products';
+import {RestaurantPhotosPage} from '../pages/restaurant-pages/restaurant-photos/restaurant-photos';
+import {RestaurantEmployeesPage} from '../pages/restaurant-pages/restaurant-employees/restaurant-employees';
 
 export interface PageInterface {
   title: string;
@@ -24,9 +27,7 @@ export interface PageInterface {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   @ViewChild('authButtons') authButtons: ElementRef;
-  @ViewChild('userData') userDataHtml: ElementRef;
   @ViewChild('helloUser') helloUser: ElementRef;
-  //@ViewChild('adminPanel') adminPanel: ElementRef;
 
   rootPage: any = IndexPage;
   userData = null;
@@ -36,39 +37,27 @@ export class MyApp {
   constructor(public platform: Platform, public menu: MenuController, public statusBar: StatusBar, public splashScreen: SplashScreen,
     private userService: UserServiceProvider, public events: Events) {
     this.initializeApp();
-
-    userService.getUser().then(user=>{
-      if(user != null)
-      {
+    
+    this.events.subscribe('user:logged', (time) => {
+      this.authButtons.nativeElement.style.display = 'none';
+      this.userService.getUser().then(user => {
         this.helloUser.nativeElement.innerText = user.username;
         this.isUserLogged = true;
         this.menu.enable(true);
-        this.authButtons.nativeElement.style.display = 'none';
-        this.userDataHtml.nativeElement.style.display = 'block';
-      }
+      });
     });
 
-    events.subscribe('user:logged', (time) => {
-      this.authButtons.nativeElement.style.display = 'none';
-      this.userDataHtml.nativeElement.style.display = 'block';
-      
-         userService.getUser().then(user=>{
-          this.helloUser.nativeElement.innerText = user.username;
-          this.isUserLogged = true;
-          this.menu.enable(true);
-        });
-      //this.adminPanel.nativeElement.style.display = 'block';
-    });
+    this.checkUserSession();
 
     // set our app's pages
     this.pages = [
       { title:'Dashboard', component:UserHomepagePage, icon:'assets/icon/icons8-dashboard-filled-50.png' },
       { title: 'Detalii restaurant', component: RestaurantDetailsPage, icon: "assets/icon/icons8-restaurant-building-filled-50.png" },
-      { title: 'Evenimente', component: "EventsPage", icon: "assets/icon/icons8-reserve-filled-50.png" },
-      { title: 'Categorii produse', component: "ProductCategoriesPage", icon: "assets/icon/icons8-restaurant-menu-filled-50.png" },
-      { title: 'Produse', component: "ProductsPage", icon: "assets/icon/icons8-meal-filled-50.png" },
-      { title: 'Fotografii', component: "PhotosPage", icon: "assets/icon/icons8-camera-filled-50.png" },
-      { title: 'Personal restaurant', component: "EmployeesPage", icon: "assets/icon/icons8-people-filled-50.png" },
+      { title: 'Evenimente', component: RestaurantEventsPage, icon: "assets/icon/icons8-reserve-filled-50.png" },
+      { title: 'Categorii produse', component: ProductCategoriesPage, icon: "assets/icon/icons8-restaurant-menu-filled-50.png" },
+      { title: 'Produse', component: RestaurantProductsPage, icon: "assets/icon/icons8-meal-filled-50.png" },
+      { title: 'Fotografii', component: RestaurantPhotosPage, icon: "assets/icon/icons8-camera-filled-50.png" },
+      { title: 'Personal restaurant', component: RestaurantEmployeesPage, icon: "assets/icon/icons8-people-filled-50.png" },
     ];
   }
 
@@ -83,14 +72,25 @@ export class MyApp {
     });
   }
 
+  checkUserSession(){
+    this.userService.getUser().then(user=>{
+      if(user != null)
+      {
+        this.helloUser.nativeElement.innerText = user.username;
+        this.isUserLogged = true;
+        this.menu.enable(true);
+        this.authButtons.nativeElement.style.display = 'none';
+      }
+    });
+  }
+
   getSidebarStatus() {
     return this.isUserLogged;
   }
 
   openPage(page) {
-    this.nav.push(page.component);
-    
     //this.rootPage = page.component;
+    this.nav.push(page.component);
   }
 
   goToRegister() {
@@ -108,10 +108,12 @@ export class MyApp {
   logout() {
     this.userService.logout();
     this.authButtons.nativeElement.style.display = 'block';
-    this.userDataHtml.nativeElement.style.display = 'none';
-    //this.adminPanel.nativeElement.style.display = 'none';
     this.isUserLogged = false;
     this.menu.enable(false);
     this.nav.popToRoot();
+  }
+
+  goToUserProfile(){
+
   }
 }

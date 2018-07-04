@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController,NavParams, LoadingController, Loading, IonicPage } from 'ionic-angular';
-import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @IonicPage()

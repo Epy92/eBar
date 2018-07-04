@@ -1,0 +1,179 @@
+<ion-content>
+    <ion-row *ngIf="viewMode; else editTemplate">
+        <ion-col col-md-1 col-lg-1 class="hidden-xs"></ion-col>
+        <ion-col col-lg-10 col-md-10 col-sm-12>
+            <div class="panel ebar-panel">
+                <div class="ebar-panel-heading">
+                    <ion-row>
+                        <ion-col col class="text-center" style="background-color:#1281c8; color:white">
+                            <span>Detalii restaurant</span>
+                        </ion-col>
+                    </ion-row>
+                </div>
+                <div class="panel-body">
+                    <ion-row>
+                        <ion-col col-lg-8 offset-lg-2>
+                            <ion-row class="form-group">
+                                <ion-label class="control-label" col-lg-12 col-sm-12 col-12 text-center>Poza de profil restaurant:</ion-label>
+                                <div class="text-center img-clickable rest-profile-image" col-lg-8 offset-lg-2 col-md-6 offset-md-3 col-10 offset-1>
+                                    <div *ngIf="restaurant.HasThumbnail; else noImageTemplate">
+                                        <img src={{restaurant.ThumbnailBase64String}} alt="thumbnail" />
+                                    </div>
+                                    <ng-template #noImageTemplate>
+                                        <img style="max-width: 20rem;" src="assets/imgs/no-thumbnail.png" alt="thumbnail" />
+                                    </ng-template>
+                                </div>
+                            </ion-row>
+                            <ion-row class="form-group">
+                                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Nume restaurant:</ion-label>
+                                <ion-label class="control-label-value" col-lg-6 col-sm-12 col-12>{{restaurant.Name}}</ion-label>
+                            </ion-row>
+                            <ion-row class="form-group">
+                                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Descriere:</ion-label>
+                                <ion-label class="control-label-value" col-lg-6 col-sm-12 col-12>{{restaurant.Description}}</ion-label>
+                            </ion-row>
+                            <ion-row class="form-group">
+                                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Tip restaurant:</ion-label>
+                                <ion-label class="control-label-value" col-lg-6 col-sm-12 col-12>{{restaurant.Type}}</ion-label>
+                            </ion-row>
+                            <ion-row class="form-group">
+                                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Judet:</ion-label>
+                                <ion-label class="control-label-value" col-lg-6 col-sm-12 col-12>{{restaurant.County}}</ion-label>
+                            </ion-row>
+                            <ion-row class="form-group">
+                                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Oras:</ion-label>
+                                <ion-label class="control-label-value" col-lg-6 col-sm-12 col-12>{{restaurant.City}}</ion-label>
+                            </ion-row>
+                            <ion-row class="form-group">
+                                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Adresa:</ion-label>
+                                <ion-label class="control-label-value" col-lg-6 col-sm-12 col-12>{{restaurant.Address}}</ion-label>
+                            </ion-row>
+                            <ion-row class="form-group">
+                                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Contact:</ion-label>
+                                <ion-label class="control-label-value" col-lg-6 col-sm-12 col-12>{{restaurant.Contact}}</ion-label>
+                            </ion-row>
+                            <ion-row class="form-group">
+                                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Program:</ion-label>
+                                <ion-label class="control-label-value" col-lg-6 col-sm-12 col-12>{{restaurant.Program}}</ion-label>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col text-center>
+                                    <button ion-button class="rest-config-btn" (click)="editRestaurant()">Editeaza</button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </div>
+            </div>
+        </ion-col>
+        <ion-col col-md-1 col-lg-1 class="hidden-xs"></ion-col>
+    </ion-row>
+    <ng-template #editTemplate>
+        <ion-row>
+            <ion-col col-md-1 col-lg-1 class="hidden-xs"></ion-col>
+            <ion-col col-lg-10 col-md-10 col-sm-12>
+                <div class="panel ebar-panel">
+                    <div class="ebar-panel-heading">
+                        <ion-row>
+                            <ion-col col class="text-center" style="background-color:#1281c8; color:white">
+                                <span>Editeaza restaurant</span>
+                            </ion-col>
+                        </ion-row>
+                    </div>
+                    <div class="panel-body">
+                        <ion-row>
+                            <ion-col class="panel-body-col-content" col-lg-8 offset-lg-2>
+                                <ion-row class="form-group">
+                                    <ion-row col-lg-12 col-md-12 col-sm-12 col-12>
+                                        <ion-label text-center class="control-label">Poza de profil restaurant:</ion-label>
+                                    </ion-row>
+                                    <ion-row col-lg-12 col-md-12 col-sm-12 col-12>
+                                        <ion-col class="input-group file-preview" col-12 col-sm-12 col-md-12 col-lg-12>
+                                            <input placeholder="" #filePreview type="text" class="file-preview-filename" disabled="disabled" col-lg-6 col-md-12 col-sm-12 col-12>
+                                            <ion-col class="input-group-btn" col-lg-3 col-md-8 col-sm-12>
+                                                <button (click)="removeFile()" #clearImageButton ion-button color="light" type="button" class="file-preview-clear" style="display:none;">
+                                                    <ion-icon name="remove-circle"></ion-icon>
+                                                    Sterge
+                                                </button>
+                                                <button #searchImageButton ion-button color="light" class="file-preview-input">
+                                                    <ion-icon name="folder-open" style="margin-right: 10px;"></ion-icon>
+                                                    <span class="file-preview-input-title">Cauta</span>
+                                                    <input type="file" #fileInput (change)="fileUpload($event)" accept="text/cfg" name="input-file-preview" />
+                                                </button>
+                                                <button ion-button type="button" class="btn btn-labeled">
+                                                    <span class="btn-label">
+                                                        <ion-icon name="cloud-upload" style="margin-right: 10px;"></ion-icon>
+                                                    </span>Incarca</button>
+                                            </ion-col>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-row>
+                                <ion-row class="form-group">
+                                    <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Nume restaurant:</ion-label>
+                                    <input [(ngModel)]="restaurant.Name" col-lg-6 class="form-control control-input-value" type="text" value="{{restaurant?.Name}}">
+                                </ion-row>
+                                <ion-row class="form-group">
+                                    <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Descriere:</ion-label>
+                                    <textarea [(ngModel)]="restaurant.Description" col-lg-6 class="form-control control-input-value rest-description" type="text"
+                                        value="{{restaurant?.Description}}"></textarea>
+                                </ion-row>
+                                <ion-row class="form-group">
+                                    <ion-col col-lg-4 col-sm-12 col-12>
+                                        <ion-label class="control-label">Tip restaurant:</ion-label>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-select col-lg-4 col-sm-12 col-12>
+                                            <ion-option *ngFor="let restType of restaurantTypes" value="{{restType.id}}">{{restType.value}}</ion-option>
+                                        </ion-select>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="form-group">
+                                    <ion-col col-lg-4 col-sm-12 col-12>
+                                        <ion-label class="control-label">Judet:</ion-label>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-select [(ngModel)]="county" col-lg-4 col-md-6 col-sm-12 col-12>
+                                            <ion-option *ngFor="let county of counties" value="{{county.id}}">
+                                                {{county.value}}
+                                            </ion-option>
+                                        </ion-select>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="form-group">
+                                    <ion-col col-lg-4 col-sm-12 col-12>
+                                        <ion-label class="control-label">Oras:</ion-label>
+                                    </ion-col>
+                                    <ion-col>
+                                        <ion-select [(ngModel)]="city" col-lg-4 col-md-6 col-sm-12 col-12>
+                                            <ion-option *ngFor="let city of getCitiesByCounty()" value="{{city.id}}">
+                                                {{city.value}}
+                                            </ion-option>
+                                        </ion-select>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="form-group">
+                                    <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Adresa:</ion-label>
+                                    <input [(ngModel)]="restaurant.Address" col-lg-6 class="form-control control-input-value" type="text" value="{{restaurant?.Address}}">
+                                </ion-row>
+                                <ion-row class="form-group">
+                                    <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Contact:</ion-label>
+                                    <input [(ngModel)]="restaurant.Contact" col-lg-6 class="form-control control-input-value" type="text" value="{{restaurant?.Contact}}">
+                                </ion-row>
+                                <ion-row class="form-group">
+                                    <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Program:</ion-label>
+                                    <input [(ngModel)]="restaurant.Program" col-lg-6 class="form-control control-input-value" type="text" value="{{restaurant?.Program}}">
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col text-center>
+                                        <button ion-button class="rest-config-btn" (click)="saveRestaurant()">Salveaza</button>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-col>
+                        </ion-row>
+                    </div>
+                </div>
+            </ion-col>
+            <ion-col col-md-1 col-lg-1 class="hidden-xs"></ion-col>
+        </ion-row>
+    </ng-template>
+</ion-content>

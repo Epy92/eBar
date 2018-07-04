@@ -26,7 +26,8 @@ export class UserHomepagePage {
   }
 
   beginRestaurantConfig() {
-    this.navCtrl.push("RestaurantDetailsPage");
+    this.navCtrl.push("RestaurantDetailsPage", {pageMode: 'Edit'});
+    // this.navCtrl.setRoot(this.navCtrl.getActive().component, {pageMode: 'Edit'});
   }
   
   showError(text) {

@@ -7,7 +7,7 @@ import { RestaurantDetailsPage } from './restaurant-details';
     RestaurantDetailsPage,
   ],
   imports: [
-    IonicPageModule.forChild(RestaurantDetailsPage),
+    IonicPageModule.forChild(RestaurantDetailsPage)
   ],
 })
 export class RestaurantDetailsPageModule {}
