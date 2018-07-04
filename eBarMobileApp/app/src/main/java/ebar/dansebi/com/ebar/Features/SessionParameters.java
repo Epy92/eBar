@@ -2,40 +2,16 @@ package ebar.dansebi.com.ebar.Features;
 
 import java.util.ArrayList;
 
-import ebar.dansebi.com.ebar.Objects.MenuProduct;
-
 /**
  * Created by sebas on 7/26/2017.
  */
 
 public class SessionParameters {
-    private static SQLiteDB myDB;
-    private static ArrayList<MenuProduct> barMenu = new ArrayList<MenuProduct>();
-    public static ArrayList<MenuProduct> shoppingCart = new ArrayList<MenuProduct>();
+    private static String sessionKey;
+    private static int languageCode;
     private static String currentBarname;
     private static boolean sendDeviceTokenToServerIsRunning, timerForSendingDevTokenToServerIsRunning, getAndroidLocationGranted;
 
-
-    public static SQLiteDB getMyDB() {
-        return myDB;
-    }
-
-    public static void setMyDB(SQLiteDB _myDB) {
-        myDB = _myDB;
-    }
-
-
-    public static ArrayList<MenuProduct> getBarMenu() {
-        return barMenu;
-    }
-
-    public static void setBarMenu(ArrayList<MenuProduct> barMenu) {
-        SessionParameters.barMenu = barMenu;
-    }
-
-    public static void addProductToBarMenu(MenuProduct menuProduct){
-        barMenu.add(menuProduct);
-    }
 
     public static String getCurrentBarname() {
         return currentBarname;
@@ -69,12 +45,19 @@ public class SessionParameters {
         SessionParameters.getAndroidLocationGranted = getAndroidLocationGranted;
     }
 
-
-    public static ArrayList<MenuProduct> getShoppingCart() {
-        return shoppingCart;
+    public static int getLanguageCode() {
+        return languageCode;
     }
 
-    public static void setShoppingCart(ArrayList<MenuProduct> shoppingCart) {
-        SessionParameters.shoppingCart = shoppingCart;
+    public static void setLanguageCode(int languageCode) {
+        SessionParameters.languageCode = languageCode;
+    }
+
+    public static String getSessionKey() {
+        return sessionKey;
+    }
+
+    public static void setSessionKey(String sessionKey) {
+        SessionParameters.sessionKey = sessionKey;
     }
 }

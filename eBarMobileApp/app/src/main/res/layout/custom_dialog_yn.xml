@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_black"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tvTitleDialogTemplateYNMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15sp"
+        android:text="Title"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMessageDialogTemplateYNMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitleDialogTemplateYNMode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="25sp"
+        android:layout_marginRight="25sp"
+        android:layout_marginTop="15sp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Message"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/llSeparatorDialogTemplateYNMode"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:layout_below="@+id/tvMessageDialogTemplateYNMode"
+        android:layout_marginTop="15sp"
+        android:alpha="0.2"
+        android:background="@color/darkGrey"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llSeparatorDialogTemplateYNMode"
+        android:weightSum="100">
+
+        <Button
+            android:id="@+id/btnNoDialogTemplateYNMode"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_weight="50"
+            android:background="@color/transparent"
+            android:text="NO"
+            android:textColor="@android:color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="1sp"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:background="@color/darkGrey"
+            android:orientation="horizontal" />
+
+        <Button
+            android:id="@+id/btnYesDialogTemplateYNMode"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_weight="50"
+            android:background="@color/transparent"
+            android:text="YES"
+            android:textColor="@android:color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>
+

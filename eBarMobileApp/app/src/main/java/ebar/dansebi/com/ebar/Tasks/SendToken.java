@@ -3,19 +3,12 @@ package ebar.dansebi.com.ebar.Tasks;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import org.kobjects.base64.Base64;
-import org.ksoap2.HeaderProperty;
-import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 
-import java.util.ArrayList;
 import java.util.Timer;
 
 import ebar.dansebi.com.ebar.Features.MySharedPreferences;
 import ebar.dansebi.com.ebar.Features.SessionParameters;
-import ebar.dansebi.com.ebar.Objects.CONNECTION_SETTINGS;
 
 /**
  * Created by sebas on 7/28/2017.
@@ -47,7 +40,7 @@ public class SendToken extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
 
-//        CONNECTION_SETTINGS myConnSettings = MySharedPreferences.getConnectionSettings(context);
+//        ConnectionSettings myConnSettings = MySharedPreferences.getConnectionSettings(context);
 //        //myConnSettings.setMETHOD_NAME("RegisterOrUpdateUser");
 //
 //     //   final SoapObject request = new SoapObject(myConnSettings.getNAMESPACE(), myConnSettings.getMETHOD_NAME());
