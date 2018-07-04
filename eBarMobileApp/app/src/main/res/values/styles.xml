@@ -1,12 +1,12 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="StartActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="colorPrimary">@color/lightRed</item>
+        <item name="colorPrimaryDark">@color/lightRed</item>
+        <item name="colorAccent">@color/turqoise</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/statusBarColor</item>
     </style>
 
     <style name="ProgressDialogTransparentBackground" parent="android:Theme.Holo.Dialog">
@@ -47,5 +47,15 @@
         <item name="colorAccent">@color/whiteTextColor</item>
         <item name="colorControlNormal">@color/whiteTextColor</item>
         <item name="colorControlActivated">@color/lightGreyTextColor</item>
+    </style>
+
+    <style name="textInputLayoutBlackTheme" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/black</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/darkGrey</item>
     </style>
 </resources>

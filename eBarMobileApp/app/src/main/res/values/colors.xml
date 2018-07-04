@@ -8,7 +8,12 @@
     <color name="actionBarColor2">#00217e</color>
     <color name="actionBarColor">#000000</color>
     <color name="whiteTextColor">#e2e2e2</color>
+    <color name="white">#FFF</color>
     <color name="lightGreyTextColor">#c6c6c6</color>
+    <color name="lighterGrey">#efefef</color>
+    <color name="greyTextColor">#bfbfbf</color>
+    <color name="darkGrey">#606060</color>
     <color name="lightRed">#E3135E</color>
     <color name="turqoise">#02B5CF</color>
+    <color name="black">#000</color>
 </resources>

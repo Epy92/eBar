@@ -8,8 +8,9 @@ import java.util.TimerTask;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import ebar.dansebi.com.ebar.Objects.CONNECTION_SETTINGS;
-import ebar.dansebi.com.ebar.Objects.SMARTPHONE_DETAILS;
+import ebar.dansebi.com.ebar.Services.CallWsHelper.ConnectionSettings;
+import ebar.dansebi.com.ebar.Objects.SmartphoneDetails;
+import ebar.dansebi.com.ebar.Objects.User;
 
 /**
  * Created by sebas on 7/27/2017.
@@ -17,8 +18,8 @@ import ebar.dansebi.com.ebar.Objects.SMARTPHONE_DETAILS;
 
 public class MySharedPreferences {
 
-    public static SMARTPHONE_DETAILS getSmartphoneDetails(Context m_context) {
-        SMARTPHONE_DETAILS sd = new SMARTPHONE_DETAILS();
+    public static SmartphoneDetails getSmartphoneDetails(Context m_context) {
+        SmartphoneDetails sd = new SmartphoneDetails();
         SharedPreferences sharedpreferences = m_context.getSharedPreferences("PUSH_NOTIFICATIONS", Context.MODE_PRIVATE);
         try {
             sd.setDeviceToken(sharedpreferences.getString("DEVICE_TOKEN", null));
@@ -68,8 +69,8 @@ public class MySharedPreferences {
                         new Thread() {
                             @Override
                             public void run() {
-                             //   SendToken login = new LoginTask(Start.context, sharedpreferences.getString("DEVICE_TOKEN", null), sharedpreferences.getString("UUID", null), timer);
-                           //     login.execute();
+                                //   SendToken login = new LoginTask(StartActivity.context, sharedpreferences.getString("DEVICE_TOKEN", null), sharedpreferences.getString("UUID", null), timer);
+                                //     login.execute();
                             }
                         }.start();
                     }
@@ -107,11 +108,13 @@ public class MySharedPreferences {
     }
 
     public static void setConnectionSettings(Context m_context) {
-        SharedPreferences mySharedPreferences = m_context.getSharedPreferences("CONNECTION_SETTINGS", Context.MODE_PRIVATE);
+        SharedPreferences mySharedPreferences = m_context.getSharedPreferences("ConnectionSettings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mySharedPreferences.edit();
 
         try {
-            editor.putString("WEBSERVICE", "http://192.168.100.105/eBarService/ServiceEbar.svc/");
+            editor.putString("WEBSERVICE_ADDRESS", "http://192.168.100.107/eBarWS/api/");
+            editor.putString("USER_SERVICE", "UserSession/");
+            editor.putString("RESTAURANT_SERVICE", "Restaurant/");
             editor.putString("USERNAME", "admin");
             editor.putString("PASSWORD", "admin");
 
@@ -121,22 +124,90 @@ public class MySharedPreferences {
         }
     }
 
-    public static CONNECTION_SETTINGS getConnectionSettings(Context m_context) {
-        CONNECTION_SETTINGS connection_settings = new CONNECTION_SETTINGS();
-        SharedPreferences mySharedPreferences = m_context.getSharedPreferences("CONNECTION_SETTINGS", Context.MODE_PRIVATE);
+    public static ConnectionSettings getConnectionSettings(Context m_context) {
+        ConnectionSettings connectionSettings = new ConnectionSettings();
+        SharedPreferences mySharedPreferences = m_context.getSharedPreferences("ConnectionSettings", Context.MODE_PRIVATE);
         try {
-            if (mySharedPreferences.getString("WEBSERVICE", null) == null)
+            if (mySharedPreferences.getString("WEBSERVICE_ADDRESS", null) == null)
                 setConnectionSettings(m_context);
 
-            connection_settings.setWsAddress(mySharedPreferences.getString("WEBSERVICE", null));
-            connection_settings.setWsUsername(mySharedPreferences.getString("USERNAME", null));
-            connection_settings.setWsPassword(mySharedPreferences.getString("PASSWORD", null));
+            connectionSettings.setWsAddress(mySharedPreferences.getString("WEBSERVICE_ADDRESS", null));
+            connectionSettings.setWsUsersSrv(mySharedPreferences.getString("USER_SERVICE", null));
+            connectionSettings.setWsRestaurantSrv(mySharedPreferences.getString("RESTAURANT_SERVICE", null));
+            connectionSettings.setWsUsername(mySharedPreferences.getString("USERNAME", null));
+            connectionSettings.setWsPassword(mySharedPreferences.getString("PASSWORD", null));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return connection_settings;
+        return connectionSettings;
     }
 
+    public static boolean isLanguageSet(Context m_context) {
+        SharedPreferences m_langPref = m_context.getSharedPreferences("LanguageSettings", Context.MODE_PRIVATE);
+        try {
+            if (m_langPref.getString("LANGUAGE", null) == null) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void setDefaultLanguage(Context m_context) {
+        SharedPreferences l_langPref = m_context.getSharedPreferences("LanguageSettings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor l_langEditor = l_langPref.edit();
+        String l_prefLang = "ro";
+        try {
+            l_prefLang = m_context.getResources().getConfiguration().locale.getLanguage();
+            l_langEditor.putString("LANGUAGE", l_prefLang);
+            l_langEditor.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getDefaultLanguage(Context m_context) {
+        SharedPreferences l_langPref = m_context.getSharedPreferences("LanguageSettings", Context.MODE_PRIVATE);
+        try {
+            return l_langPref.getString("LANGUAGE", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static User getLoggedInUser(Context context) {
+        User l_user = new User();
+        SharedPreferences l_sharedPref = context.getSharedPreferences("LOGGEDINUSER", Context.MODE_PRIVATE);
+        try {
+            if (l_sharedPref.getString("USERNAME", null) == null) {
+                return null;
+            }
+            l_user.setUsername(l_sharedPref.getString("USERNAME", null));
+            l_user.setUserPassword(l_sharedPref.getString("PASSWORD", null));
+            return l_user;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void setLoggedInUser(User user, Context context) {
+        SharedPreferences l_sharedPref = context.getSharedPreferences("LOGGEDINUSER", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = l_sharedPref.edit();
+
+        try {
+            editor.putString("USERNAME", user.getUsername());
+            editor.putString("PASSWORD", user.getUserPassword());
+
+            editor.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
