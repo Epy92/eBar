@@ -96,9 +96,6 @@
     <Compile Include="RestaurantTypes.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>DBContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="UserResetPasswordCodes.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
@@ -110,7 +107,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="DBContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DBContext.Designer.cs</LastGenOutput>

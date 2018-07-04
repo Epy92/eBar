@@ -4,32 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="49b90da769604304829260bca19b22ee" Name="Diagram1">
-        <EntityTypeShape EntityType="eBarDBModels.Languages" Width="1.5" PointX="8.375" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.RestaurantAdministrators" Width="1.5" PointX="3.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.RestaurantDetails" Width="1.5" PointX="10.5" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.RestaurantLocations" Width="1.5" PointX="10.125" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.RestaurantProducts" Width="1.5" PointX="2.875" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.RestaurantProductsCategories" Width="1.5" PointX="5.375" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.Restaurants" Width="1.5" PointX="6.375" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.RestaurantTables" Width="1.5" PointX="8.375" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.RestaurantTypes" Width="1.5" PointX="8" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.UserResetPasswordCodes" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.UserTbl" Width="1.5" PointX="3.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="eBarDBModels.UserTypes" Width="1.5" PointX="1.5" PointY="4.125" IsExpanded="true" />
-        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__1A14E395" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__Restauran__UserI__1B0907CE" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__2F10007B" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__173876EA" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__Restauran__Categ__267ABA7A" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__276EDEB3" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__239E4DCF" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__1DE57479" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__20C1E124" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__UserReset__UserI__2A4B4B5E" ManuallyRouted="false" />
-        <AssociationConnector Association="eBarDBModels.FK__UserTbl__UserTyp__1273C1CD" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="eBarDBModels.CountiesAndCities" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="eBarDBModels.sysdiagrams" Width="1.5" PointX="6.75" PointY="0.75" />
+      <Diagram DiagramId="49b90da769604304829260bca19b22ee" Name="Diagram1" ZoomLevel="66">
+        <EntityTypeShape EntityType="eBarDBModels.CountiesAndCities" Width="1.5" PointX="13.375" PointY="3.125" />
+        <EntityTypeShape EntityType="eBarDBModels.Languages" Width="1.5" PointX="15.5" PointY="0.75" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantAdministrators" Width="2.5" PointX="9.5" PointY="4.625" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantDetails" Width="1.5" PointX="7.875" PointY="11.875" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantLocations" Width="1.5" PointX="13.75" PointY="5.75" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantProducts" Width="1.5" PointX="13.875" PointY="8.5" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantProductsCategories" Width="1.5" PointX="12.875" PointY="12.625" />
+        <EntityTypeShape EntityType="eBarDBModels.Restaurants" Width="1.5" PointX="10.125" PointY="7.875" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantTables" Width="1.5" PointX="5.5" PointY="5.25" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantTypes" Width="2.125" PointX="5.375" PointY="8.5" />
+        <EntityTypeShape EntityType="eBarDBModels.UserResetPasswordCodes" Width="1.5" PointX="13.375" PointY="0.5" />
+        <EntityTypeShape EntityType="eBarDBModels.UserTbl" Width="1.5" PointX="10.25" PointY="0.625" />
+        <EntityTypeShape EntityType="eBarDBModels.UserTypes" Width="1.5" PointX="6.875" PointY="0.5" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__1A14E395" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__UserI__1B0907CE" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__2F10007B" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__173876EA" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Categ__267ABA7A" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__276EDEB3" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__239E4DCF" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__1DE57479" />
+        <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__20C1E124" />
+        <AssociationConnector Association="eBarDBModels.FK__UserReset__UserI__2A4B4B5E" />
+        <AssociationConnector Association="eBarDBModels.FK__UserTbl__UserTyp__1273C1CD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
