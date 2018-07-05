@@ -1,3 +1,27 @@
-<ion-content padding>
-<span>TEST</span>
+<ion-content>
+    <ion-row>
+        <div col-xs-12 offset-sm-2 col-sm-8 offset-md-3 offset-lg-3 col-lg-6 col-md-6>
+          <ion-list class="event-list">
+            <ion-item *ngFor="let event of events">
+              <time datetime="{{event.StartDate}}">
+							    <span class="day">{{event.Day}}</span>
+							    <span class="month">{{event.Month}}</span>
+							    <span class="year">{{event.Year}}</span>
+							    <span class="time">{{event.Time}}</span>
+						  </time>
+              <ion-col col-12 col-md-6>
+                <a class="text-center img-clickable">
+                    <div *ngIf="event.HasThumbnail">
+                        <img src={{event.RestaurantThumbnail}} alt="thumbnail" />
+                    </div>
+                </a>
+              </ion-col>
+						<div class="info">
+							<h2 class="title">{{event.EventTitle}}</h2>
+							<p class="desc">{{event.EventDescription}}</p>
+						</div>
+            </ion-item>
+          </ion-list>
+        </div>
+    </ion-row>
 </ion-content>
