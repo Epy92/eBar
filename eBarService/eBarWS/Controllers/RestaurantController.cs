@@ -271,5 +271,34 @@ namespace eBarWS.Controllers
                 return JsonConvert.SerializeObject(productMapped);
             }
         }
+
+        public string GetRestarantEvents(int restaurantId)
+        {
+            //todo implement: get data from database, now is hardcoded
+
+            List<RestaurantEvent> events = new List<RestaurantEvent>();
+            RestaurantEvent resEvent = new RestaurantEvent()
+            {
+                    RestaurantId = 1,
+                    EventId = 1,
+                    EventDescription = "Happy hour: In fiecare zi intre orele 12-14 avem meniul zile la doar 15 lei",
+                    EventTitle = "Happy hour Restaurant OK",
+                    HasThumbnail = false
+            };
+            events.Add(resEvent);
+            RestaurantEvent resEvent2 = new RestaurantEvent()
+            {
+                RestaurantId = 2,
+                EventDescription = "Oferta familly: In fiecare weekend pizza familly la 20 lei",
+                EventTitle = "Pizza fammilly - 20 lei",
+                HasThumbnail = false,
+                EventStartDate = DateTime.Now,
+                EventEndDate = DateTime.Now.AddMonths(1),
+                EventId = 2
+            };
+            events.Add(resEvent2);
+
+            return JsonConvert.SerializeObject(events);
+        }
     }
 }
