@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>eBarWS</RootNamespace>
     <AssemblyName>eBarWS</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -24,6 +24,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,15 +82,15 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.3.1\lib\net40\Swashbuckle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Device" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
@@ -112,8 +113,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
@@ -127,13 +126,13 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -155,40 +154,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Controllers\UserSessionController.cs" />
-    <Compile Include="DatabaseOperations\CategoryOperations.cs" />
-    <Compile Include="DatabaseOperations\ProductOperations.cs" />
-    <Compile Include="DatabaseOperations\RestaurantOperations.cs" />
-    <Compile Include="DatabaseOperations\UserOperations.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Interfaces\ICategoryOperations.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
-    <Compile Include="Interfaces\IProductOperations.cs" />
-    <Compile Include="Interfaces\IRestaurantOperations.cs" />
-    <Compile Include="Interfaces\IUserOperations.cs" />
-    <Compile Include="Models\LanguagesModel.cs" />
-    <Compile Include="Models\RestaurantAdministratorsModel.cs" />
-    <Compile Include="Models\RestaurantDetailsModel.cs" />
-    <Compile Include="Models\RestaurantEvent.cs" />
-    <Compile Include="Models\RestaurantLocationsModel.cs" />
-    <Compile Include="Models\RestaurantProductsCategoriesModel.cs" />
-    <Compile Include="Models\RestaurantProductsModel.cs" />
-    <Compile Include="Models\RestaurantTablesModel.cs" />
-    <Compile Include="Models\RestaurantTypesModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
-    <Compile Include="Models\UserResetPasswordCodesModel.cs" />
-    <Compile Include="Models\UserTypesModel.cs" />
     <Compile Include="Utils\eBarAuth.cs" />
     <Compile Include="Utils\Logger.cs" />
-    <Compile Include="Messages\CategoryMessages.cs" />
-    <Compile Include="Messages\ProductMessages.cs" />
-    <Compile Include="Messages\RestaurantMessages.cs" />
-    <Compile Include="Messages\UserMessages.cs" />
-    <Compile Include="Models\ResponseDataModel.cs" />
-    <Compile Include="Models\RestaurantModel.cs" />
-    <Compile Include="Models\SessionResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,9 +179,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBModels\DBModels.csproj">
+    <ProjectReference Include="..\eBarDatabase\eBarDatabase.csproj">
       <Project>{d05fd8c2-b8a3-4e26-9afd-fab580e2d651}</Project>
-      <Name>DBModels</Name>
+      <Name>eBarDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModelsEbar\ViewModelsEbar.csproj">
+      <Project>{f71cd2ca-b62a-486e-b836-4212ec21b869}</Project>
+      <Name>ViewModelsEbar</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

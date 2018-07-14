@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using DBModels;
-using eBarWS.Models;
+using eBarDatabase;
+using ViewModels;
 
 namespace eBarWS.App_Start
 {

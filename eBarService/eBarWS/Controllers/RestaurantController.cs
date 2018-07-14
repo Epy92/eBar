@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Web.Http;
-using DBModels;
-using eBarWS.Interfaces;
-using eBarWS.Models;
-using eBarWS.Utils;
 using Newtonsoft.Json;
 using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Routing;
+using eBarWS.Interfaces;
+using eBarDatabase;
+using eBarWS.Utils;
+using ViewModels;
 
 namespace eBarWS.Controllers
 {
@@ -262,16 +261,6 @@ namespace eBarWS.Controllers
             }
         }
 
-        public string Test()
-        {
-            using (var context = new DBModels.DBModels())
-            {
-                var product = context.RestaurantProducts.FirstOrDefault(x => x.ProductId == 2);
-                var productMapped = Mapper.Map<RestaurantProducts, RestaurantProductsModel>(product);
-                return JsonConvert.SerializeObject(productMapped);
-            }
-        }
-
         public string GetRestarantEvents(int restaurantId)
         {
             //todo implement: get data from database, now is hardcoded
@@ -283,7 +272,6 @@ namespace eBarWS.Controllers
                     EventId = 1,
                     EventDescription = "Happy hour: In fiecare zi intre orele 12-14 avem meniul zile la doar 15 lei",
                     EventTitle = "Happy hour Restaurant OK",
-                    HasThumbnail = false
             };
             events.Add(resEvent);
             RestaurantEvent resEvent2 = new RestaurantEvent()
@@ -291,7 +279,6 @@ namespace eBarWS.Controllers
                 RestaurantId = 2,
                 EventDescription = "Oferta familly: In fiecare weekend pizza familly la 20 lei",
                 EventTitle = "Pizza fammilly - 20 lei",
-                HasThumbnail = false,
                 EventStartDate = DateTime.Now,
                 EventEndDate = DateTime.Now.AddMonths(1),
                 EventId = 2

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Web;
 using System.Web.Http;
-using DBModels;
 using eBarWS.Interfaces;
-using eBarWS.Messages;
-using eBarWS.Models;
 using Newtonsoft.Json;
 using eBarWS.Utils;
+using eBarDatabase;
+using ViewModels;
 
 namespace eBarWS.Controllers
 {

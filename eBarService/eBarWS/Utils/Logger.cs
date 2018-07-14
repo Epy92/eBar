@@ -6,7 +6,7 @@ using System.Threading;
 using System.Web.Hosting;
 using eBarWS.Interfaces;
 
-namespace eBarWS.Utils
+namespace eBarWS
 {
     public sealed class Logger : ILogger
     {
@@ -22,30 +22,7 @@ namespace eBarWS.Utils
         {
             GetLogPath();
         }
-        //public static Logger Instance
-        //{
-        //    get
-        //    {
-        //        if (_instance?.path == null || _instance.path.Equals(""))
-        //        {
-        //            lock (SyncLock)
-        //            {
-        //                if (_instance?.path == null || _instance.path.Equals(""))
-        //                {
-        //                    _instance = new Logger
-        //                    {
-        //                        path = GetLogPath()
-        //                    };
-
-        //                    if (_instance.path == null || _instance.path.Equals(""))
-        //                        _instance = null;
-        //                }
-        //            }
-        //        }
-        //        return _instance;
-        //    }
-        //}
-
+       
         private string GetLogPath()
         {
             var logDirectory = Path.Combine(HostingEnvironment.ApplicationPhysicalPath, "Logs");

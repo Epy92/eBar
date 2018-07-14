@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Reflection;
 using System.Web;
 using System.Web.Http;
-using Autofac;
 using Autofac.Integration.WebApi;
-using DBModels;
 using eBarWS.App_Start;
-using eBarWS.Controllers;
-using eBarWS.DatabaseOperations;
-using eBarWS.Interfaces;
-using eBarWS.Utils;
 using Newtonsoft.Json;
 
 namespace eBarWS
@@ -71,12 +64,6 @@ namespace eBarWS
 
                 Response.StatusCode = 200;
                 Response.End();
-                //HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE");
-                //HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
-                //HttpContext.Current.Response.End();
-
-                //WebOperationContext.Current.OutgoingResponse.Headers.Add("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE");
-                //WebOperationContext.Current.OutgoingResponse.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
             }
         }
     }

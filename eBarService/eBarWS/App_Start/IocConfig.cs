@@ -1,11 +1,8 @@
-﻿using System.Reflection;
-using System.Web.Http;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.WebApi;
 using eBarWS.Controllers;
-using eBarWS.DatabaseOperations;
 using eBarWS.Interfaces;
-using eBarWS.Utils;
+using eBarDatabase;
 
 namespace eBarWS
 {
@@ -25,7 +22,6 @@ namespace eBarWS
             builder.RegisterType<CategoryOperations>().As<ICategoryOperations>();
             builder.RegisterType<ProductOperations>().As<IProductOperations>();
             builder.RegisterType<Logger>().As<ILogger>();
-
 
             return builder;
         }
