@@ -108,6 +108,10 @@ namespace eBarDatabase
             {
                 using (var context = new DBModels())
                 {
+                    if(context.Database.Connection.State == System.Data.ConnectionState.Closed || context.Database.Connection.State == System.Data.ConnectionState.Broken)
+                    {
+                        context.Database.Connection.Open();
+                    }
                     restaurants = (from rest in context.Restaurants
                                    from restLoc in context.RestaurantLocations.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
                                    from details in context.RestaurantDetails.Where(x => x.RestaurantId == rest.RestaurantId).DefaultIfEmpty()
