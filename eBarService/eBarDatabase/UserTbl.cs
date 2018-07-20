@@ -19,6 +19,8 @@ namespace eBarDatabase
         {
             this.RestaurantAdministrators = new HashSet<RestaurantAdministrators>();
             this.UserResetPasswordCodes = new HashSet<UserResetPasswordCodes>();
+            this.RestaurantFavorite = new HashSet<RestaurantFavorite>();
+            this.RestaurantReview = new HashSet<RestaurantReview>();
         }
     
         public int UserID { get; set; }
@@ -34,5 +36,9 @@ namespace eBarDatabase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserResetPasswordCodes> UserResetPasswordCodes { get; set; }
         public virtual UserTypes UserTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantFavorite> RestaurantFavorite { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantReview> RestaurantReview { get; set; }
     }
 }

@@ -43,13 +43,14 @@
     <Compile Include="LanguagesModel.cs" />
     <Compile Include="Messages\CategoryMessages.cs" />
     <Compile Include="Messages\ProductMessages.cs" />
+    <Compile Include="Messages\RestaurantEventMessage.cs" />
     <Compile Include="Messages\RestaurantMessages.cs" />
     <Compile Include="Messages\UserMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseDataModel.cs" />
     <Compile Include="RestaurantAdministratorsModel.cs" />
     <Compile Include="RestaurantDetailsModel.cs" />
-    <Compile Include="RestaurantEvent.cs" />
+    <Compile Include="RestaurantEventModel.cs" />
     <Compile Include="RestaurantLocationsModel.cs" />
     <Compile Include="RestaurantModel.cs" />
     <Compile Include="RestaurantProductsCategoriesModel.cs" />

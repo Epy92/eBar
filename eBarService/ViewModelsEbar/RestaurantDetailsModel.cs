@@ -9,5 +9,6 @@
         public string RestaurantThumbnail { get; set; }
         public string RestaurantProgram { get; set; }
         public string RestaurantContact { get; set; }
+        public decimal? RestaurantRating { get; set; }
     }
 }

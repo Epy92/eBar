@@ -23,9 +23,9 @@ namespace eBarWS.App_Start
                 config.CreateMap<UserTbl, UserModel>().ReverseMap();
                 config.CreateMap<UserTypes, UserTypesModel>().ReverseMap();
                
-                
                 config.CreateMap<RestaurantProducts, RestaurantProductsModel>().ReverseMap();
-               
+                config.CreateMap<RestaurantEvent, RestaurantEventModel>().ReverseMap();
+                config.CreateMap<RestaurantReview, RestaurantReviewModel>().ReverseMap();
             });
         }
     }

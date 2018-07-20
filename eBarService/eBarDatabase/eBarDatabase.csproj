@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="DatabaseOperations\CategoryOperations.cs" />
     <Compile Include="DatabaseOperations\ProductOperations.cs" />
+    <Compile Include="DatabaseOperations\RestaurantEventOperations.cs" />
     <Compile Include="DatabaseOperations\RestaurantOperations.cs" />
     <Compile Include="DatabaseOperations\UserOperations.cs" />
     <Compile Include="DBContext.Context.cs">
@@ -80,6 +81,7 @@
     <Compile Include="Interfaces\ICategoryOperations.cs" />
     <Compile Include="Interfaces\IDatabaseLogger.cs" />
     <Compile Include="Interfaces\IProductOperations.cs" />
+    <Compile Include="Interfaces\IRestaurantEventOperations.cs" />
     <Compile Include="Interfaces\IRestaurantOperations.cs" />
     <Compile Include="Interfaces\IUserOperations.cs" />
     <Compile Include="Languages.cs">
@@ -93,6 +95,12 @@
     <Compile Include="RestaurantDetails.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="RestaurantEvent.cs">
+      <DependentUpon>DBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RestaurantFavorite.cs">
+      <DependentUpon>DBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="RestaurantLocations.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
@@ -102,6 +110,9 @@
     <Compile Include="RestaurantProductsCategories.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="RestaurantReview.cs">
+      <DependentUpon>DBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Restaurants.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
@@ -109,6 +120,9 @@
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="RestaurantTypes.cs">
+      <DependentUpon>DBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="UserResetPasswordCodes.cs">

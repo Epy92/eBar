@@ -38,5 +38,9 @@ namespace eBarDatabase
         public virtual DbSet<UserResetPasswordCodes> UserResetPasswordCodes { get; set; }
         public virtual DbSet<UserTbl> UserTbl { get; set; }
         public virtual DbSet<UserTypes> UserTypes { get; set; }
+        public virtual DbSet<RestaurantEvent> RestaurantEvent { get; set; }
+        public virtual DbSet<RestaurantFavorite> RestaurantFavorite { get; set; }
+        public virtual DbSet<RestaurantReview> RestaurantReview { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

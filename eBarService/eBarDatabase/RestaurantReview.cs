@@ -12,17 +12,15 @@ namespace eBarDatabase
     using System;
     using System.Collections.Generic;
     
-    public partial class RestaurantDetails
+    public partial class RestaurantReview
     {
-        public int RestaurantDetailsId { get; set; }
+        public int RestaurantReviewID { get; set; }
+        public int UserID { get; set; }
         public int RestaurantId { get; set; }
-        public string RestaurantDirectoryGuid { get; set; }
-        public string RestaurantDescription { get; set; }
-        public string RestaurantThumbnail { get; set; }
-        public string RestaurantProgram { get; set; }
-        public string RestaurantContact { get; set; }
-        public Nullable<decimal> RestaurantRating { get; set; }
+        public string Review { get; set; }
+        public int Grade { get; set; }
     
         public virtual Restaurants Restaurants { get; set; }
+        public virtual UserTbl UserTbl { get; set; }
     }
 }
