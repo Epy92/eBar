@@ -41,6 +41,5 @@ namespace eBarDatabase
         public virtual DbSet<RestaurantEvent> RestaurantEvent { get; set; }
         public virtual DbSet<RestaurantFavorite> RestaurantFavorite { get; set; }
         public virtual DbSet<RestaurantReview> RestaurantReview { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

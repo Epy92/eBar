@@ -130,16 +130,6 @@
           <Property Name="RestaurantId" Type="int" Nullable="false" />
           <Property Name="TypeName" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="UserResetPasswordCodes">
           <Key>
             <PropertyRef Name="UserResetPwdId" />
@@ -374,7 +364,6 @@
           <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantTables" EntityType="Self.RestaurantTables" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RestaurantTypes" EntityType="Self.RestaurantTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserResetPasswordCodes" EntityType="Self.UserResetPasswordCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTbl" EntityType="Self.UserTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTypes" EntityType="Self.UserTypes" Schema="dbo" store:Type="Tables" />
@@ -508,7 +497,6 @@
           <EntitySet Name="RestaurantEvent" EntityType="eBarDBModels.RestaurantEvent" />
           <EntitySet Name="RestaurantFavorite" EntityType="eBarDBModels.RestaurantFavorite" />
           <EntitySet Name="RestaurantReview" EntityType="eBarDBModels.RestaurantReview" />
-          <EntitySet Name="sysdiagrams" EntityType="eBarDBModels.sysdiagrams" />
           <AssociationSet Name="FK__Restauran__Resta__540C7B00" Association="eBarDBModels.FK__Restauran__Resta__540C7B00">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantEvent" EntitySet="RestaurantEvent" />
@@ -847,16 +835,6 @@
           <NavigationProperty Name="Restaurants" Relationship="eBarDBModels.FK__Restauran__Resta__76619304" FromRole="RestaurantReview" ToRole="Restaurants" />
           <NavigationProperty Name="UserTbl" Relationship="eBarDBModels.FK__Restauran__UserI__756D6ECB" FromRole="RestaurantReview" ToRole="UserTbl" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <Association Name="FK__Restauran__Resta__540C7B00">
           <End Type="eBarDBModels.Restaurants" Role="Restaurants" Multiplicity="1" />
           <End Type="eBarDBModels.RestaurantEvent" Role="RestaurantEvent" Multiplicity="*" />
@@ -1089,17 +1067,6 @@
                 <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="RestaurantReviewID" ColumnName="RestaurantReviewID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="eBarDBModels.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
