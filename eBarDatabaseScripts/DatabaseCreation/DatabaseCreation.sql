@@ -1,5 +1,5 @@
-create database eBar;
-use eBar;
+-- create database eBar;
+-- use eBar;
 
 create table UserTypes
 (
