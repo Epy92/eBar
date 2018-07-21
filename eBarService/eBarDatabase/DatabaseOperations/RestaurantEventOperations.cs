@@ -1,5 +1,4 @@
-﻿using eBarDatabase.Interfaces;
-using System;
+﻿using System;
 using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,8 @@ namespace eBarDatabase
                 events = (from resEvent in context.RestaurantEvent
                           join restAdmin in context.RestaurantAdministrators
                           on resEvent.RestaurantId equals restAdmin.RestaurantId
-                          where restAdmin.UserID == userId).ToList();
+                          where restAdmin.UserID == userId
+                          select resEvent).ToList();
             }
 
             return events;

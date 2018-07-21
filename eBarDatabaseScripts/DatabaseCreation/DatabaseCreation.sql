@@ -100,5 +100,5 @@ create table RestaurantDetails
 	RestaurantThumbnail nvarchar(max),
 	RestaurantDescription nvarchar(3000) null,
 	RestaurantContact nvarchar(1000),
-	RestaurantProgram nvarchar(1000)
+	RestaurantProgram nvarchar(1000),
 );

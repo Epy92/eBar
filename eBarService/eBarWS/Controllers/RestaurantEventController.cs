@@ -1,5 +1,4 @@
 ﻿using eBarDatabase;
-using eBarDatabase.Interfaces;
 using eBarWS.Interfaces;
 using Newtonsoft.Json;
 using System;
@@ -12,13 +11,13 @@ namespace eBarWS.Controllers
         private readonly IRestaurantEventOperations _restaurantEventOperations;
         private readonly ILogger _logger;
 
-        protected RestaurantEventController(ILogger logger, IRestaurantEventOperations restaurantEventOperations)
+        public RestaurantEventController(ILogger logger, IRestaurantEventOperations restaurantEventOperations)
         {
             _logger = logger;
             _restaurantEventOperations = restaurantEventOperations;
         }
 
-        public string GetRestarantEvents(int userId)
+        public string GetRestaurantEvents(int userId)
         {
             try
             {

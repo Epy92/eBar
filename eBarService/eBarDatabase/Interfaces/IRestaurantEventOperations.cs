@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using ViewModels;
 
-namespace eBarDatabase.Interfaces
+namespace eBarDatabase
 {
     public interface IRestaurantEventOperations
     {
