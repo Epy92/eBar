@@ -37,10 +37,10 @@
           <Property Name="RestaurantDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RestaurantId" Type="int" Nullable="false" />
           <Property Name="RestaurantDirectoryGuid" Type="nvarchar" MaxLength="100" />
-          <Property Name="RestaurantDescription" Type="nvarchar" MaxLength="3000" />
           <Property Name="RestaurantThumbnail" Type="nvarchar(max)" />
-          <Property Name="RestaurantProgram" Type="nvarchar" MaxLength="1000" />
+          <Property Name="RestaurantDescription" Type="nvarchar" MaxLength="3000" />
           <Property Name="RestaurantContact" Type="nvarchar" MaxLength="1000" />
+          <Property Name="RestaurantProgram" Type="nvarchar" MaxLength="1000" />
           <Property Name="RestaurantRating" Type="decimal" Precision="5" Scale="2" />
         </EntityType>
         <EntityType Name="RestaurantEvent">
@@ -52,8 +52,8 @@
           <Property Name="EventDescription" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="EventStartDate" Type="datetime" Nullable="false" />
           <Property Name="EventEndDate" Type="datetime" Nullable="false" />
+          <Property Name="EventPublicationDate" Type="datetime" Nullable="false" />
           <Property Name="RestaurantId" Type="int" Nullable="false" />
-          <Property Name="PublicationDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="RestaurantFavorite">
           <Key>
@@ -68,12 +68,12 @@
             <PropertyRef Name="LocationId" />
           </Key>
           <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RestaurantCity" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="RestaurantCounty" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="RestaurantCity" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="RestaurantAddress" Type="nvarchar" MaxLength="300" />
           <Property Name="Latitude" Type="decimal" Precision="10" Scale="6" Nullable="false" />
           <Property Name="Longitude" Type="decimal" Precision="10" Scale="6" Nullable="false" />
           <Property Name="RestaurantId" Type="int" Nullable="false" />
-          <Property Name="RestaurantAddress" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="RestaurantProducts">
           <Key>
@@ -103,7 +103,7 @@
           <Property Name="RestaurantReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="RestaurantId" Type="int" Nullable="false" />
-          <Property Name="Review" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="ReviewComment" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Grade" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Restaurants">
@@ -148,8 +148,8 @@
           <Property Name="UserPassword" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="UserTypeId" Type="int" Nullable="false" />
           <Property Name="UserPreferredLanguage" Type="nvarchar" MaxLength="10" />
+          <Property Name="UserTypeId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserTypes">
           <Key>
@@ -170,7 +170,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__29221CFB">
+        <Association Name="FK__Restauran__Resta__5070F446">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="RestaurantLocations" Type="Self.RestaurantLocations" Multiplicity="*" />
           <ReferentialConstraint>
@@ -183,7 +183,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Restauran__Resta__534D60F1">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RestaurantAdministrators" Type="Self.RestaurantAdministrators" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
@@ -194,32 +196,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__540C7B00">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
-          <End Role="RestaurantEvent" Type="Self.RestaurantEvent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Restaurants">
-              <PropertyRef Name="RestaurantId" />
-            </Principal>
-            <Dependent Role="RestaurantEvent">
-              <PropertyRef Name="RestaurantId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Restauran__Resta__56E8E7AB">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
-          <End Role="RestaurantFavorite" Type="Self.RestaurantFavorite" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Restaurants">
-              <PropertyRef Name="RestaurantId" />
-            </Principal>
-            <Dependent Role="RestaurantFavorite">
-              <PropertyRef Name="RestaurantId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Restauran__Resta__571DF1D5">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RestaurantTables" Type="Self.RestaurantTables" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
@@ -231,7 +211,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Restauran__Resta__59FA5E80">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RestaurantTypes" Type="Self.RestaurantTypes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
@@ -243,7 +225,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Restauran__Resta__5CD6CB2B">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RestaurantProductsCategories" Type="Self.RestaurantProductsCategories" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
@@ -255,7 +239,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Restauran__Resta__60A75C0F">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RestaurantProducts" Type="Self.RestaurantProducts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
@@ -267,7 +253,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Restauran__Resta__68487DD7">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RestaurantDetails" Type="Self.RestaurantDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
@@ -278,14 +266,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__Resta__76619304">
-          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
+        <Association Name="FK__Restauran__Resta__6E01572D">
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="RestaurantReview" Type="Self.RestaurantReview" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
               <PropertyRef Name="RestaurantId" />
             </Principal>
             <Dependent Role="RestaurantReview">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restauran__Resta__71D1E811">
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RestaurantEvent" Type="Self.RestaurantEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="RestaurantId" />
+            </Principal>
+            <Dependent Role="RestaurantEvent">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restauran__Resta__74AE54BC">
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RestaurantFavorite" Type="Self.RestaurantFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="RestaurantId" />
+            </Principal>
+            <Dependent Role="RestaurantFavorite">
               <PropertyRef Name="RestaurantId" />
             </Dependent>
           </ReferentialConstraint>
@@ -302,19 +320,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Restauran__UserI__57DD0BE4">
-          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="1" />
-          <End Role="RestaurantFavorite" Type="Self.RestaurantFavorite" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserTbl">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="RestaurantFavorite">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Restauran__UserI__756D6ECB">
+        <Association Name="FK__Restauran__UserI__6D0D32F4">
           <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="1" />
           <End Role="RestaurantReview" Type="Self.RestaurantReview" Multiplicity="*" />
           <ReferentialConstraint>
@@ -322,6 +328,18 @@
               <PropertyRef Name="UserID" />
             </Principal>
             <Dependent Role="RestaurantReview">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Restauran__UserI__75A278F5">
+          <End Role="UserTbl" Type="Self.UserTbl" Multiplicity="1" />
+          <End Role="RestaurantFavorite" Type="Self.RestaurantFavorite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTbl">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="RestaurantFavorite">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -371,21 +389,13 @@
             <End Role="RestaurantProductsCategories" EntitySet="RestaurantProductsCategories" />
             <End Role="RestaurantProducts" EntitySet="RestaurantProducts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__29221CFB" Association="Self.FK__Restauran__Resta__29221CFB">
+          <AssociationSet Name="FK__Restauran__Resta__5070F446" Association="Self.FK__Restauran__Resta__5070F446">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantLocations" EntitySet="RestaurantLocations" />
           </AssociationSet>
           <AssociationSet Name="FK__Restauran__Resta__534D60F1" Association="Self.FK__Restauran__Resta__534D60F1">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantAdministrators" EntitySet="RestaurantAdministrators" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__540C7B00" Association="Self.FK__Restauran__Resta__540C7B00">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="RestaurantEvent" EntitySet="RestaurantEvent" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__56E8E7AB" Association="Self.FK__Restauran__Resta__56E8E7AB">
-            <End Role="Restaurants" EntitySet="Restaurants" />
-            <End Role="RestaurantFavorite" EntitySet="RestaurantFavorite" />
           </AssociationSet>
           <AssociationSet Name="FK__Restauran__Resta__571DF1D5" Association="Self.FK__Restauran__Resta__571DF1D5">
             <End Role="Restaurants" EntitySet="Restaurants" />
@@ -407,21 +417,29 @@
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantDetails" EntitySet="RestaurantDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__Resta__76619304" Association="Self.FK__Restauran__Resta__76619304">
+          <AssociationSet Name="FK__Restauran__Resta__6E01572D" Association="Self.FK__Restauran__Resta__6E01572D">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="RestaurantReview" EntitySet="RestaurantReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restauran__Resta__71D1E811" Association="Self.FK__Restauran__Resta__71D1E811">
+            <End Role="Restaurants" EntitySet="Restaurants" />
+            <End Role="RestaurantEvent" EntitySet="RestaurantEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restauran__Resta__74AE54BC" Association="Self.FK__Restauran__Resta__74AE54BC">
+            <End Role="Restaurants" EntitySet="Restaurants" />
+            <End Role="RestaurantFavorite" EntitySet="RestaurantFavorite" />
           </AssociationSet>
           <AssociationSet Name="FK__Restauran__UserI__5441852A" Association="Self.FK__Restauran__UserI__5441852A">
             <End Role="UserTbl" EntitySet="UserTbl" />
             <End Role="RestaurantAdministrators" EntitySet="RestaurantAdministrators" />
           </AssociationSet>
-          <AssociationSet Name="FK__Restauran__UserI__57DD0BE4" Association="Self.FK__Restauran__UserI__57DD0BE4">
-            <End Role="UserTbl" EntitySet="UserTbl" />
-            <End Role="RestaurantFavorite" EntitySet="RestaurantFavorite" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Restauran__UserI__756D6ECB" Association="Self.FK__Restauran__UserI__756D6ECB">
+          <AssociationSet Name="FK__Restauran__UserI__6D0D32F4" Association="Self.FK__Restauran__UserI__6D0D32F4">
             <End Role="UserTbl" EntitySet="UserTbl" />
             <End Role="RestaurantReview" EntitySet="RestaurantReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Restauran__UserI__75A278F5" Association="Self.FK__Restauran__UserI__75A278F5">
+            <End Role="UserTbl" EntitySet="UserTbl" />
+            <End Role="RestaurantFavorite" EntitySet="RestaurantFavorite" />
           </AssociationSet>
           <AssociationSet Name="FK__UserReset__UserI__6383C8BA" Association="Self.FK__UserReset__UserI__6383C8BA">
             <End Role="UserTbl" EntitySet="UserTbl" />
@@ -811,7 +829,7 @@
           <Property Name="EventEndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RestaurantId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Restaurants" Relationship="eBarDBModels.FK__Restauran__Resta__540C7B00" FromRole="RestaurantEvent" ToRole="Restaurants" />
-          <Property Name="PublicationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventPublicationDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="RestaurantFavorite">
           <Key>
@@ -830,10 +848,10 @@
           <Property Name="RestaurantReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="RestaurantId" Type="Int32" Nullable="false" />
-          <Property Name="Review" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Grade" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Restaurants" Relationship="eBarDBModels.FK__Restauran__Resta__76619304" FromRole="RestaurantReview" ToRole="Restaurants" />
           <NavigationProperty Name="UserTbl" Relationship="eBarDBModels.FK__Restauran__UserI__756D6ECB" FromRole="RestaurantReview" ToRole="UserTbl" />
+          <Property Name="ReviewComment" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Restauran__Resta__540C7B00">
           <End Type="eBarDBModels.Restaurants" Role="Restaurants" Multiplicity="1" />
@@ -1040,7 +1058,7 @@
           <EntitySetMapping Name="RestaurantEvent">
             <EntityTypeMapping TypeName="eBarDBModels.RestaurantEvent">
               <MappingFragment StoreEntitySet="RestaurantEvent">
-                <ScalarProperty Name="PublicationDate" ColumnName="PublicationDate" />
+                <ScalarProperty Name="EventPublicationDate" ColumnName="EventPublicationDate" />
                 <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
                 <ScalarProperty Name="EventEndDate" ColumnName="EventEndDate" />
                 <ScalarProperty Name="EventStartDate" ColumnName="EventStartDate" />
@@ -1062,8 +1080,8 @@
           <EntitySetMapping Name="RestaurantReview">
             <EntityTypeMapping TypeName="eBarDBModels.RestaurantReview">
               <MappingFragment StoreEntitySet="RestaurantReview">
+                <ScalarProperty Name="ReviewComment" ColumnName="ReviewComment" />
                 <ScalarProperty Name="Grade" ColumnName="Grade" />
-                <ScalarProperty Name="Review" ColumnName="Review" />
                 <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="RestaurantReviewID" ColumnName="RestaurantReviewID" />

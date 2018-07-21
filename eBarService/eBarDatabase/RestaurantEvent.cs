@@ -20,7 +20,7 @@ namespace eBarDatabase
         public System.DateTime EventStartDate { get; set; }
         public System.DateTime EventEndDate { get; set; }
         public int RestaurantId { get; set; }
-        public System.DateTime PublicationDate { get; set; }
+        public System.DateTime EventPublicationDate { get; set; }
     
         public virtual Restaurants Restaurants { get; set; }
     }

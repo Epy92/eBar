@@ -31,7 +31,7 @@
         <AssociationConnector Association="eBarDBModels.FK__UserTbl__UserTyp__1273C1CD" />
         <EntityTypeShape EntityType="eBarDBModels.RestaurantEvent" Width="1.5" PointX="12.75" PointY="16.25" />
         <EntityTypeShape EntityType="eBarDBModels.RestaurantFavorite" Width="1.5" PointX="16.875" PointY="7.875" />
-        <EntityTypeShape EntityType="eBarDBModels.RestaurantReview" Width="1.5" PointX="16.875" PointY="4.75" />
+        <EntityTypeShape EntityType="eBarDBModels.RestaurantReview" Width="2.25" PointX="16.875" PointY="4.75" />
         <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__540C7B00" />
         <AssociationConnector Association="eBarDBModels.FK__Restauran__Resta__56E8E7AB" />
         <AssociationConnector Association="eBarDBModels.FK__Restauran__UserI__57DD0BE4" />

@@ -16,7 +16,7 @@ namespace DB_Creation
 
             if (dataIsOk)
             {
-                Console.WriteLine("Doriti sa se insereze date de test? (Y/N)");                
+                Console.WriteLine("Doriti sa se insereze date de test? (Y/N)");
                 string option = Console.ReadLine().ToString();
 
                 if (option.ToUpper() != "Y" && option.ToUpper() != "N")
@@ -25,7 +25,8 @@ namespace DB_Creation
                     Console.WriteLine(Environment.NewLine);
                     Console.ReadLine();
                 }
-                else {
+                else
+                {
                     using (SqlConnection con = new SqlConnection(AppSettings.ConnectionString))
                     {
                         try
@@ -62,6 +63,9 @@ namespace DB_Creation
                         Console.ReadLine();
                     }
                 }
+            }
+            else {
+                Console.ReadLine();
             }
         }
 
@@ -217,12 +221,29 @@ namespace DB_Creation
                 Console.WriteLine(Environment.NewLine);
                 dataIsOk = false;
             }
+            else {
+                if (!Directory.Exists(AppSettings.DatabaseScriptsDirectory))
+                {
+                    Console.WriteLine("Locatia fisierului pentru crearea DB nu este corecta. Verificati fisierul de configurare");
+                    Console.WriteLine(Environment.NewLine);
+                    dataIsOk = false;
+                }
+            }
 
             if (string.IsNullOrEmpty(AppSettings.TestDataScriptsDirectory))
             {
                 Console.WriteLine("Lipseste locatia directorului pentru inserarea datelor de test. Verificati fisierul de configurare");
                 Console.WriteLine(Environment.NewLine);
                 dataIsOk = false;
+            }
+            else
+            {
+                if (!Directory.Exists(AppSettings.TestDataScriptsDirectory))
+                {
+                    Console.WriteLine("Locatia fisierului pentru inserarea datelor de test nu este corecta. Verificati fisierul de configurare");
+                    Console.WriteLine(Environment.NewLine);
+                    dataIsOk = false;
+                }
             }
 
             return dataIsOk;

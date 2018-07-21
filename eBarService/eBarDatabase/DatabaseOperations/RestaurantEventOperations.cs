@@ -17,7 +17,13 @@ namespace eBarDatabase
         {
             List<RestaurantEvent> events = new List<RestaurantEvent>();
 
-            using (var context = new DBModels()) {
+            using (var context = new DBModels())
+            {
+
+                if (context.Database.Connection.State == System.Data.ConnectionState.Closed || context.Database.Connection.State == System.Data.ConnectionState.Broken)
+                {
+                    context.Database.Connection.Open();
+                }
                 events = (from resEvent in context.RestaurantEvent
                           join restAdmin in context.RestaurantAdministrators
                           on resEvent.RestaurantId equals restAdmin.RestaurantId
@@ -43,6 +49,7 @@ namespace eBarDatabase
             catch (Exception ex)
             {
                 saveMessage = RestaurantEventMessage.NokMessage;
+                _logger.Log("SaveRestaurantEvent_Exception", ex.Message);
             }
             return saveMessage;
         }
