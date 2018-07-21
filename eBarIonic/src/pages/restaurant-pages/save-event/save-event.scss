@@ -1,0 +1,80 @@
+page-save-event {
+    .datetime-md .datetime-placeholder{
+        color: #000;
+        font-weight: 500;
+    }
+
+    .datetime-text{
+        color: #000;
+        font-weight: 500;
+    }
+    .event-end-date, .event-start-date
+    {
+        border: 1px solid #cccccc;
+        border-radius:4px;
+        float: left;
+        margin-left: 10px;
+    }
+
+    .event-end-date{
+        border-bottom: 1px solid #cccccc !important;
+        border-radius: 4px;
+    }
+
+    .panel-body-col-content .form-group{
+        border-bottom:none;
+        border-radius: 4px;
+    }
+
+    .form-group{
+        border-bottom:1px solid #0056b3;
+
+        .control-input-value{
+            float: left;
+            // width: 40rem;
+            margin-bottom: 0;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            margin-top: 4px;
+            height: 36px;
+             border-radius: 4px;
+             -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+             -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+                  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;   
+            }
+
+            .control-input-value.rest-description{
+                height: 10rem;
+            }
+
+          .control-input-value:focus {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+        }
+
+        ion-select.select-md{
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            padding: 7px 4px 7px 4px;
+            margin-top: 1%;
+        }
+
+        .select-md .select-icon{
+            margin-right: 5px;
+        }
+
+        .ion-md-remove-circle{
+            margin-right: 5px;
+        }
+    }
+
+    .form-group:first{
+        border-bottom:1px solid #0056b3 !important;
+    }
+}

@@ -9,17 +9,25 @@ namespace eBarDatabase
 {
     public class RestaurantEventOperations : IRestaurantEventOperations
     {
-        private DBModels _databaseEntities;
         private IDatabaseLogger _logger;
         public RestaurantEventOperations()
         {
             _logger = new DatabaseLogger();
-            _databaseEntities = new DBModels();
         }
-        public List<RestaurantEvent> GetRestaurantEvents(int restaurantId)
+        public List<RestaurantEvent> GetRestaurantEvents(int userId)
         {
-            return _databaseEntities.RestaurantEvent.Where(x => x.RestaurantId == restaurantId).ToList();
+            List<RestaurantEvent> events = new List<RestaurantEvent>();
+
+            using (var context = new DBModels()) {
+                events = (from resEvent in context.RestaurantEvent
+                          join restAdmin in context.RestaurantAdministrators
+                          on resEvent.RestaurantId equals restAdmin.RestaurantId
+                          where restAdmin.UserID == userId).ToList();
+            }
+
+            return events;
         }
+
         public string SaveRestaurantEvent(RestaurantEvent restaurantEvent)
         {
             string saveMessage;

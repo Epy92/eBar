@@ -13,12 +13,14 @@ export class User {
   name: string;
   username: string;
   sessionKey: string;
+  userId:number;
 
-  constructor(email: string, sessionKey: string, name: string, username: string) {
+  constructor(email: string, sessionKey: string, name: string, username: string, userId:number) {
     this.email = email;
     this.sessionKey = sessionKey;
     this.name = name;
     this.username = username;
+    this.userId = userId;
   }
 }
 
@@ -44,8 +46,7 @@ export class UserServiceProvider {
 
         let headers = new Headers(
           {
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin" : "*"
+            'Content-Type': 'application/json'
           });
         let options = new RequestOptions({ headers: headers });
 
@@ -59,7 +60,7 @@ export class UserServiceProvider {
               var jsonData = JSON.parse(res.json());
               let access = (jsonData.ResultFlag == true && jsonData.ResultCode == "LoginSuccess");
               if (access) {
-                user = new User(jsonData.UserDetails.Email, jsonData.SessionKey, jsonData.UserDetails.Name, jsonData.UserDetails.Username)
+                user = new User(jsonData.UserDetails.Email, jsonData.SessionKey, jsonData.UserDetails.Name, jsonData.UserDetails.Username, jsonData.UserDetails.UserId)
                 this.setUser(user).then(() => {
                   observer.next(access);
                   observer.complete();

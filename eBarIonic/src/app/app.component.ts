@@ -90,7 +90,7 @@ export class MyApp {
 
   openPage(page) {
     //this.rootPage = page.component;
-    this.nav.push(page.component);
+    this.nav.push(page.component.name.toString());
   }
 
   goToRegister() {

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Web.Http;
-using Newtonsoft.Json;
-using AutoMapper;
-using System.Collections.Generic;
-using System.Linq;
-using eBarWS.Interfaces;
-using eBarDatabase;
+﻿using eBarDatabase;
 using eBarDatabase.Interfaces;
-using ViewModels;
+using eBarWS.Interfaces;
+using Newtonsoft.Json;
+using System;
+using System.Web.Http;
 
 namespace eBarWS.Controllers
 {
@@ -22,11 +18,11 @@ namespace eBarWS.Controllers
             _restaurantEventOperations = restaurantEventOperations;
         }
 
-        public string GetRestarantEvents(int restaurantId)
+        public string GetRestarantEvents(int userId)
         {
             try
             {
-                var restaurantEvents = _restaurantEventOperations.GetRestaurantEvents(restaurantId);
+                var restaurantEvents = _restaurantEventOperations.GetRestaurantEvents(userId);
                 return JsonConvert.SerializeObject(restaurantEvents);
             }
             catch (Exception ex)

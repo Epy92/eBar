@@ -1,0 +1,127 @@
+<ion-content padding>
+  <ion-row>
+    <ion-col col-md-1 col-lg-1 class="hidden-xs"></ion-col>
+    <ion-col col-lg-10 col-md-10 col-sm-12>
+      <div class="panel ebar-panel">
+        <div class="ebar-panel-heading">
+          <ion-row>
+            <ion-col col class="text-center" style="background-color:#1281c8; color:white">
+              <span>{{actionMode}}</span>
+            </ion-col>
+          </ion-row>
+        </div>
+        <div class="panel-body">
+          <ion-row>
+            <ion-col class="panel-body-col-content" col-lg-8 offset-lg-2>
+              <ion-row class="form-group">
+                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Titlu eveniment: </ion-label>
+                <input [(ngModel)]="event.EventTitle" col-lg-6 class="form-control control-input-value" type="text" value="{{event?.EventTitle}}">
+              </ion-row>
+              <ion-row class="form-group">
+                <ion-label class="control-label" col-lg-4 col-sm-12 col-12>Descriere eveniment: </ion-label>
+                <textarea [(ngModel)]="event.EventDescription" col-lg-6 class="form-control control-input-value rest-description" type="text"
+                  value="{{event?.EventDescription}}"></textarea>
+              </ion-row>
+              <ion-row class="form-group">
+                <ion-col col-lg-4 col-sm-12 col-12>
+                  <ion-label class="control-label">Incepand cu: </ion-label>
+                </ion-col>
+                <ion-col class="event-start-date">
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label>Zi: </ion-label>
+                        <ion-datetime displayFormat="DD" pickerFormat="DD" placeholder="{{event?.EventStartDate | date:'dd'}}"></ion-datetime>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label>Luna: </ion-label>
+                        <ion-datetime displayFormat="MM" pickerFormat="MMMM" placeholder="{{event?.EventStartDate | date:'MM'}}"></ion-datetime>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label>An: </ion-label>
+                        <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="{{event?.EventStartDate | date:'yyyy'}}"></ion-datetime>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label>Ora: </ion-label>
+                        <ion-datetime displayFormat="HH" pickerFormat="HH" placeholder="{{event?.EventStartDate | date:'HH'}}"></ion-datetime>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col>
+                      <ion-item>
+                        <ion-label>Minut: </ion-label>
+                        <ion-datetime displayFormat="mm" pickerFormat="mm" placeholder="{{event?.EventStartDate | date:'mm'}}"></ion-datetime>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <!-- <ion-datetime class="event-start-date" displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="event.EventStartDate"></ion-datetime> -->
+                </ion-col>
+              </ion-row>
+              <ion-row class="form-group">
+                <ion-col col-lg-4 col-sm-12 col-12>
+                  <ion-label class="control-label">Pana la: </ion-label>
+                </ion-col>
+                <ion-col class="event-end-date form-group">
+                    <ion-row>
+                        <ion-col>
+                          <ion-item>
+                            <ion-label>Zi: </ion-label>
+                            <ion-datetime displayFormat="DD" pickerFormat="DD" placeholder="{{event?.EventEndDate | date:'dd'}}"></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col>
+                          <ion-item>
+                            <ion-label>Luna: </ion-label>
+                            <ion-datetime displayFormat="MM" pickerFormat="MMMM" placeholder="{{event?.EventEndDate | date:'MM'}}"></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col>
+                          <ion-item>
+                            <ion-label>An: </ion-label>
+                            <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" placeholder="{{event?.EventEndDate | date:'yyyy'}}"></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                          <ion-item>
+                            <ion-label>Ora: </ion-label>
+                            <ion-datetime displayFormat="HH" pickerFormat="HH" placeholder="{{event?.EventEndDate | date:'HH'}}"></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col>
+                          <ion-item>
+                            <ion-label>Minut: </ion-label>
+                            <ion-datetime displayFormat="mm" pickerFormat="mm" placeholder="{{event?.EventEndDate | date:'mm'}}"></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                      </ion-row>
+                  </ion-col>
+              </ion-row>
+              <!-- <ion-row>
+                  <div class="item item-icon-left" ion-datetime-picker ng-model="datetimeValue" (click) = "test">
+                      <i class="icon ion-ios-grid-view-outline positive"></i>
+                      Basic datetime picker:
+                      <strong>{{datetimeValue| date: "yyyy-MM-dd H:mm"}}</strong>
+                  </div>
+              </ion-row> -->
+              <ion-row>
+                <ion-col text-center>
+                  <button ion-button class="rest-config-btn" (click)="saveEvent()">Salveaza</button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </ion-col>
+    <ion-col col-md-1 col-lg-1 class="hidden-xs"></ion-col>
+  </ion-row>
+</ion-content>

@@ -1,27 +1,44 @@
 <ion-content>
-    <ion-row>
-        <div col-xs-12 offset-sm-2 col-sm-8 offset-md-3 offset-lg-3 col-lg-6 col-md-6>
-          <ion-list class="event-list">
-            <ion-item *ngFor="let event of events">
-              <time datetime="{{event.StartDate}}">
-							    <span class="day">{{event.Day}}</span>
-							    <span class="month">{{event.Month}}</span>
-							    <span class="year">{{event.Year}}</span>
-							    <span class="time">{{event.Time}}</span>
-						  </time>
-              <ion-col col-12 col-md-6>
-                <a class="text-center img-clickable">
-                    <div *ngIf="event.HasThumbnail">
-                        <img src={{event.RestaurantThumbnail}} alt="thumbnail" />
-                    </div>
-                </a>
-              </ion-col>
-						<div class="info">
-							<h2 class="title">{{event.EventTitle}}</h2>
-							<p class="desc">{{event.EventDescription}}</p>
-						</div>
-            </ion-item>
-          </ion-list>
+  <ion-row style="margin-bottom: 2rem;">
+    <ion-col text-center>
+      <button ion-button class="rest-config-btn" (click)="addEvent()">Adauga eveniment</button>
+    </ion-col>
+  </ion-row>
+  <div col-xs-12 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1>
+    <ion-list class="event-list events-768">
+      <ion-row *ngFor="let event of events" class="event-row">
+        <div class="event-time" col-lg-2 col-md-2 col-sm-12 col-xs-12>
+          <ion-row class="start-date" text-center>{{event.StartDateText}}</ion-row>
+          <ion-row class="dates-separator" text-center> - </ion-row>
+          <ion-row class="end-date" text-center>{{event.EndDateText}}</ion-row>
         </div>
-    </ion-row>
+        <div class="event-image" col-lg-2 col-md-2 col-sm-12 col-xs-12>
+          <div *ngIf="event.HasThumbnail; else noImageTemplate">
+            <img class="event-rest-img" src={{event.RestaurantThumbnail}} alt="thumbnail" />
+          </div>
+          <ng-template #noImageTemplate>
+            <img class="event-rest-img" src="assets/imgs/no-thumbnail.png" alt="thumbnail" />
+          </ng-template>
+        </div>
+        <div class="info" col-lg-7 col-md-7 col-sm-12 col-xs-12>
+          <ion-row style="justify-content: center">
+              <h2 class="title">{{event.EventTitle}}</h2>  
+          </ion-row>
+          <ion-row style="justify-content: center">
+              <p class="desc">{{event.EventDescription}}</p>
+          </ion-row>
+        </div>
+        <div class="event-options" col-lg-1 col-md-1 col-sm-12 col-xs-12>
+          <ul>
+            <li class="renew-event" style="width:50%;" (click)="renewEvent(event)">
+              <ion-icon text-center name="sync"></ion-icon>
+            </li>
+            <li class="delete-event" style="width:50%;" (click)="deleteEvent(event)">
+                <ion-icon text-center name="close"></ion-icon>
+            </li>
+          </ul>
+        </div>
+      </ion-row>
+    </ion-list>
+  </div>
 </ion-content>

@@ -122,9 +122,6 @@
     <Compile Include="RestaurantTypes.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>DBContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="UserResetPasswordCodes.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>

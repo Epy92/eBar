@@ -261,19 +261,35 @@ namespace eBarWS.Controllers
             }
         }
 
-        public string SaveRestaurantDetails(RestaurantDetails restaurantDetails)
+        public string GetRestarantEvents(int restaurantId)
         {
-            try
+            //todo implement: get data from database, now is hardcoded
+
+            List<RestaurantEventModel> events = new List<RestaurantEventModel>();
+            RestaurantEventModel resEvent = new RestaurantEventModel()
             {
-                var restDetails = _restaurantOperations.SaveRestaurantDetails(restaurantDetails);
-                return JsonConvert.SerializeObject(restDetails);
-            }
-            catch (Exception ex)
+                RestaurantId = 1,
+                RestaurantEventID = 1,
+                EventDescription = "Happy hour: In fiecare zi intre orele 12-14 avem meniul zile la doar 15 lei",
+                EventTitle = "Happy hour Restaurant OK",
+                EventStartDate = DateTime.Now,
+                EventEndDate = DateTime.Now.AddDays(7),
+                RestaurantThumbnail = null
+            };
+            events.Add(resEvent);
+            RestaurantEventModel resEvent2 = new RestaurantEventModel()
             {
-                _logger.Log("SaveRestaurantDetails_Exception", ex.Message);
-                return JsonConvert.SerializeObject(null);
-            }
+                RestaurantId = 2,
+                EventDescription = "Oferta familly: In fiecare weekend pizza familly la 20 lei",
+                EventTitle = "Pizza fammilly - 20 lei",
+                EventStartDate = DateTime.Now,
+                EventEndDate = DateTime.Now.AddDays(9),
+                RestaurantEventID = 2,
+                RestaurantThumbnail = null
+            };
+            events.Add(resEvent2);
+
+            return JsonConvert.SerializeObject(events);
         }
     }
-
 }

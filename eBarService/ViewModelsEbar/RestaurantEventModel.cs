@@ -23,7 +23,7 @@ namespace ViewModels
             {
                 if (EventStartDate.HasValue)
                 {
-                    return EventStartDate.Value.Day.ToString() + " - " + new CultureInfo("ro").DateTimeFormat.GetMonthName(EventStartDate.Value.Month).Substring(0, 3).ToUpper();
+                    return EventStartDate.Value.Day.ToString() + " " + new CultureInfo("ro").DateTimeFormat.GetMonthName(EventStartDate.Value.Month).Substring(0, 3).ToUpper();
                 }
                 return "";
             }
@@ -34,7 +34,7 @@ namespace ViewModels
             {
                 if (EventEndDate.HasValue)
                 {
-                    return EventEndDate.Value.Day.ToString() + "  " + new CultureInfo("ro").DateTimeFormat.GetMonthName(EventEndDate.Value.Month).Substring(0, 3);
+                    return EventEndDate.Value.Day.ToString() + " " + new CultureInfo("ro").DateTimeFormat.GetMonthName(EventEndDate.Value.Month).Substring(0, 3);
                 }
                 return "";
             }

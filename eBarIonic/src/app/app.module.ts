@@ -33,6 +33,7 @@ import { LoginPage } from '../pages/user-pages/login/login';
 import { RegisterPage } from '../pages/user-pages/register/register';
 import { LoginPageModule } from '../pages/user-pages/login/login.module';
 import { RegisterPageModule } from '../pages/user-pages/register/register.module';
+import { RestaurantEventsProvider } from '../providers/restaurant-events/restaurant-events';
 
 @Component({
   templateUrl: 'app.html'
@@ -81,7 +82,8 @@ import { RegisterPageModule } from '../pages/user-pages/register/register.module
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     EBarServiceProvider,
     UserServiceProvider,
-    HTTP
+    HTTP,
+    RestaurantEventsProvider
   ]
 })
 export class AppModule {}
