@@ -55,6 +55,7 @@
     <Compile Include="RestaurantModel.cs" />
     <Compile Include="RestaurantProductsCategoriesModel.cs" />
     <Compile Include="RestaurantProductsModel.cs" />
+    <Compile Include="RestaurantReviewModel.cs" />
     <Compile Include="RestaurantTablesModel.cs" />
     <Compile Include="RestaurantTypesModel.cs" />
     <Compile Include="SessionResponse.cs" />

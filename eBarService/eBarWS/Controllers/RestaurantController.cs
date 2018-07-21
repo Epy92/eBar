@@ -260,5 +260,20 @@ namespace eBarWS.Controllers
                 return JsonConvert.SerializeObject(null);
             }
         }
+
+        public string SaveRestaurantDetails(RestaurantDetails restaurantDetails)
+        {
+            try
+            {
+                var restDetails = _restaurantOperations.SaveRestaurantDetails(restaurantDetails);
+                return JsonConvert.SerializeObject(restDetails);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("SaveRestaurantDetails_Exception", ex.Message);
+                return JsonConvert.SerializeObject(null);
+            }
+        }
     }
+
 }

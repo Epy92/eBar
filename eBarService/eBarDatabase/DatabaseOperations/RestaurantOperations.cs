@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Device.Location;
 using System.Linq;
 using ViewModels;
@@ -256,6 +257,37 @@ namespace eBarDatabase
                 }
             }
             return restaurantList;
+        }
+
+        public string SaveRestaurantDetails(RestaurantDetails restaurantDetails)
+        {
+            string message;
+            try
+            {
+                using (var context = new DBModels())
+                {
+                    var restDetail = context.RestaurantDetails.FirstOrDefault(x => x.RestaurantId == restaurantDetails.RestaurantId);
+                    if (restDetail == null)
+                    {
+                        message = RestaurantMessages.RestaurantDetailsNotSaved;
+                    }
+                    else
+                    {
+                        restDetail.RestaurantDescription = restaurantDetails.RestaurantDescription;
+                        restDetail.RestaurantThumbnail = restaurantDetails.RestaurantThumbnail;
+                        restDetail.RestaurantProgram = restaurantDetails.RestaurantProgram;
+                        restDetail.RestaurantContact = restaurantDetails.RestaurantContact;
+                        context.Entry(restDetail).State = EntityState.Modified;
+                        context.SaveChanges();
+                        message = RestaurantMessages.RestaurantDetailsSaved; ;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return message = RestaurantMessages.RestaurantDetailsNotSaved;
+            }
+            return message;
         }
 
         public void Dispose()

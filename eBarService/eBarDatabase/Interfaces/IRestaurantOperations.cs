@@ -19,5 +19,6 @@ namespace eBarDatabase
         List<RestaurantModel> GetRestaurantsObjListByLocation(string county, string location);
         List<RestaurantModel> GetRestaurantsObjListByType(string typeIDs); 
         List<RestaurantModel> GetRestaurantsObjListByGeoCoordinate(string lat, string longitude, int rangeKm, List<RestaurantModel> l_rest);
+        string SaveRestaurantDetails(RestaurantDetails restaurantDetails);
     }
 }

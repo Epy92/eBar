@@ -33,3 +33,6 @@ insert into RestaurantReview values(2,1,'Chelnerul nu a fost cel mai ospitalier,
 insert into RestaurantReview values(3,1,'Mancarea a fost foarte buna','');
 insert into RestaurantReview values(2,1,'Mancarea a fost oribila',1);
 update RestaurantReview set Grade = 4 where RestaurantReviewID = 6;
+
+alter table RestaurantEvent
+add PublicationDate datetime not null;
