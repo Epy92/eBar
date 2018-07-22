@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
 using System.Web.Http;
+using AutoMapper;
+using ViewModels;
 
 namespace eBarWS.Controllers
 {
@@ -24,7 +26,10 @@ namespace eBarWS.Controllers
         {
             try
             {
+                
                 var restaurantReview = _restaurantReviewOperations.GetRestaurantReviews(restaurantId);
+                //RestaurantReviewModel restDetails = Mapper.Map<RestaurantReview, RestaurantReviewModel> (restaurantReview);
+
                 return JsonConvert.SerializeObject(restaurantReview);
             }
             catch (Exception ex)

@@ -14,6 +14,7 @@ namespace eBarWS
             builder.RegisterType<RestaurantController>().AsSelf();
             builder.RegisterType<UserSessionController>().AsSelf();
             builder.RegisterType<RestaurantEventController>().AsSelf();
+            builder.RegisterType<RestaurantReviewController>().AsSelf();
             //builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterWebApiModelBinderProvider();

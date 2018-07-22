@@ -10,5 +10,6 @@ namespace eBarDatabase
     {
         List<RestaurantReview> GetRestaurantReviews(int restaurantId);
         string CreateRestaurantReview(RestaurantReview restaurantReview);
+        string UpdateRestaurantReview(RestaurantReview restaurantReview);
     }
 }

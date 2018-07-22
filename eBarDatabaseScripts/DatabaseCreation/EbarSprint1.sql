@@ -4,7 +4,6 @@ create table RestaurantReview
 	UserID int not null foreign key references UserTbl(UserID),
 	RestaurantId int not null foreign key references Restaurants(RestaurantId) on delete cascade,
 	ReviewComment nvarchar(1000),
-	Grade int not null default 0,
 );
 
 create table RestaurantEvent
@@ -26,3 +25,11 @@ create table RestaurantFavorite
 );
 alter table RestaurantDetails
 add RestaurantRating DECIMAL(5,2) default 0;
+
+create table RestaurantGrades
+(
+	RestaurantGradeID int not null primary key identity(1,1),
+	UserID int not null foreign key references UserTbl(UserID),
+	RestaurantId int not null foreign key references Restaurants(RestaurantId) on delete cascade,
+	Grade int not null default 0,
+);
