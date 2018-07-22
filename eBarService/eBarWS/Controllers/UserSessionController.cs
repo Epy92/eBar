@@ -49,7 +49,6 @@ namespace eBarWS.Controllers
                // UserTbl userLogin = JsonConvert.DeserializeObject<UserTbl>(userJson);
                 var user = _userOperations.GetUser(userLogin.Username ?? userLogin.Email, userLogin.UserPassword);
                 
-
                 if (user == null)
                 {
                     response.ResultFlag = false;
@@ -67,7 +66,8 @@ namespace eBarWS.Controllers
                         Name = user.Name,
                         Username = user.Username,
                         UserPreferredLanguage = user.UserPreferredLanguage,
-                        UserTypeId = user.UserTypeId
+                        UserTypeId = user.UserTypeId,
+                        UserId = user.UserID
                     };
                     response.SessionKey = Guid.NewGuid().ToString();
                     
@@ -90,7 +90,7 @@ namespace eBarWS.Controllers
             try
             {
                 string message = null;
-                var resultFlag = false;
+                bool resultFlag = false;
                 _userOperations.GenerateResetCode(usernameOrEmail, out message, out resultFlag);
                 response.ResultMessage = string.IsNullOrEmpty(message) ? UserMessages.ResetCodeGenerated : message;
                 response.ResultFlag = resultFlag;

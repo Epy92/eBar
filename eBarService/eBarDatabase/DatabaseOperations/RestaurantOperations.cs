@@ -72,7 +72,7 @@ namespace eBarDatabase
             return _databaseEntities.RestaurantLocations.Where(x => x.RestaurantCity.ToUpper() == location.ToUpper()).Select(x => x.Restaurants).ToList();
         }
 
-        public string AddRestaurant(Restaurants restaurant)
+        public string AddRestaurant(ref Restaurants restaurant)
         {
             string message = RestaurantMessages.RestaurantSaved;
             try
@@ -82,6 +82,7 @@ namespace eBarDatabase
             }
             catch (Exception ex)
             {
+                _logger.Log("AddRestaurant_RestaurantOperations_Exception", ex.Message);
                 message = RestaurantMessages.RestaurantNotSaved;
             }
             return message;
@@ -101,7 +102,7 @@ namespace eBarDatabase
             }
             return message;
         }
-
+        
         public List<RestaurantModel> GetRestaurantsForPr()
         {
             List<RestaurantModel> restaurants = null;
@@ -126,12 +127,12 @@ namespace eBarDatabase
                                        RestaurantType = types.TypeName,
                                        ThumbnailBase64String = details.RestaurantThumbnail,
                                        RestaurantAddress = restLoc.RestaurantAddress
-                                   }).ToList();
+                                   }).Take(10).ToList();
                 }
             }
             catch (Exception ex)
             {
-
+                _logger.Log("GetRestaurantsForPr_Exception", ex.Message);
             }
             return restaurants;
         }
@@ -162,7 +163,7 @@ namespace eBarDatabase
             }
             catch (Exception ex)
             {
-
+                _logger.Log("GetRestaurantsObjListByKeyword_RestaurantOperations_Exception", ex.Message);
             }
 
             return restaurants;
@@ -193,7 +194,7 @@ namespace eBarDatabase
             }
             catch (Exception ex)
             {
-
+                _logger.Log("GetRestaurantsObjListByType_RestaurantOperations_Exception", ex.Message);
             }
 
             return restaurants;
@@ -226,7 +227,7 @@ namespace eBarDatabase
             }
             catch (Exception ex)
             {
-
+                _logger.Log("GetRestaurantsObjListByLocation_RestaurantOperations_Exception", ex.Message);
             }
 
             return restaurants;
@@ -235,26 +236,33 @@ namespace eBarDatabase
         public List<RestaurantModel> GetRestaurantsObjListByGeoCoordinate(string latitude, string longitude, int rangeKm, List<RestaurantModel> restaurants)
         {
             List<RestaurantModel> restaurantList = new List<RestaurantModel>();
-            var geoCoordinate = new GeoCoordinate(Convert.ToDouble(latitude), Convert.ToDouble(longitude));
-
-            if (restaurants != null)
+            try
             {
-                foreach (var restaurant in restaurants)
+                var geoCoordinate = new GeoCoordinate(Convert.ToDouble(latitude), Convert.ToDouble(longitude));
+
+                if (restaurants != null)
                 {
-                    var restaurantLocations = _databaseEntities.RestaurantLocations.FirstOrDefault(x => x.RestaurantId.ToString() == restaurant.RestaurantId);
-
-                    if (restaurantLocations != null)
+                    foreach (var restaurant in restaurants)
                     {
-                        var restaurantGeoCoordinate = new GeoCoordinate(Convert.ToDouble(restaurantLocations.Latitude), Convert.ToDouble(restaurantLocations.Longitude));
+                        var restaurantLocations = _databaseEntities.RestaurantLocations.FirstOrDefault(x => x.RestaurantId.ToString() == restaurant.RestaurantId);
 
-                        double distanceInMeteres = geoCoordinate.GetDistanceTo(restaurantGeoCoordinate);
-
-                        if (distanceInMeteres / 1000 < rangeKm)
+                        if (restaurantLocations != null)
                         {
-                            restaurantList.Add(restaurant);
+                            var restaurantGeoCoordinate = new GeoCoordinate(Convert.ToDouble(restaurantLocations.Latitude), Convert.ToDouble(restaurantLocations.Longitude));
+
+                            double distanceInMeteres = geoCoordinate.GetDistanceTo(restaurantGeoCoordinate);
+
+                            if (distanceInMeteres / 1000 < rangeKm)
+                            {
+                                restaurantList.Add(restaurant);
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("GetRestaurantsObjListByGeoCoordinate_RestaurantOperations_Exception", ex.Message);
             }
             return restaurantList;
         }
@@ -285,6 +293,7 @@ namespace eBarDatabase
             }
             catch (Exception ex)
             {
+                _logger.Log("SaveRestaurantDetails_RestaurantOperations_Exception", ex.Message);
                 return message = RestaurantMessages.RestaurantDetailsNotSaved;
             }
             return message;
@@ -294,6 +303,71 @@ namespace eBarDatabase
         {
             _databaseEntities.Dispose();
             _databaseEntities = null;
+        }
+
+        public List<CountiesAndCities> GetCitiesByCounty(string county)
+        {
+            List<CountiesAndCities> cities = new List<CountiesAndCities>();
+            try
+            {
+                using (var context = new DBModels())
+                {
+                    cities = context.CountiesAndCities.Where(x => x.Counties == county).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("GetCitiesByCounty_Exception", ex.Message);
+            }
+            return cities;
+        }
+
+        public string SaveRestaurantAdministrator(RestaurantAdministrators restaurantAdmin)
+        {
+            string message = RestaurantMessages.RestaurantAdministratorSaved;
+            try
+            {
+                _databaseEntities.RestaurantAdministrators.Add(restaurantAdmin);
+                _databaseEntities.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("SaveRestaurantAdministrator_RestaurantOperations_Exception", ex.Message);
+                message = RestaurantMessages.RestaurantAdministratorNotSaved;
+            }
+            return message;
+        }
+
+        public string SaveRestaurantLocation(RestaurantLocations restaurantLocation)
+        {
+            string message = RestaurantMessages.RestaurantLocationSaved;
+            try
+            {
+                _databaseEntities.RestaurantLocations.Add(restaurantLocation);
+                _databaseEntities.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("SaveRestaurantLocation_RestaurantOperations_Exception", ex.Message);
+                message = RestaurantMessages.RestaurantLocationNotSaved;
+            }
+            return message;
+        }
+
+        public string SaveRestaurantType(RestaurantTypes restaurantTypes)
+        {
+            string message = RestaurantMessages.RestaurantLocationSaved;
+            try
+            {
+                _databaseEntities.RestaurantTypes.Add(restaurantTypes);
+                _databaseEntities.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("SaveRestaurantLocation_RestaurantOperations_Exception", ex.Message);
+                message = RestaurantMessages.RestaurantLocationNotSaved;
+            }
+            return message;
         }
     }
 }

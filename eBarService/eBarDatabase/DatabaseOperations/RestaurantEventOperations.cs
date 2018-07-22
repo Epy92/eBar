@@ -79,6 +79,7 @@ namespace eBarDatabase
             }
             catch (Exception ex)
             {
+                _logger.Log("UpdateRestaurantEvent_Exception", ex.Message);
                 return message = RestaurantEventMessage.NokUpdate;
             }
             return message;

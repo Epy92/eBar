@@ -1,6 +1,7 @@
 import { Component,ViewChild, ElementRef, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Button } from 'ionic-angular';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
+import { EBarServiceProvider } from '../../../providers/e-bar-service/e-bar-service';
 
 class CountiesAndCities{
   id:number;
@@ -17,10 +18,11 @@ class CountiesAndCities{
 export class RestaurantDetailsPage {
   userLogged:boolean = false;
   loggedUser:any;
-  restaurant:Object = new Object();
+  restaurant:any = new Object();
   viewMode:boolean = true;
-  restaurantTypes:Array<Object> = [];
+  restaurantTypes:any = [];
   counties:Array<Object> = [];
+  cities:any;
   county: any;
   city:any;
   file:any;
@@ -30,7 +32,7 @@ export class RestaurantDetailsPage {
   @ViewChild('searchImageButton') searchImageButton: Button;
   @ViewChild('fileInput') fileInput: ElementRef;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl : AlertController, private userService:UserServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl : AlertController, private userService:UserServiceProvider, private restService:EBarServiceProvider) {
     this.userLogged = this.userService.isLoggedIn;
     var pageMode =  this.navParams.get('pageMode');
      if(pageMode != null && pageMode == 'Edit')
@@ -43,7 +45,6 @@ export class RestaurantDetailsPage {
       this.getRestaurantDetails();
     }
     this.getCounties();
-    this.getCitiesByCounty();
 }
 
   ionViewDidLoad() {
@@ -58,6 +59,10 @@ export class RestaurantDetailsPage {
       }
     });
   }
+
+  // uploadFile(){
+  //   this.restService.saveRestaurantDetails(this.file, this.restaurant);
+  // }
 
   editRestaurant(){
     this.navCtrl.push("RestaurantDetailsPage", {pageMode: 'Edit'})
@@ -128,16 +133,18 @@ export class RestaurantDetailsPage {
   getCitiesByCounty(){
     if(this.county != null)
     {
-      //get cities by county id
+      this.restService.getCitiesByCounty(this.county).then(cities => {
+        this.cities = cities;
+      });
       console.log(this.county.id);
-    }
-    else{
-      //get all cities
     }
   }
 
   saveRestaurant(){
-
+    //var myRest = this.restaurant;
+    this.restaurant.RestaurantCity = this.city;
+    this.restaurant.RestaurantCounty = this.county;
+    this.restService.saveRestaurantDetails(this.file, this.restaurant, this.loggedUser.userId);
   }
 
   createRestaurantTypesArray(){
@@ -150,12 +157,11 @@ export class RestaurantDetailsPage {
     this.restaurantTypes.push({id:"7",value:"Berarie"});
     this.restaurantTypes.push({id:"8",value:"Rotiserie"});
     this.restaurantTypes.push({id:"9",value:"Ceainarie"});
-    this.restaurantTypes.push({id:"10",value:"Restaurant italian"});
-    this.restaurantTypes.push({id:"11",value:"Restaurant grecesc"});
-    this.restaurantTypes.push({id:"12",value:"Restaurant chinezesc"});
-    this.restaurantTypes.push({id:"13",value:"Restaurant libanez"});
-    this.restaurantTypes.push({id:"14",value:"Restaurant turcesc"});
-    this.restaurantTypes.push({id:"15",value:"Fast food"});
+    this.restaurantTypes.push({id:"10",value:"Restaurant grecesc"});
+    this.restaurantTypes.push({id:"11",value:"Restaurant chinezesc"});
+    this.restaurantTypes.push({id:"12",value:"Restaurant libanez"});
+    this.restaurantTypes.push({id:"13",value:"Restaurant turcesc"});
+    this.restaurantTypes.push({id:"14",value:"Fast food"});
   }
 
   getRestaurantDetails(){
@@ -175,6 +181,20 @@ export class RestaurantDetailsPage {
     // this.restaurant.ThumbnailBase64String = null;
     // this.restaurant.HasThumbnail = this.restaurant.ThumbnailBase64String != null;
     // this.restaurant.Program = "Luni-Vineri : 09-24; Sambata:09-22; Duminica : 09:20"
+  }
+
+  countyChanged(county){
+    this.county = county.value;
+    this.getCitiesByCounty();
+  }
+
+  cityChanged(city)
+  {
+    this.city = city.Cities;
+  }
+
+  typeChanged(restType){
+    this.restaurant.RestaurantTypeId = restType.id;
   }
 
   showError(text) {

@@ -56,7 +56,7 @@ ion-nav .scroll-content {
 }
 
 a:hover {
-  color: #0056b3;
+  color: $ebar-primary-color;
   text-decoration: underline;
 }
 
@@ -65,7 +65,7 @@ a:hover {
 }
 
 .ebar-header {
-  border-bottom: 3px solid #1281c8;
+  border-bottom: 3px solid $ebar-primary-color;
   height: 8rem;
 }
 
@@ -78,14 +78,14 @@ a:hover {
 }
 
 .register-btn {
-  border: 1px solid #1281c8;
+  border: 1px solid $ebar-primary-color;
   border-radius: 0.8rem;
   height: 50px;
   margin-top: 5%;
 }
 
 .bordered-btn {
-  border: 1px solid #1281c8;
+  border: 1px solid $ebar-primary-color;
   border-radius: 0.8rem;
   height: 50px;
 }
@@ -213,7 +213,7 @@ a:hover {
   border-radius: 10px;
   padding: 10px; // border-left:1px solid #eee;
   // border-top:1px solid #eee;
-  border-right: 2px solid #eee;
+  //border-right: 2px solid #eee;
   border-bottom: 2px solid #eee;
   height: calc(100vh - 75px);
 }
@@ -253,7 +253,7 @@ a:hover {
   list-style: none;
   padding: 2rem;
   margin: 0px;
-  overflow-y: scroll;
+  //overflow-y: scroll;
   height: calc(100vh - 25rem);
 }
 
@@ -314,14 +314,14 @@ a:hover {
 
 .sidebar .nav>.item-md h2:hover {
   background: #fff;
-  color: #0056b3;
+  color:$ebar-primary-color;
   border-bottom: 0px;
   cursor: pointer;
 }
 
 .item-md ion-avatar[item-left]:hover+.item-inner .input-wrapper .label-md h2 {
   background: #fff;
-  color: #0056b3;
+  color: $ebar-primary-color;
   border-bottom: 0px;
 }
 
@@ -342,6 +342,8 @@ a:hover {
   padding: 2rem;
   padding-top: 0px;
   padding-bottom: 0px;
+  border: 1px solid $ebar-primary-color;
+  
 }
 
 .ebar-panel>.ebar-panel-heading {
@@ -349,6 +351,11 @@ a:hover {
   background-color: #fff;
   border-color: #fff;
   text-align: center;
+
+  .panel-header{
+    background-color: $ebar-primary-color;
+    color:white;
+  }
 }
 
 // .scroll-content { position: fixed; }
@@ -436,6 +443,10 @@ a:hover {
     //  margin-top: 1em;        
     height: 5.5rem;
   }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -494,7 +505,7 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
   display: block;
-  border: 2px solid #1071af;
+  //border: 2px solid $ebar-primary-color;
 }
 
 #hello-username {
@@ -539,7 +550,7 @@ a:hover {
 }
 
 ion-header {
-  height: 16rem;
+  height: 90rem;
 }
 
 ion-header ion-toolbar {

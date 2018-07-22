@@ -13,12 +13,16 @@ namespace eBarDatabase
         List<RestaurantTypes> GetRestaurantsByType(int typeId);
         List<RestaurantTables> GetRestaurantTables(int restaurantId);
         List<Restaurants> GetRestaurantsByLocation(string location);
-        string AddRestaurant(Restaurants restaurant);
         List<RestaurantModel> GetRestaurantsForPr();
         List<RestaurantModel> GetRestaurantsObjListByKeyword(string keyword);
         List<RestaurantModel> GetRestaurantsObjListByLocation(string county, string location);
         List<RestaurantModel> GetRestaurantsObjListByType(string typeIDs); 
         List<RestaurantModel> GetRestaurantsObjListByGeoCoordinate(string lat, string longitude, int rangeKm, List<RestaurantModel> l_rest);
         string SaveRestaurantDetails(RestaurantDetails restaurantDetails);
+        string AddRestaurant(ref Restaurants restaurant);
+        string SaveRestaurantAdministrator(RestaurantAdministrators restaurantAdmin);
+        string SaveRestaurantLocation(RestaurantLocations restaurantLocation);
+        string SaveRestaurantType(RestaurantTypes restaurantTypes);
+        List<CountiesAndCities> GetCitiesByCounty(string county);
     }
 }

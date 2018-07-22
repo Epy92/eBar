@@ -35,7 +35,7 @@ sessionKey:String;
 
   getEventsByAdministrator(userId: number): Observable<any> {
     //let url = 'http://localhost/eBarWS/api/Restaurant/GetRestarantEvents/' + administratorEmail;
-    let url = 'http://localhost/eBarWS/api/Restaurant/GetRestarantEvents/?restaurantId=1';
+    let url = 'http://localhost/eBarWS/api/RestaurantEvent/GetRestaurantEvents/?userId=' + 1;
     
     let headers = new Headers(
       {

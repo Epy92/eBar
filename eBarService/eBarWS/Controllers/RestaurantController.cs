@@ -8,6 +8,11 @@ using eBarWS.Interfaces;
 using eBarDatabase;
 using eBarWS.Utils;
 using ViewModels;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net;
+using System.Web;
+using System.IO;
 
 namespace eBarWS.Controllers
 {
@@ -142,34 +147,12 @@ namespace eBarWS.Controllers
             }
         }
 
-        [HttpPost]
-        [EBarAuth]
-        public string SaveRestaurant(Restaurants restaurant)
-        {
-            ResponseDataModel response = new ResponseDataModel();
-            try
-            {
-                response.ResultMessage = _restaurantOperations.AddRestaurant(restaurant);
-                response.ResultFlag = true;
-                response.ResultCode = ResultCode.RestaurantSaved.ToString();
-            }
-            catch (Exception ex)
-            {
-                _logger.Log("SaveRestaurant_Exception: ", ex.Message);
-                response.ResultFlag = false;
-                response.ResultCode = ResultCode.OperationFailed.ToString();
-            }
-
-            return JsonConvert.SerializeObject(response);
-        }
-
         public string GetRestaurantsForPr()
         {
             try
             {
                 var restaurants = _restaurantOperations.GetRestaurantsForPr();
                 return JsonConvert.SerializeObject(restaurants);
-
             }
             catch (Exception ex)
             {
@@ -259,6 +242,91 @@ namespace eBarWS.Controllers
                 _logger.Log("GetRestaurantsByParameters_Exception: ", ex.Message);
                 return JsonConvert.SerializeObject(null);
             }
+        }
+
+        public string GetCitiesByCounty(string county)
+        {
+            try
+            {
+                var cities = _restaurantOperations.GetCitiesByCounty(county);
+                return JsonConvert.SerializeObject(cities);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("GetCitiesByCounty_Exception: ", ex.Message);
+                return JsonConvert.SerializeObject(null);
+            }
+        }
+
+        [HttpPost]
+        public async Task<string> SaveRestaurantDetails()
+        {
+            String fileBase64 = null;
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            try
+            {
+                // Read the form data.
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                // get file and convert to base64
+                foreach (MultipartFileData file in provider.FileData)
+                {
+                    var path = file.LocalFileName;
+                    Byte[] bytes = File.ReadAllBytes(path);
+                    fileBase64 = Convert.ToBase64String(bytes);
+
+                    File.Delete(path);
+                }
+
+                Restaurants restaurant = SaveRestaurantOperations(fileBase64, provider);
+
+                return JsonConvert.SerializeObject(restaurant);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("SaveRestaurantDetails_Exception", ex.Message);
+                return JsonConvert.SerializeObject(null);
+            }
+        }
+
+        private Restaurants SaveRestaurantOperations(string fileBase64, MultipartFormDataStreamProvider provider)
+        {
+            //get restaurant details model
+            RestaurantDetailsModel model = JsonConvert.DeserializeObject<RestaurantDetailsModel>(provider.FormData[0]);
+            model.RestaurantThumbnail = fileBase64;
+
+            Restaurants restaurant = new Restaurants() { RestaurantName = model.RestaurantName };
+            _restaurantOperations.AddRestaurant(ref restaurant);
+            RestaurantAdministrators restAdmin = new RestaurantAdministrators()
+            {
+                RestaurantId = restaurant.RestaurantId,
+                UserID = model.UserId
+            };
+            _restaurantOperations.SaveRestaurantAdministrator(restAdmin);
+
+            RestaurantLocations restLoc = new RestaurantLocations()
+            {
+                RestaurantCity = model.RestaurantCity,
+                RestaurantCounty = model.RestaurantCounty,
+                RestaurantAddress = model.RestaurantAddress,
+                RestaurantId = restaurant.RestaurantId
+            };
+            _restaurantOperations.SaveRestaurantLocation(restLoc);
+
+            RestaurantDetails restDetails = Mapper.Map<RestaurantDetailsModel, RestaurantDetails>(model);
+            restDetails.RestaurantId = restaurant.RestaurantId;
+            restDetails.RestaurantDirectoryGuid = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data"), "Restaurant_" + restaurant.RestaurantId);
+            _restaurantOperations.SaveRestaurantDetails(restDetails);
+
+            RestaurantTypes restType = new RestaurantTypes()
+            {
+                TypeName = RestTypesEnum.RestaurantTypes[model.RestaurantTypeId],
+                RestaurantId = restaurant.RestaurantId
+            };
+            _restaurantOperations.SaveRestaurantType(restType);
+            return restaurant;
         }
     }
 }

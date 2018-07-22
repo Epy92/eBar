@@ -7,8 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class EBarServiceProvider {
 
-  constructor(public http: Http, 
-    public platform: Platform) {
+  constructor(public http: Http, public platform: Platform) {
 
 }
 
@@ -51,7 +50,41 @@ export class EBarServiceProvider {
     return this.http.get(url).map(res => res.json());
   }
 
+  getCitiesByCounty(county:String) {
+    let url = 'http://localhost/eBarWS/api/Restaurant/GetCitiesByCounty/?county=' + county;
+
+    return new Promise(resolve => {
+      this.http.get(url)
+      .subscribe(
+          data => {
+              resolve(JSON.parse(data.json()));
+          },
+          error => {
+            console.log(error);
+          }
+      );
+  });
+   // return citiesJson;
+  }
+
   getArray(size): Array<any> {
     return new Array(size);
+  }
+
+  saveRestaurantDetails(file, restaurantDetails, userId) {
+    var options = {};
+    var url="http://localhost/eBarWS/api/Restaurant/SaveRestaurantDetails";
+    let body = new FormData();
+    body.append('image', file);
+    body.append('restaurantDetails', JSON.stringify(restaurantDetails));
+    body.append('userId', userId);
+    this.http.post(url, body, options)
+    .subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log("Error occured:" + err);
+    });
   }
 }

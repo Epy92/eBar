@@ -133,11 +133,13 @@ namespace eBarDatabase
         {
             try
             {
-                var mail = new MailMessage();
+                var mail = new MailMessage
+                {
 
-                // Set the to and from addresses.
-                // The from address must be your GMail account
-                mail.From = new MailAddress("ebartechnologies@gmail.com");
+                    // Set the to and from addresses.
+                    // The from address must be your GMail account
+                    From = new MailAddress("ebartechnologies@gmail.com")
+                };
                 mail.To.Add(new MailAddress(userDetails.Email));
 
                 // Define the message
@@ -146,17 +148,19 @@ namespace eBarDatabase
                 mail.Body = "Dear " + userDetails.Name + @", \n\n" + "Your reset code is " + resetCode + @". The reset code is available only 24 hours.\n\n";
 
                 // Create a new Smpt Client using Google's servers
-                var mailclient = new SmtpClient();
-                mailclient.Host = "smtp.gmail.com";
-                mailclient.Port = 587;
+                var mailclient = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
 
-                // This is the critical part, you must enable SSL
-                mailclient.EnableSsl = true;
+                    // This is the critical part, you must enable SSL
+                    EnableSsl = true,
 
-                // Specify your authentication details
-                mailclient.Credentials = new NetworkCredential(
+                    // Specify your authentication details
+                    Credentials = new NetworkCredential(
                                                  "ebartechnologies@gmail.com",
-                                                 "ebarservices1!");
+                                                 "ebarservices1!")
+                };
                 mailclient.Send(mail);
             }
             catch (Exception ex)
