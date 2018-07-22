@@ -11,7 +11,7 @@ namespace ViewModels
         public int RestaurantReviewID { get; set; }
         public int UserID { get; set; }
         public int RestaurantId { get; set; }
-        public string Review { get; set; }
+        public string ReviewComment { get; set; }
         public int Grade { get; set; }
     }
 }

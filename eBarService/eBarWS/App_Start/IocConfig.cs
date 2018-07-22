@@ -24,7 +24,7 @@ namespace eBarWS
             builder.RegisterType<ProductOperations>().As<IProductOperations>();
             builder.RegisterType<RestaurantEventOperations>().As<IRestaurantEventOperations>();
             builder.RegisterType<Logger>().As<ILogger>();
-
+            builder.RegisterType<RestaurantReviewOperations>().As<IRestaurantReviewOperations>();
             return builder;
         }
     }

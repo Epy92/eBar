@@ -3,7 +3,7 @@ create table RestaurantReview
 	RestaurantReviewID int not null primary key identity(1,1),
 	UserID int not null foreign key references UserTbl(UserID),
 	RestaurantId int not null foreign key references Restaurants(RestaurantId) on delete cascade,
-	ReviewComment nvarchar(1000) not null,
+	ReviewComment nvarchar(1000),
 	Grade int not null default 0,
 );
 
