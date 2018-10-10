@@ -27,6 +27,7 @@ namespace eBarDatabase
             this.RestaurantEvent = new HashSet<RestaurantEvent>();
             this.RestaurantFavorite = new HashSet<RestaurantFavorite>();
             this.RestaurantReview = new HashSet<RestaurantReview>();
+            this.RestaurantGrades = new HashSet<RestaurantGrades>();
         }
     
         public int RestaurantId { get; set; }
@@ -52,5 +53,7 @@ namespace eBarDatabase
         public virtual ICollection<RestaurantFavorite> RestaurantFavorite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantReview> RestaurantReview { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantGrades> RestaurantGrades { get; set; }
     }
 }

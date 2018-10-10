@@ -62,6 +62,7 @@
     <Compile Include="DatabaseOperations\ProductOperations.cs" />
     <Compile Include="DatabaseOperations\RestaurantEventOperations.cs" />
     <Compile Include="DatabaseOperations\RestaurantOperations.cs" />
+    <Compile Include="DatabaseOperations\RestaurantReviewOperations.cs" />
     <Compile Include="DatabaseOperations\UserOperations.cs" />
     <Compile Include="DBContext.Context.cs">
       <AutoGen>True</AutoGen>
@@ -83,6 +84,7 @@
     <Compile Include="Interfaces\IProductOperations.cs" />
     <Compile Include="Interfaces\IRestaurantEventOperations.cs" />
     <Compile Include="Interfaces\IRestaurantOperations.cs" />
+    <Compile Include="Interfaces\IRestaurantReviewOperations.cs" />
     <Compile Include="Interfaces\IUserOperations.cs" />
     <Compile Include="Languages.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
@@ -99,6 +101,9 @@
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="RestaurantFavorite.cs">
+      <DependentUpon>DBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RestaurantGrades.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="RestaurantLocations.cs">

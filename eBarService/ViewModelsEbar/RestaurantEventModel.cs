@@ -11,7 +11,7 @@ namespace ViewModels
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
         public int RestaurantId { get; set; }
-        public DateTime PublicationDate { get; set; }
+        public DateTime EventPublicationDate { get; set; }
         public string RestaurantThumbnail { get; set; }
         public bool HasThumbnail
         {

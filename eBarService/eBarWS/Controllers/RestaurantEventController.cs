@@ -53,7 +53,7 @@ namespace eBarWS.Controllers
         {
             try
             {
-                var restaurantEvents = _restaurantEventOperations.SaveRestaurantEvent(restaurantEvent);
+                var restaurantEvents = _restaurantEventOperations.UpdateRestaurantEvent(restaurantEvent);
                 return JsonConvert.SerializeObject(restaurantEvents);
             }
             catch (Exception ex)

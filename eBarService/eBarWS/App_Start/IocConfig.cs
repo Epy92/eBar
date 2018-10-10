@@ -14,6 +14,7 @@ namespace eBarWS
             builder.RegisterType<RestaurantController>().AsSelf();
             builder.RegisterType<UserSessionController>().AsSelf();
             builder.RegisterType<RestaurantEventController>().AsSelf();
+            builder.RegisterType<RestaurantReviewController>().AsSelf();
             //builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterWebApiModelBinderProvider();
@@ -24,7 +25,7 @@ namespace eBarWS
             builder.RegisterType<ProductOperations>().As<IProductOperations>();
             builder.RegisterType<RestaurantEventOperations>().As<IRestaurantEventOperations>();
             builder.RegisterType<Logger>().As<ILogger>();
-
+            builder.RegisterType<RestaurantReviewOperations>().As<IRestaurantReviewOperations>();
             return builder;
         }
     }

@@ -1,5 +1,5 @@
 DatabaseCreation.sql
 CreateAndInsertCities.sql
 EbarSprint1.sql
-TriggerAfterUpdateRestaurantReview.sql
-TriggerForInsertRestaurantReview.sql
+TriggerAfterUpdateRestaurantGrades.sql
+TriggerForInsertRestaurantGrades.sql
