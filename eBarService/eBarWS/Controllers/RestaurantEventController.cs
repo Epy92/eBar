@@ -17,6 +17,12 @@ namespace eBarWS.Controllers
             _restaurantEventOperations = restaurantEventOperations;
         }
 
+        public string GetRestaurantEventsForTimeline(string lastEventDate)
+        {
+
+            return null;
+        }
+
         public string GetRestaurantEvents(int userId)
         {
             try

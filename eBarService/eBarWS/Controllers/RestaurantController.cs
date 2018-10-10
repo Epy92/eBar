@@ -57,20 +57,20 @@ namespace eBarWS.Controllers
             }
         }
 
-        [EBarAuth]
-        public string GetRestaurantsByCity(string city)
-        {
-            try
-            {
-                var restaurant = _restaurantOperations.GetRestaurantsByLocation(city);
-                return JsonConvert.SerializeObject(restaurant);
-            }
-            catch (Exception ex)
-            {
-                _logger.Log("GetResturantsByCity_Exception: ", ex.Message);
-                return JsonConvert.SerializeObject(null);
-            }
-        }
+        //[EBarAuth]
+        //public string GetRestaurantsByCity(string city)
+        //{
+        //    try
+        //    {
+        //        var restaurant = _restaurantOperations.GetRestaurantsByLocation(city);
+        //        return JsonConvert.SerializeObject(restaurant);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.Log("GetResturantsByCity_Exception: ", ex.Message);
+        //        return JsonConvert.SerializeObject(null);
+        //    }
+        //}
 
         [EBarAuth]
         public string GetRestaurantsByType(int typeId)
@@ -161,87 +161,78 @@ namespace eBarWS.Controllers
             }
         }
 
-        public string GetRestaurantsByParameters(string keyword, string location, string county, string typeIDs, string lat, string longitude, int rangeKm, int nrOfRecordsToSkip)
+        public string GetRestaurantsByParameters(string keyword, string location, string county, string typeIDs, string latitude, string longitude, int rangeKm, int nrOfRecordsToSkip)
         {
-            List<RestaurantModel> l_rest = null;
+            List<RestaurantModel> restaurants = null;
+            bool allParametersAreNull = AreAllParametersNull(keyword, location, county,typeIDs, latitude, longitude,rangeKm);
             try
             {
-                //if user wants restaurants by locality
-                if (!string.IsNullOrEmpty(county))
+                //meaning the user searched without any filter
+                if (allParametersAreNull)
                 {
-                    try
-                    {
-                        // se face cautare dupa judet si dupa localitate
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByLocation(county, location);
-
-                        //filter by type if any
-                        if (!string.IsNullOrEmpty(typeIDs))
-                        {
-                            l_rest = l_rest.Where(x => typeIDs.Split(';').ToList().Contains(x.RestaurantTypeId.ToString())).ToList();
-
-                            //where(x=> typeIds.Split(";").toList().containts(x=>x.typeId))
-                        }
-                        //filter by keyword if any
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            l_rest = l_rest.Where(x => x.RestaurantName.ToUpper().Contains(keyword) || x.RestaurantDescription.ToUpper().Contains(keyword)).ToList();
-                        }
-
-                        //return JsonConvert.SerializeObject(l_rest);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Log("GetRestaurantsByLocation_Exception: ", ex.Message);
-                        return JsonConvert.SerializeObject(null);
-                    }
-                }
-                //if user wants restaurants by range
-                else if (!string.IsNullOrEmpty(lat) && !string.IsNullOrEmpty(longitude) && rangeKm > 0)
-                {
-                    //get by type if any
-                    if (!string.IsNullOrEmpty(typeIDs))
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByType(typeIDs);
-                        //filter by keyword if any
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            l_rest = l_rest.Where(x => x.RestaurantName.ToUpper().Contains(keyword) || x.RestaurantDescription.ToUpper().Contains(keyword)).ToList();
-                        }
-                    }
-                    //get by keyword if any (in this case the type is for sure 0 and no need for filter)
-                    else if (string.IsNullOrEmpty(typeIDs) && !string.IsNullOrEmpty(keyword))
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsObjListByKeyword(keyword);
-                    }
-
-                    //if there are no restaurants means type = 0 and keyword is null and no branch was executed (if or elseif)
-                    // then get all restaurants and filter by range and coordinates
-                    if (l_rest == null)
-                    {
-                        l_rest = _restaurantOperations.GetRestaurantsForPr();
-                    }
-
-                    l_rest = _restaurantOperations.GetRestaurantsObjListByGeoCoordinate(lat, longitude, rangeKm, l_rest);
+                    restaurants = _restaurantOperations.GetRestaurantsForPr();
                 }
 
-                if (l_rest.Count > 10)
+                if (!string.IsNullOrEmpty(keyword))
                 {
-                    if (nrOfRecordsToSkip > 0)
+                    restaurants = _restaurantOperations.GetRestaurantsByKeyword(keyword);
+                }
+
+                if (!string.IsNullOrEmpty(typeIDs))
+                {
+                    if (restaurants.Any())
                     {
-                        l_rest = l_rest.Skip(nrOfRecordsToSkip).Take(10).ToList();
+                        var types = typeIDs.Split(',');
+                        restaurants = restaurants.Where(x => types.Contains(x.RestaurantTypeId.ToString())).ToList();
                     }
                     else
                     {
-                        l_rest = l_rest.Take(10).ToList();
+                        restaurants = _restaurantOperations.GetRestaurantsByTypes(typeIDs);
                     }
                 }
-                return JsonConvert.SerializeObject(l_rest);
+
+                if (!string.IsNullOrEmpty(county))
+                {
+                    if (restaurants.Any())
+                    {
+                        restaurants = restaurants.Where(x => x.RestaurantCounty == county).ToList();
+                        if (!string.IsNullOrEmpty(location)) {
+                            restaurants = restaurants.Where(x => x.RestaurantCity == location).ToList();
+                        }
+                    }
+                    else
+                    {
+                        restaurants = _restaurantOperations.GetRestaurantsByCountyAndCity(county, location);
+                    }
+                }
+                else {
+                    if (!string.IsNullOrEmpty(latitude) && !string.IsNullOrEmpty(latitude) && rangeKm > 0)
+                    {
+                        restaurants = _restaurantOperations.GetRestaurantsByGeoCoordinate(null, null, 0, restaurants);
+                    }
+                }
+
+                return JsonConvert.SerializeObject(restaurants.Skip(nrOfRecordsToSkip).Take(10).ToList());
             }
             catch (Exception ex)
             {
                 _logger.Log("GetRestaurantsByParameters_Exception: ", ex.Message);
                 return JsonConvert.SerializeObject(null);
             }
+        }
+
+        private bool AreAllParametersNull(string keyword, string location, string county, string typeIDs, string latitude, string longitude, int rangeKm)
+        {
+            bool result = true;
+
+            result = result && string.IsNullOrEmpty(keyword);
+            result = result && string.IsNullOrEmpty(county);
+            result = result && string.IsNullOrEmpty(typeIDs);
+            result = result && string.IsNullOrEmpty(latitude);
+            result = result && string.IsNullOrEmpty(longitude);
+            result = result && rangeKm > 0;
+
+            return result;
         }
 
         public string GetCitiesByCounty(string county)

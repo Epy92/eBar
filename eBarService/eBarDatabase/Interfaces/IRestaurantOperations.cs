@@ -12,12 +12,12 @@ namespace eBarDatabase
         Restaurants GetRestaurantById(int restaurantId);
         List<RestaurantTypes> GetRestaurantsByType(int typeId);
         List<RestaurantTables> GetRestaurantTables(int restaurantId);
-        List<Restaurants> GetRestaurantsByLocation(string location);
+        //List<Restaurants> GetRestaurantsByLocation(string location);
         List<RestaurantModel> GetRestaurantsForPr();
-        List<RestaurantModel> GetRestaurantsObjListByKeyword(string keyword);
-        List<RestaurantModel> GetRestaurantsObjListByLocation(string county, string location);
-        List<RestaurantModel> GetRestaurantsObjListByType(string typeIDs); 
-        List<RestaurantModel> GetRestaurantsObjListByGeoCoordinate(string lat, string longitude, int rangeKm, List<RestaurantModel> l_rest);
+        List<RestaurantModel> GetRestaurantsByKeyword(string keyword);
+        List<RestaurantModel> GetRestaurantsByCountyAndCity(string county, string location);
+        List<RestaurantModel> GetRestaurantsByTypes(string typeIDs); 
+        List<RestaurantModel> GetRestaurantsByGeoCoordinate(string lat, string longitude, int rangeKm, List<RestaurantModel> l_rest);
         string SaveRestaurantDetails(RestaurantDetails restaurantDetails);
         string AddRestaurant(ref Restaurants restaurant);
         string SaveRestaurantAdministrator(RestaurantAdministrators restaurantAdmin);

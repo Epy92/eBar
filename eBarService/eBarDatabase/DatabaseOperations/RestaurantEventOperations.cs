@@ -13,7 +13,8 @@ namespace eBarDatabase
         {
             _logger = new DatabaseLogger();
         }
-        public List<RestaurantEvent> GetRestaurantEvents(int userId)
+
+        public List<RestaurantEvent> GetMostRecent10Restaurants()
         {
             List<RestaurantEvent> events = new List<RestaurantEvent>();
 
@@ -24,11 +25,52 @@ namespace eBarDatabase
                 {
                     context.Database.Connection.Open();
                 }
-                events = (from resEvent in context.RestaurantEvent
-                          join restAdmin in context.RestaurantAdministrators
-                          on resEvent.RestaurantId equals restAdmin.RestaurantId
-                          where restAdmin.UserID == userId
-                          select resEvent).ToList();
+                events = context.RestaurantEvent.OrderByDescending(x => x.EventPublicationDate).Take(10).ToList();
+            }
+
+            return events;
+        }
+
+        public List<RestaurantEvent> GetRestaurantEvents(int userId)
+        {
+            List<RestaurantEvent> events = new List<RestaurantEvent>();
+
+            try
+            {
+                using (var context = new DBModels())
+                {
+
+                    if (context.Database.Connection.State == System.Data.ConnectionState.Closed || context.Database.Connection.State == System.Data.ConnectionState.Broken)
+                    {
+                        context.Database.Connection.Open();
+                    }
+                    events = (from resEvent in context.RestaurantEvent
+                              join restAdmin in context.RestaurantAdministrators
+                              on resEvent.RestaurantId equals restAdmin.RestaurantId
+                              where restAdmin.UserID == userId
+                              select resEvent).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("GetRestaurantEvents_Exception", ex.Message);
+            }
+
+            return events;
+        }
+
+        public List<RestaurantEvent> GetRestaurantEventsForTimeline(DateTime lastEventDate)
+        {
+            List<RestaurantEvent> events = new List<RestaurantEvent>();
+
+            using (var context = new DBModels())
+            {
+
+                if (context.Database.Connection.State == System.Data.ConnectionState.Closed || context.Database.Connection.State == System.Data.ConnectionState.Broken)
+                {
+                    context.Database.Connection.Open();
+                }
+                events = context.RestaurantEvent.Where(x => x.EventPublicationDate < lastEventDate).OrderByDescending(x=>x.EventPublicationDate).Take(10).ToList();
             }
 
             return events;

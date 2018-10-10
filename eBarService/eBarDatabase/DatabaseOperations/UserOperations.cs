@@ -134,11 +134,10 @@ namespace eBarDatabase
             try
             {
                 var mail = new MailMessage
-                {
-
+                { 
                     // Set the to and from addresses.
                     // The from address must be your GMail account
-                    From = new MailAddress("ebartechnologies@gmail.com")
+                    From = new MailAddress("Email")
                 };
                 mail.To.Add(new MailAddress(userDetails.Email));
 
@@ -158,8 +157,8 @@ namespace eBarDatabase
 
                     // Specify your authentication details
                     Credentials = new NetworkCredential(
-                                                 "ebartechnologies@gmail.com",
-                                                 "ebarservices1!")
+                                                 "Email",
+                                                 "YourPassword!")
                 };
                 mailclient.Send(mail);
             }

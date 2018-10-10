@@ -67,10 +67,10 @@ namespace eBarDatabase
             return _databaseEntities.RestaurantTables.Where(x => x.RestaurantId == restaurantId).ToList();
         }
 
-        public List<Restaurants> GetRestaurantsByLocation(string location)
-        {
-            return _databaseEntities.RestaurantLocations.Where(x => x.RestaurantCity.ToUpper() == location.ToUpper()).Select(x => x.Restaurants).ToList();
-        }
+        //public List<Restaurants> GetRestaurantsByLocation(string location)
+        //{
+        //    return _databaseEntities.RestaurantLocations.Where(x => x.RestaurantCity.ToUpper() == location.ToUpper()).Select(x => x.Restaurants).ToList();
+        //}
 
         public string AddRestaurant(ref Restaurants restaurant)
         {
@@ -127,7 +127,7 @@ namespace eBarDatabase
                                        RestaurantType = types.TypeName,
                                        ThumbnailBase64String = details.RestaurantThumbnail,
                                        RestaurantAddress = restLoc.RestaurantAddress
-                                   }).Take(10).ToList();
+                                   }).ToList();
                 }
             }
             catch (Exception ex)
@@ -137,7 +137,7 @@ namespace eBarDatabase
             return restaurants;
         }
 
-        public List<RestaurantModel> GetRestaurantsObjListByKeyword(string keyword)
+        public List<RestaurantModel> GetRestaurantsByKeyword(string keyword)
         {
             List<RestaurantModel> restaurants = null;
             try
@@ -169,7 +169,7 @@ namespace eBarDatabase
             return restaurants;
         }
 
-        public List<RestaurantModel> GetRestaurantsObjListByType(string typeIDs)
+        public List<RestaurantModel> GetRestaurantsByTypes(string typeIDs)
         {
             List<RestaurantModel> restaurants = null;
             try
@@ -200,7 +200,7 @@ namespace eBarDatabase
             return restaurants;
         }
 
-        public List<RestaurantModel> GetRestaurantsObjListByLocation(string county, string location)
+        public List<RestaurantModel> GetRestaurantsByCountyAndCity(string county, string location)
         {
             List<RestaurantModel> restaurants = null;
             try
@@ -233,15 +233,19 @@ namespace eBarDatabase
             return restaurants;
         }
 
-        public List<RestaurantModel> GetRestaurantsObjListByGeoCoordinate(string latitude, string longitude, int rangeKm, List<RestaurantModel> restaurants)
+        public List<RestaurantModel> GetRestaurantsByGeoCoordinate(string latitude, string longitude, int rangeKm, List<RestaurantModel> restaurants)
         {
             List<RestaurantModel> restaurantList = new List<RestaurantModel>();
             try
             {
                 var geoCoordinate = new GeoCoordinate(Convert.ToDouble(latitude), Convert.ToDouble(longitude));
 
-                if (restaurants != null)
+                // if no restaurants get all and then filter by coordinates
+                if(restaurants.Count == 0)
                 {
+                    restaurants = GetRestaurantsForPr();
+                }
+                else{
                     foreach (var restaurant in restaurants)
                     {
                         var restaurantLocations = _databaseEntities.RestaurantLocations.FirstOrDefault(x => x.RestaurantId.ToString() == restaurant.RestaurantId);

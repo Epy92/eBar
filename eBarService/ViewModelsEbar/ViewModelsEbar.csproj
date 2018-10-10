@@ -58,6 +58,7 @@
     <Compile Include="RestaurantReviewModel.cs" />
     <Compile Include="RestaurantTablesModel.cs" />
     <Compile Include="RestaurantTypesModel.cs" />
+    <Compile Include="RestTypesEnum.cs" />
     <Compile Include="SessionResponse.cs" />
     <Compile Include="UserModel.cs" />
     <Compile Include="UserResetPasswordCodesModel.cs" />
