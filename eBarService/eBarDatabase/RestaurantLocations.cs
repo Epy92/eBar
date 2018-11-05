@@ -15,12 +15,12 @@ namespace eBarDatabase
     public partial class RestaurantLocations
     {
         public int LocationId { get; set; }
+        public string RestaurantCounty { get; set; }
         public string RestaurantCity { get; set; }
+        public string RestaurantAddress { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public int RestaurantId { get; set; }
-        public string RestaurantAddress { get; set; }
-        public string RestaurantCounty { get; set; }
     
         public virtual Restaurants Restaurants { get; set; }
     }

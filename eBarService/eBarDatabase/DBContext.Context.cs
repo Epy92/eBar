@@ -29,18 +29,18 @@ namespace eBarDatabase
         public virtual DbSet<Languages> Languages { get; set; }
         public virtual DbSet<RestaurantAdministrators> RestaurantAdministrators { get; set; }
         public virtual DbSet<RestaurantDetails> RestaurantDetails { get; set; }
+        public virtual DbSet<RestaurantEvent> RestaurantEvent { get; set; }
+        public virtual DbSet<RestaurantFavorite> RestaurantFavorite { get; set; }
+        public virtual DbSet<RestaurantGrades> RestaurantGrades { get; set; }
         public virtual DbSet<RestaurantLocations> RestaurantLocations { get; set; }
         public virtual DbSet<RestaurantProducts> RestaurantProducts { get; set; }
         public virtual DbSet<RestaurantProductsCategories> RestaurantProductsCategories { get; set; }
+        public virtual DbSet<RestaurantReview> RestaurantReview { get; set; }
         public virtual DbSet<Restaurants> Restaurants { get; set; }
         public virtual DbSet<RestaurantTables> RestaurantTables { get; set; }
         public virtual DbSet<RestaurantTypes> RestaurantTypes { get; set; }
         public virtual DbSet<UserResetPasswordCodes> UserResetPasswordCodes { get; set; }
         public virtual DbSet<UserTbl> UserTbl { get; set; }
         public virtual DbSet<UserTypes> UserTypes { get; set; }
-        public virtual DbSet<RestaurantEvent> RestaurantEvent { get; set; }
-        public virtual DbSet<RestaurantFavorite> RestaurantFavorite { get; set; }
-        public virtual DbSet<RestaurantReview> RestaurantReview { get; set; }
-        public virtual DbSet<RestaurantGrades> RestaurantGrades { get; set; }
     }
 }

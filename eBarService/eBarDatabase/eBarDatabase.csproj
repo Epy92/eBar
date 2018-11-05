@@ -165,7 +165,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ViewModelsEbar\ViewModelsEbar.csproj">
       <Project>{f71cd2ca-b62a-486e-b836-4212ec21b869}</Project>

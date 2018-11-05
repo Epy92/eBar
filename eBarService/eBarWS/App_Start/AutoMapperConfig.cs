@@ -21,7 +21,7 @@ namespace eBarWS.App_Start
                 config.CreateMap<RestaurantTypes, RestaurantTypesModel>().ReverseMap();
                 config.CreateMap<UserResetPasswordCodes, UserResetPasswordCodesModel>();
                 config.CreateMap<UserTbl, UserModel>().ReverseMap();
-                config.CreateMap<UserTypes, UserTypesModel>().ReverseMap();
+                config.CreateMap<eBarDatabase.UserTypes, UserTypesModel>().ReverseMap();
                
                 config.CreateMap<RestaurantProducts, RestaurantProductsModel>().ReverseMap();
                 config.CreateMap<RestaurantEvent, RestaurantEventModel>().ReverseMap();

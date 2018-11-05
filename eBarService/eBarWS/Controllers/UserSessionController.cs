@@ -12,11 +12,13 @@ namespace eBarWS.Controllers
     public class UserSessionController : ApiController
     {
         private IUserOperations _userOperations = null;
+        private IRestaurantOperations _restaurantOperations = null;
         private ILogger _logger = null;
 
-        public UserSessionController(IUserOperations userOperations, ILogger logger)
+        public UserSessionController(IUserOperations userOperations, IRestaurantOperations restaurantOperations, ILogger logger)
         {
             _userOperations = userOperations;
+            _restaurantOperations = restaurantOperations;
             _logger = logger;
         }
 
@@ -69,6 +71,10 @@ namespace eBarWS.Controllers
                         UserTypeId = user.UserTypeId,
                         UserId = user.UserID
                     };
+                    if (response.UserDetails.UserTypeId == (int)UserTypesName.RestaurantAdministrator)
+                    {
+                        response.UserDetails.HasRestaurantConfigured = Convert.ToBoolean(_userOperations.CheckAdminHasRestaurant(response.UserDetails.Username,response.UserDetails.Email));
+                    }
                     response.SessionKey = Guid.NewGuid().ToString();
                     
                     HttpContext.Current.Session.Add("Session_ID", response.SessionKey);
@@ -80,6 +86,7 @@ namespace eBarWS.Controllers
                 response.ResultCode = ResultCode.OperationFailed.ToString();
                 _logger.Log("UserLogin_Exception: ", ex.Message);
             }
+            //return response;
             return JsonConvert.SerializeObject(response);
         }
 

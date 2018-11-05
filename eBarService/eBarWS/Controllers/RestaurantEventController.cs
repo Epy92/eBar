@@ -1,8 +1,11 @@
-﻿using eBarDatabase;
+﻿using AutoMapper;
+using eBarDatabase;
 using eBarWS.Interfaces;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Web.Http;
+using ViewModels;
 
 namespace eBarWS.Controllers
 {
@@ -17,10 +20,23 @@ namespace eBarWS.Controllers
             _restaurantEventOperations = restaurantEventOperations;
         }
 
-        public string GetRestaurantEventsForTimeline(string lastEventDate)
+        public string GetRestaurantEventsForTimeline(long lastEventDate)
         {
+            try
+            {
+                double ticks = double.Parse(lastEventDate.ToString());
+                TimeSpan time = TimeSpan.FromMilliseconds(ticks);
+                DateTime evDate = new DateTime(1970, 1, 1) + time;
+                var restaurantEvents = _restaurantEventOperations.GetRestaurantEventsForTimeline(evDate);
 
-            return null;
+                //var rest = Mapper.Map<List<RestaurantEvent>, List<RestaurantEventModel>>(restaurantEvents);
+                return JsonConvert.SerializeObject(restaurantEvents);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log("GetRestaurantEvents_Exception: ", ex.Message);
+                return JsonConvert.SerializeObject(null);
+            }
         }
 
         public string GetRestaurantEvents(int userId)

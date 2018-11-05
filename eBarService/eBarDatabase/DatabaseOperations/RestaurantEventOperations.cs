@@ -59,9 +59,9 @@ namespace eBarDatabase
             return events;
         }
 
-        public List<RestaurantEvent> GetRestaurantEventsForTimeline(DateTime lastEventDate)
+        public List<RestaurantEventModel> GetRestaurantEventsForTimeline(DateTime lastEventDate)
         {
-            List<RestaurantEvent> events = new List<RestaurantEvent>();
+            List<RestaurantEventModel> events = new List<RestaurantEventModel>();
 
             using (var context = new DBModels())
             {
@@ -70,9 +70,22 @@ namespace eBarDatabase
                 {
                     context.Database.Connection.Open();
                 }
-                events = context.RestaurantEvent.Where(x => x.EventPublicationDate < lastEventDate).OrderByDescending(x=>x.EventPublicationDate).Take(10).ToList();
+                events = (from ev in context.RestaurantEvent
+                          join rest in context.Restaurants on ev.RestaurantId equals rest.RestaurantId
+                          where ev.EventPublicationDate < lastEventDate
+                          orderby ev.EventPublicationDate descending
+                          select new RestaurantEventModel
+                          {
+                              RestaurantId = rest.RestaurantId,
+                              EventDescription = ev.EventDescription,
+                              EventEndDate = ev.EventEndDate.ToString(),
+                              EventPublicationDate = ev.EventPublicationDate,
+                              EventStartDate = ev.EventStartDate.ToString(),
+                              EventTitle = ev.EventTitle,
+                              RestaurantEventID = ev.RestaurantEventID,
+                              RestaurantName = rest.RestaurantName
+                          }).Take(10).ToList();
             }
-
             return events;
         }
 

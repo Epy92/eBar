@@ -8,11 +8,12 @@ namespace ViewModels
         public int RestaurantEventID { get; set; }
         public string EventTitle { get; set; }
         public string EventDescription { get; set; }
-        public DateTime? EventStartDate { get; set; }
-        public DateTime? EventEndDate { get; set; }
+        public string EventStartDate { get; set; }
+        public string EventEndDate { get; set; }
         public int RestaurantId { get; set; }
         public DateTime EventPublicationDate { get; set; }
         public string RestaurantThumbnail { get; set; }
+        public string RestaurantName { get; set; }        
         public bool HasThumbnail
         {
             get { return !string.IsNullOrEmpty(RestaurantThumbnail); }
@@ -21,9 +22,9 @@ namespace ViewModels
         {
             get
             {
-                if (EventStartDate.HasValue)
+                if (!string.IsNullOrEmpty(EventStartDate))
                 {
-                    return EventStartDate.Value.Day.ToString() + " " + new CultureInfo("ro").DateTimeFormat.GetMonthName(EventStartDate.Value.Month).Substring(0, 3).ToUpper();
+                    return DateTime.Parse(EventStartDate).Day.ToString() + " " + new CultureInfo("ro").DateTimeFormat.GetMonthName(DateTime.Parse(EventStartDate).Month).Substring(0, 3).ToUpper();
                 }
                 return "";
             }
@@ -32,9 +33,9 @@ namespace ViewModels
         {
             get
             {
-                if (EventEndDate.HasValue)
+                if (!string.IsNullOrEmpty(EventStartDate))
                 {
-                    return EventEndDate.Value.Day.ToString() + " " + new CultureInfo("ro").DateTimeFormat.GetMonthName(EventEndDate.Value.Month).Substring(0, 3);
+                    return DateTime.Parse(EventEndDate).Day.ToString() + " " + new CultureInfo("ro").DateTimeFormat.GetMonthName(DateTime.Parse(EventEndDate).Month).Substring(0, 3);
                 }
                 return "";
             }

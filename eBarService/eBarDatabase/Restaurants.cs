@@ -19,15 +19,15 @@ namespace eBarDatabase
         {
             this.RestaurantAdministrators = new HashSet<RestaurantAdministrators>();
             this.RestaurantDetails = new HashSet<RestaurantDetails>();
+            this.RestaurantEvent = new HashSet<RestaurantEvent>();
+            this.RestaurantFavorite = new HashSet<RestaurantFavorite>();
+            this.RestaurantGrades = new HashSet<RestaurantGrades>();
             this.RestaurantLocations = new HashSet<RestaurantLocations>();
             this.RestaurantProducts = new HashSet<RestaurantProducts>();
             this.RestaurantProductsCategories = new HashSet<RestaurantProductsCategories>();
+            this.RestaurantReview = new HashSet<RestaurantReview>();
             this.RestaurantTables = new HashSet<RestaurantTables>();
             this.RestaurantTypes = new HashSet<RestaurantTypes>();
-            this.RestaurantEvent = new HashSet<RestaurantEvent>();
-            this.RestaurantFavorite = new HashSet<RestaurantFavorite>();
-            this.RestaurantReview = new HashSet<RestaurantReview>();
-            this.RestaurantGrades = new HashSet<RestaurantGrades>();
         }
     
         public int RestaurantId { get; set; }
@@ -38,22 +38,22 @@ namespace eBarDatabase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantDetails> RestaurantDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantEvent> RestaurantEvent { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantFavorite> RestaurantFavorite { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantGrades> RestaurantGrades { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantLocations> RestaurantLocations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantProducts> RestaurantProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantProductsCategories> RestaurantProductsCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantReview> RestaurantReview { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantTables> RestaurantTables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantTypes> RestaurantTypes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RestaurantEvent> RestaurantEvent { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RestaurantFavorite> RestaurantFavorite { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RestaurantReview> RestaurantReview { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RestaurantGrades> RestaurantGrades { get; set; }
     }
 }

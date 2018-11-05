@@ -18,9 +18,10 @@ namespace eBarDatabase
         public UserTbl()
         {
             this.RestaurantAdministrators = new HashSet<RestaurantAdministrators>();
-            this.UserResetPasswordCodes = new HashSet<UserResetPasswordCodes>();
             this.RestaurantFavorite = new HashSet<RestaurantFavorite>();
+            this.RestaurantGrades = new HashSet<RestaurantGrades>();
             this.RestaurantReview = new HashSet<RestaurantReview>();
+            this.UserResetPasswordCodes = new HashSet<UserResetPasswordCodes>();
         }
     
         public int UserID { get; set; }
@@ -28,17 +29,19 @@ namespace eBarDatabase
         public string UserPassword { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
-        public int UserTypeId { get; set; }
         public string UserPreferredLanguage { get; set; }
+        public int UserTypeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantAdministrators> RestaurantAdministrators { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserResetPasswordCodes> UserResetPasswordCodes { get; set; }
-        public virtual UserTypes UserTypes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantFavorite> RestaurantFavorite { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RestaurantGrades> RestaurantGrades { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RestaurantReview> RestaurantReview { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserResetPasswordCodes> UserResetPasswordCodes { get; set; }
+        public virtual UserTypes UserTypes { get; set; }
     }
 }

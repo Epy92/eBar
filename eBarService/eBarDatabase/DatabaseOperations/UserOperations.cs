@@ -183,15 +183,16 @@ namespace eBarDatabase
             {
                 using (var context = new DBModels())
                 {
-                    adminHasRestaurants = (from user in context.UserTbl.Where(x => x.Username == username || x.Email == email)
-                                           from usertype in context.UserTypes.Where(x => x.UserTypeId == user.UserID)
-                                           from restadmin in context.RestaurantAdministrators.Where(x => x.UserID == user.UserID)
-                                           where usertype.TypeName == "RestaurantAdministrator"
-                                           select new
-                                           {   user.Name,
-                                               usertype.TypeName,
-                                               restadmin.RestaurantId
-                                           }) != null;
+
+                    //Where(x => x.Username == username || x.Email == email)
+                    var userAdmin = (from user in context.UserTbl
+                                           join usertype in context.UserTypes on user.UserTypeId equals usertype.UserTypeId
+                                           join restadmin in context.RestaurantAdministrators on user.UserID equals restadmin.UserID
+                                           where usertype.TypeName == "RestaurantAdministrator" && 
+                                           (user.Email == email || user.Username == username)
+                                           select user).FirstOrDefault();
+
+                    adminHasRestaurants = userAdmin != null;
                 }
             }
             string returnvalue = JsonConvert.SerializeObject(adminHasRestaurants);

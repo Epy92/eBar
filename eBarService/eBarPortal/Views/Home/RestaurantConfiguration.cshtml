@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "RestaurantConfiguration";
+}
+
+<div class="card-box">
+    <div class="panel-heading">
+        <div class="row text-center">
+            <h4 style="font-weight:600; border-bottom: 1px solid #7e57c2;">Configurare restaurant</h4>
+        </div>
+    </div>
+    <div class="panel-body" style="line-height:5rem;">
+        <div class="row text-center">
+            <img id="ebar-panel-img" src="~/images/restaurant_config.png" />
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12">
+                <span> Nu aveti configurat un restaurant. Pentru a incepe configurarea restaurantului dumneavoastra apasati butonul de mai jos</span>
+            </div>
+        </div>
+        <div class="row text-center">
+            <a href="@Url.Action("RestaurantDetails", "Restaurant", new { restaurantId=0, PageMode = "EditMode"})" type="button" class="btn btn-default waves-effect waves-light">Incepe configurare</a>
+        </div>
+    </div>
+</div>

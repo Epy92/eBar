@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/eBarPortal",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:60520/",
       "sslPort": 0
@@ -16,7 +20,7 @@
       }
     },
     "eBarPortal": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
